@@ -15,7 +15,7 @@ public class gandengyan
 		Scanner in = new Scanner(System.in);
 		Random rand = new Random();
 		
-		System.out.println("ÇëÊäÈëÍæ¼ÒÊıÁ¿(2~6)");
+		System.out.println("è¯·è¾“å…¥ç©å®¶æ•°é‡(2~6)");
 		Number_of_players = in.nextInt();
 		First_player = rand.nextInt(Number_of_players);
 		Winner = -99;
@@ -57,9 +57,9 @@ public class gandengyan
 	        clearScreen();
 	        if (Winner != -99)
 	        {
-	        	System.out.println("ÓÎÏ·½áÊø");
-	            System.out.println("Ê¤ÀûÕßÊÇÍæ¼Ò " + Winner + "ºÅ");
-	            System.out.println("¹§Ï²! !");
+	        	System.out.println("æ¸¸æˆç»“æŸ");
+	            System.out.println("èƒœåˆ©è€…æ˜¯ç©å®¶ " + Winner + "å·");
+	            System.out.println("æ­å–œ! !");
 	            break;
 	        }
 	        Players[i].Round();
@@ -199,7 +199,7 @@ class Player
             discard(check);
 
 //            Pss cur = getPokersType(check);
-//            // ÔİÊ±ÏÈÄ¬ÈÏÊäÈë¶¼ÎªºÏ·¨µÄ
+//            // æš‚æ—¶å…ˆé»˜è®¤è¾“å…¥éƒ½ä¸ºåˆæ³•çš„
 //            if (cur.first == gandengyan.Last_playing_card.first || 1)
 //            {
 //                discard(check);
@@ -212,10 +212,10 @@ class Player
 
     public void Round()
     {
-    	System.out.println("ÕâÊÇ Íæ¼Ò" + this.ID + "ºÅµÄ»ØºÏ, Çë³öÅÆ");
+    	System.out.println("è¿™æ˜¯ ç©å®¶" + this.ID + "å·çš„å›åˆ, è¯·å‡ºç‰Œ");
     	System.out.println();
-    	System.out.println("ÇëÊä³öÒª´ò³öµÄÅÆµÄµãÊı£¬»òÕßÊä³ö\"no\"");
-    	System.out.println("£¨Èç¹ûÓĞ¶àÕÅÅÆ£¬ÇëÓÃ¿Õ¸ñ¸ô¿ª£©\n");
+    	System.out.println("è¯·è¾“å‡ºè¦æ‰“å‡ºçš„ç‰Œçš„ç‚¹æ•°ï¼Œæˆ–è€…è¾“å‡º\"no\"");
+    	System.out.println("ï¼ˆå¦‚æœæœ‰å¤šå¼ ç‰Œï¼Œè¯·ç”¨ç©ºæ ¼éš”å¼€ï¼‰\n");
     	display_card();
     	aLegalPlay();
     	if (hand.isEmpty())
