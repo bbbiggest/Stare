@@ -2,5 +2,6 @@
 **纸牌游戏 - 干瞪眼**
 
 + @Description: 
-+ @Author: bbbiggest & chhh-hao & Rhudw
++ @Author: [bbbiggest](https://github.com/bbbiggest) & [chhh-hao](https://github.com/chhh-hao) & [Rhudw](https://github.com/chhh-hao)
 + @Date: 2021-04
+
