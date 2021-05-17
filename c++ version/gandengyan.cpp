@@ -216,7 +216,7 @@ Pss getPokersType(vector<string> ps)
         }
         if (cnt_same == 4)
             return make_pair(CardTypes[6], temPoint);
-        else if (cnt_same == 3 && PRank[cnt_diff[0]] == PRank[ps[0]] + 1)
+        else if (cnt_same == 3 && ps[3] == AllPoints[13] && PRank[cnt_diff[0]] == PRank[ps[0]] + 1)
             return make_pair(CardTypes[4], temPoint);
         else if (cnt_same == 2 && cnt_diff.size() == 1 && PRank[cnt_diff[0]] == PRank[ps[0]] + 1)
             return make_pair(CardTypes[4], temPoint);
