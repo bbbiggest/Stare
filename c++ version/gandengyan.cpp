@@ -26,8 +26,9 @@ int Number_of_players, First_player;
 vector<Poker> Deck; // 牌堆
 Player *Players;
 int Winner;
-Pss Last_playing_card; // 最后出的牌
-int Number_of_no;      // 选择不出的人的数量
+Pss Last_playing_card_type;      // 最后出的牌的类型
+vector<Poker> Last_playing_card; // 最后打出的牌
+int Number_of_no;                // 选择不出的人的数量
 
 // enum Suit // 花色
 // {
@@ -288,6 +289,7 @@ public:
                 return false;
             }
         }
+        Last_playing_card.assign(Discard_pile.begin(), Discard_pile.end());
         return true;
     }
 
@@ -305,7 +307,7 @@ public:
 
             if (tem == "no" || tem == "NO" || tem == "No" || tem == "nO")
             {
-                if (Last_playing_card.first == CardTypes[0])
+                if (Last_playing_card_type.first == CardTypes[0])
                 {
                     cout << "You must enter the points of any playing card\n";
                     continue;
@@ -339,9 +341,9 @@ public:
                 }
                 else if (curp.size() == 5)
                 {
-                    for (int i = 0; i < curp.size(); ++i)
-                        if (curp[i] >= 'a')
-                            curp[i] -= 32;
+                    for (int j = 0; j < curp.size(); ++j)
+                        if (curp[j] >= 'a')
+                            curp[j] -= 32;
                     if (curp == AllPoints[13])
                         continue;
                     isok = false;
@@ -355,7 +357,7 @@ public:
             }
             if (!isok)
             {
-                if (Last_playing_card.first == CardTypes[0])
+                if (Last_playing_card_type.first == CardTypes[0])
                     cout << "Please enter the correct point of poker you want to play\n";
                 else
                     cout << "Please enter the correct point of poker you want to play, or enter \"no\"\n";
@@ -363,7 +365,7 @@ public:
             }
 
             Pss cur = getPokersType(check);
-            if (Last_playing_card.first == CardTypes[0])
+            if (Last_playing_card_type.first == CardTypes[0])
             {
                 if (cur.first == CardTypes[0])
                 {
@@ -373,7 +375,7 @@ public:
                 if (discard(check))
                 {
                     Number_of_no = 0;
-                    Last_playing_card = cur;
+                    Last_playing_card_type = cur;
                     break;
                 }
                 else
@@ -382,12 +384,12 @@ public:
                     continue;
                 }
             }
-            else if (PRank[cur.first] > PRank[Last_playing_card.first])
+            else if (PRank[cur.first] > PRank[Last_playing_card_type.first])
             {
                 if (discard(check))
                 {
                     Number_of_no = 0;
-                    Last_playing_card = cur;
+                    Last_playing_card_type = cur;
                     break;
                 }
                 else
@@ -396,14 +398,14 @@ public:
                     continue;
                 }
             }
-            else if (cur.first == Last_playing_card.first)
+            else if (cur.first == Last_playing_card_type.first)
             {
-                if (PRank[cur.first] == 6 && PRank[cur.second] > PRank[Last_playing_card.second])
+                if (PRank[cur.first] == 6 && PRank[cur.second] > PRank[Last_playing_card_type.second])
                 {
                     if (discard(check))
                     {
                         Number_of_no = 0;
-                        Last_playing_card = cur;
+                        Last_playing_card_type = cur;
                         break;
                     }
                     else
@@ -412,13 +414,13 @@ public:
                         continue;
                     }
                 }
-                else if (PRank[cur.second] == 13 ||
-                         PRank[cur.second] == PRank[Last_playing_card.second] + 1)
+                else if ((PRank[cur.second] == 13 && PRank[Last_playing_card_type.second] != 13) ||
+                         PRank[cur.second] == PRank[Last_playing_card_type.second] + 1)
                 {
                     if (discard(check))
                     {
                         Number_of_no = 0;
-                        Last_playing_card = cur;
+                        Last_playing_card_type = cur;
                         break;
                     }
                     else
@@ -451,7 +453,7 @@ public:
         // 这是玩家某某的回合，请出牌
         cout << "This is the round of player " << ID << ", please play the card\n";
         cout << '\n';
-        if (Last_playing_card.first == CardTypes[0])
+        if (Last_playing_card_type.first == CardTypes[0])
             cout << "Please enter the point of any poker you own\n";
         else
             cout << "Please enter the point of poker you want to play, or enter \"no\"\n";
@@ -542,7 +544,7 @@ void initGame()
     First_player = rand() % Number_of_players;
     Winner = -99;
     Number_of_no = 0;
-    Last_playing_card = make_pair(CardTypes[0], "-1");
+    Last_playing_card_type = make_pair(CardTypes[0], "-1");
 }
 
 // 洗牌
@@ -588,12 +590,19 @@ int main()
             cout << "Congratulate! !\n";
             break;
         }
+        if (!Last_playing_card.empty())
+        {
+            cout << "Cards from the previous round\n";
+            for (auto x : Last_playing_card)
+                cout << x.p_color << '|' << x.p_point << "  ";
+            cout << endl;
+        }
         Players[i].Round();
         if (Number_of_no == Number_of_players)
         {
             i--;
             Number_of_no = 0;
-            Last_playing_card = make_pair(CardTypes[0], "-1");
+            Last_playing_card_type = make_pair(CardTypes[0], "-1");
         }
     }
 
