@@ -21,6 +21,12 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * @Discription 用于提示的小界面
+ *
+ */
+
 public class smallFrame extends JFrame{
 	smallFrame(String title, String text){
 		this.setTitle(title);

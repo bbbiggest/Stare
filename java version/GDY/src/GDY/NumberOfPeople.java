@@ -27,14 +27,15 @@ import javax.swing.WindowConstants;
  * 
  */
 
-// 六个按钮（图片形式），按中，就去相应的人数的游戏界面
-// 要改background！！
-
 public class NumberOfPeople extends JFrame{
+	
+	private GamePanel gp;
+	private MyButton people2, people3, people4, people5, people6;
+	private boolean isok = false;
 	
 	NumberOfPeople() {
 		
-		this.setTitle("GanDengYan");
+		this.setTitle("请选择游戏人数");
 		this.setDefaultCloseOperation(3);
 		this.setResizable(false);
 		
@@ -60,13 +61,25 @@ public class NumberOfPeople extends JFrame{
 		JPanel j = (JPanel)this.getContentPane();
 		j.setOpaque(false);
 		
+		ImageIcon board = new ImageIcon("src/images/board2.png");
+		board.setImage(board.getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+		people2 = new MyButton("2人游戏");
+		people3 = new MyButton("3人游戏");
+		people4 = new MyButton("4人游戏");
+		people5 = new MyButton("5人游戏");
+		people6 = new MyButton("6人游戏");
 		
-		Button people2 = new Button();
-		Button people3 = new Button();
-		Button people4 = new Button();
-		Button people5 = new Button();
-		Button people6 = new Button();
+		people2.setFont(new Font(null, Font.BOLD, 24));
+		people3.setFont(new Font(null, Font.BOLD, 24));
+		people4.setFont(new Font(null, Font.BOLD, 24));
+		people5.setFont(new Font(null, Font.BOLD, 24));
+		people6.setFont(new Font(null, Font.BOLD, 24));
 		
+		people2.setBounds(400,220,200,100);
+		people3.setBounds(700,220,200,100);
+		people4.setBounds(250,420,200,100);
+		people5.setBounds(550,420,200,100);
+		people6.setBounds(850,420,200,100);
 		
 		this.add(people6);
 		this.add(people5);
@@ -74,42 +87,64 @@ public class NumberOfPeople extends JFrame{
 		this.add(people3);
 		this.add(people2);
 		
+		this.setVisible(true);
+		
+		clickto();
+	}
+	
+	public void clickto() {
+		
+		isok = false;
+		
 		people2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GamePanel(2);
+				isok = true;
+				gp = new GamePanel(2);
+				
 			}
 		});
 		
 		people3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GamePanel(3);
+				gp = new GamePanel(3);
+				isok = true;
 			}
 		});
 		
 		people4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GamePanel(4);
+				gp = new GamePanel(4);
+				isok = true;
 			}
 		});
 		
 		people5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GamePanel(5);
+				gp = new GamePanel(5);
+				isok = true;
 			}
 		});
 		
 		people6.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GamePanel(6);
+				gp = new GamePanel(6);
+				isok = true;
 			}
 		});
 		
+		if(isok) {
+			this.remove(people2);
+			this.remove(people3);
+			this.remove(people4);
+			this.remove(people5);
+			this.remove(people6);
+			this.repaint();
+		}
 		
-		this.setVisible(true);
 	}
 }
