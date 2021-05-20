@@ -1,4 +1,4 @@
-package sample;
+package GDY;
 
 /**
  * @Description: 常量

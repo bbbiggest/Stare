@@ -1,4 +1,6 @@
-package sample;
+package GDY;
+
+import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -18,21 +20,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
-/**
- * 
- * @Discription 打牌界面
- */
 
-// 基础界面，头像和牌数等 根据人数定位置
-// 改主面板的background
-// 放自己的展开的扑克牌，别人的扑克牌（背面，显示数字）
-// 自己的扑克牌点击的时候，突出显示
-// 还有目前剩余未发的扑克牌数目
-//  如果可以实现选头像，就在界面加头像图片，如果不能选，就随机加（？）
-
-public class GamePanel extends JPanel{
-	
-	GamePanel(int n){
+public class smallFrame extends JFrame{
+	smallFrame(String title, String text){
+		this.setTitle(title);
+		JLabel label = new JLabel(text,JLabel.CENTER);
+		this.setLayout(null);
+		this.setSize(400,250);
+		this.setLocationRelativeTo(null);
+		label.setFont(new Font(null, Font.BOLD, 26));
+		label.setSize(400,200);
+		//label.setHorizontalAlignment(label.CENTER);
 		
+		this.add(label);
+		this.setVisible(true);
 	}
 }

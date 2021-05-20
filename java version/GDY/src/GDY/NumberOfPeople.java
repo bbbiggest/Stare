@@ -1,4 +1,4 @@
-package sample;
+package GDY;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;

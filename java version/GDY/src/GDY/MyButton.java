@@ -1,4 +1,4 @@
-package sample;
+package GDY;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.GradientPaint;

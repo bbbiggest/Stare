@@ -1,4 +1,4 @@
-package sample;
+package GDY;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
