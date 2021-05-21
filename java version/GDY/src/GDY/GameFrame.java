@@ -1,8 +1,6 @@
 package GDY;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Graphics;
-import java.awt.image.*;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,7 +22,7 @@ public class GameFrame extends JFrame{
 		
 		// 主窗体在屏幕中间
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension size = new Dimension(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
+		Dimension size = new Dimension(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		int width = toolkit.getScreenSize().width;
 		int height = toolkit.getScreenSize().height;
 		this.setBounds((int)(width - size.getWidth()) / 2, 
@@ -37,9 +35,9 @@ public class GameFrame extends JFrame{
 	public void init() {
 		// 设置窗体背景
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/图片3.png"));
-		icon.setImage(icon.getImage().getScaledInstance(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT, Image.SCALE_DEFAULT));
+		icon.setImage(icon.getImage().getScaledInstance(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT, Image.SCALE_DEFAULT));
 		JLabel label = new JLabel();
-		label.setBounds(0, 0, Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
+		label.setBounds(0, 0, GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		label.setHorizontalAlignment(0);
 		label.setIcon(icon);
 		

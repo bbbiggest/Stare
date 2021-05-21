@@ -1,13 +1,8 @@
 package GDY;
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,7 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.WindowConstants;
 
 /**
  * @Discription 开始面板
@@ -103,7 +97,7 @@ public class StartPanel extends JPanel{
 						System.out.println("密码：" + psw);
 						
 						// 如果账号密码正确
-						if(acc.equals(Constant.Test_Account) && psw.equals(Constant.Test_Password)) {
+						if(acc.equals(GameRule.Test_Account) && psw.equals(GameRule.Test_Password)) {
 							logok = true;
 							LogInFrame.setVisible(false); // LogInFrame消失
 						}
@@ -151,7 +145,7 @@ public class StartPanel extends JPanel{
             	JTextArea ta = new JTextArea();
             	ta.setLineWrap(true);
             	ta.setFont(new Font(null, Font.PLAIN, 15));
-            	ta.setText(Constant.GAME_RULES);
+            	ta.setText(GameRule.GAME_RULES);
             	ta.setEditable(false);
             	JScrollPane scroll = new JScrollPane(
             			ta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,

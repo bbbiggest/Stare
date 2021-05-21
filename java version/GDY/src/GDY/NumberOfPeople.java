@@ -1,27 +1,16 @@
 package GDY;
-import java.awt.Button;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.WindowConstants;
 
 /**
  * @Discription 玩家人数选择界面
@@ -48,16 +37,16 @@ public class NumberOfPeople extends JFrame{
 		
 		// 窗体设置
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension size = new Dimension(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
+		Dimension size = new Dimension(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		int width = toolkit.getScreenSize().width;
 		int height = toolkit.getScreenSize().height;
 		this.setBounds((int)(width - size.getWidth()) / 2, 
 				(int)(height - size.getHeight()) / 3, (int)size.getWidth(), (int)size.getHeight());
 		// 设置窗体背景
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/background4.jpg"));
-		icon.setImage(icon.getImage().getScaledInstance(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT, Image.SCALE_DEFAULT));
+		icon.setImage(icon.getImage().getScaledInstance(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT, Image.SCALE_DEFAULT));
 		JLabel label = new JLabel();
-		label.setBounds(0, 0, Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
+		label.setBounds(0, 0, GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		label.setHorizontalAlignment(0);
 		label.setIcon(icon);
 		// 在窗口第二层加入Label
