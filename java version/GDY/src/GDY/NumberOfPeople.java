@@ -1,5 +1,6 @@
 package GDY;
 import java.awt.Button;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -32,22 +33,26 @@ public class NumberOfPeople extends JFrame{
 	private GamePanel gp;
 	private MyButton people2, people3, people4, people5, people6;
 	private boolean isok = false;
+	private JPanel jp = new JPanel();
+	CardLayout cardlayout = new CardLayout();
+	private JPanel mainpanel = new JPanel(cardlayout);
 	
 	NumberOfPeople() {
 		
 		this.setTitle("请选择游戏人数");
 		this.setDefaultCloseOperation(3);
 		this.setResizable(false);
+		jp.setOpaque(false);
+		jp.setLayout(null);
+		mainpanel.setOpaque(false);
 		
-		// 主窗体在屏幕中间
+		// 窗体设置
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension size = new Dimension(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
 		int width = toolkit.getScreenSize().width;
 		int height = toolkit.getScreenSize().height;
 		this.setBounds((int)(width - size.getWidth()) / 2, 
 				(int)(height - size.getHeight()) / 3, (int)size.getWidth(), (int)size.getHeight());
-		
-		this.setLayout(null);
 		// 设置窗体背景
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/background4.jpg"));
 		icon.setImage(icon.getImage().getScaledInstance(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT, Image.SCALE_DEFAULT));
@@ -61,8 +66,7 @@ public class NumberOfPeople extends JFrame{
 		JPanel j = (JPanel)this.getContentPane();
 		j.setOpaque(false);
 		
-		ImageIcon board = new ImageIcon("src/images/board2.png");
-		board.setImage(board.getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+		// 按钮设置
 		people2 = new MyButton("2人游戏");
 		people3 = new MyButton("3人游戏");
 		people4 = new MyButton("4人游戏");
@@ -81,12 +85,17 @@ public class NumberOfPeople extends JFrame{
 		people5.setBounds(550,420,200,100);
 		people6.setBounds(850,420,200,100);
 		
-		this.add(people6);
-		this.add(people5);
-		this.add(people4);
-		this.add(people3);
-		this.add(people2);
+		jp.add(people6);
+		jp.add(people5);
+		jp.add(people4);
+		jp.add(people3);
+		jp.add(people2);	
+		jp.setVisible(true);
 		
+		mainpanel.add(jp, "jp");
+		
+		this.add(mainpanel);
+		cardlayout.show(mainpanel, "jp");
 		this.setVisible(true);
 		
 		clickto();
@@ -138,12 +147,8 @@ public class NumberOfPeople extends JFrame{
 		});
 		
 		if(isok) {
-			this.remove(people2);
-			this.remove(people3);
-			this.remove(people4);
-			this.remove(people5);
-			this.remove(people6);
-			this.repaint();
+			mainpanel.add(gp, "gp");
+			cardlayout.show(gp, "gp");
 		}
 		
 	}
