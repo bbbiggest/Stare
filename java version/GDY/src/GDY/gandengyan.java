@@ -155,13 +155,13 @@ public class gandengyan
 	}
 }
 
-class Pair
-{
-    public static <T, U> Map.Entry<T, U> of(T first, U second) 
-    {
-        return new AbstractMap.SimpleEntry<>(first, second);
-    }
-}
+//class Pair
+//{
+//    public static <T, U> Map.Entry<T, U> of(T first, U second)
+//    {
+//        return new AbstractMap.SimpleEntry<>(first, second);
+//    }
+//}
 
 class Pss
 {
