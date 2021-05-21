@@ -30,8 +30,8 @@ public class GameFrame extends JFrame{
 		this.setBounds((int)(width - size.getWidth()) / 2, 
 				(int)(height - size.getHeight()) / 3, (int)size.getWidth(), (int)size.getHeight());
 		
-		// 初始化，显示开始界面
-		this.init();
+//		// 初始化，显示开始界面
+//		this.init();
 	}
 	
 	public void init() {
@@ -54,5 +54,6 @@ public class GameFrame extends JFrame{
 		spanel = new StartPanel();
 		this.add(spanel);
 		spanel.setOpaque(false);
+//		this.setVisible(true);
 	}
 }

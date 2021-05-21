@@ -8,6 +8,7 @@ import GDY.GameFrame;
 public class test{
 	public static void main(String[] args) {
 		GameFrame gfm = new GameFrame();
+		gfm.init();
 		gfm.setVisible(true);
 		
 	}
