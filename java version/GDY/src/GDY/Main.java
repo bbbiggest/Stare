@@ -1,8 +1,11 @@
 package GDY;
+import GDY.GameFrame;
 public class Main
 {
     public static void main(String[] args)
     {
+        GameFrame gfm = new GameFrame();
+        gfm.setVisible(true);
         gandengyan.startGame();
         gandengyan.initGame();
         gandengyan.Shuffle();
