@@ -49,7 +49,7 @@ public class NumberOfPeople extends JFrame{
 		
 		this.setLayout(null);
 		// 设置窗体背景
-		ImageIcon icon = new ImageIcon("src/images/background4.jpg");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/background4.jpg"));
 		icon.setImage(icon.getImage().getScaledInstance(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT, Image.SCALE_DEFAULT));
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);

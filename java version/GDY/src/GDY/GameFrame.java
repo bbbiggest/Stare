@@ -36,7 +36,7 @@ public class GameFrame extends JFrame{
 	
 	public void init() {
 		// 设置窗体背景
-		ImageIcon icon = new ImageIcon("src/images/图片3.png");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/图片3.png"));
 		icon.setImage(icon.getImage().getScaledInstance(Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT, Image.SCALE_DEFAULT));
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
