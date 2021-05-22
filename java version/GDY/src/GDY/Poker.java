@@ -6,6 +6,7 @@ public class Poker implements Comparable<Poker>
 {
 	private String p_color;
 	private String p_point;
+	
 	public Poker() {}
 	public Poker(String p_color, String p_point)
 	{

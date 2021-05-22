@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 /**
  * 
- * @Discription 打牌界面
+ * @Description 打牌界面
  */
 
 // 基础界面，头像和牌数等 根据人数定位置
@@ -32,7 +33,48 @@ import javax.swing.WindowConstants;
 
 public class GamePanel extends JPanel{
 	
-	GamePanel(int n){
+	public GamePanel(){
+		this.setLayout(null);
+		this.setOpaque(false);
 		
+		JLabel[] text = new JLabel[6];
+		
+		for(int i = 0; i < 6; i++) {
+			//读取用户名
+			text[i] = new JLabel("用户" + (i + 1), JLabel.CENTER);
+			//text[i].setText("用户" + (i + 1));
+			text[i].setFont(new Font("楷体",Font.BOLD,30));
+			text[i].setForeground(Color.LIGHT_GRAY);
+		}
+		System.out.println(text[0].getText());
+		text[0].setBounds(250, 580, 100, 50);
+		text[1].setBounds(450, 40, 100, 50);
+		text[2].setBounds(1130, 480, 100, 50);
+		text[3].setBounds(40, 480, 100, 50);
+		text[4].setBounds(40, 190, 100, 50);
+		text[5].setBounds(1130, 190, 100, 50);
+		this.add(text[0]);
+		this.add(text[1]);
+		this.add(text[2]);
+		this.add(text[3]);
+		this.add(text[4]);
+		this.add(text[5]);
+		
+		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
+//		Image img = pokerback.getImage();
+//		img.getScaledInstance(75, 110, Image.SCALE_AREA_AVERAGING);
+//		pokerback.setImage(img);
+		JLabel[] poker_back = new JLabel[5];
+		
+		for(int i = 0; i < 5; i++) {
+			poker_back[i] = new JLabel();
+			poker_back[i].setIcon(pokerback);
+		}
+		poker_back[0].setBounds(600, 20, 100, 144);
+		
+		this.add(poker_back[0]);
+		
+		this.setVisible(true);
 	}
+
 }

@@ -27,7 +27,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 /**
- * @Discription 用于提示的小界面
+ * @Description 用于提示的小界面
  *
  */
 
@@ -132,7 +132,6 @@ public class smallFrame extends JFrame{
     		box.addItemListener(new ItemListener() {
 				@Override
 				public void itemStateChanged(ItemEvent e) {
-					// TODO Auto-generated method stub
 					peopleNumber = box.getSelectedItem().toString();
 					// System.out.println(peopleNumber);
 				}

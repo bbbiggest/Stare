@@ -32,11 +32,12 @@ public class GameFrame extends JFrame{
 		this.init();
 	}
 	
+	JLabel label = new JLabel();
 	public void init() {
 		// 设置窗体背景
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/图片3.png"));
 		icon.setImage(icon.getImage().getScaledInstance(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT, Image.SCALE_DEFAULT));
-		JLabel label = new JLabel();
+		
 		label.setBounds(0, 0, GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		label.setHorizontalAlignment(0);
 		label.setIcon(icon);
@@ -47,10 +48,20 @@ public class GameFrame extends JFrame{
 		// frame 的顶层容器设为透明，显示背景和控件
 		JPanel j = (JPanel)this.getContentPane();
 		j.setOpaque(false);
+
+	}
+	
+	
+	public void changebg() {
+		// 设置窗体背景
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/background4.jpg"));
+		icon.setImage(icon.getImage().getScaledInstance(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT, Image.SCALE_DEFAULT));
+		label.setBounds(0, 0, GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
+		label.setHorizontalAlignment(0);
+		label.setIcon(icon);
 		
-		// 添加开始的面板
-//		spanel = new StartPanel();
-//		this.add(spanel);
-//		spanel.setOpaque(false);
+		// frame 的顶层容器设为透明，显示背景和控件
+		JPanel j = (JPanel)this.getContentPane();
+		j.setOpaque(false);
 	}
 }

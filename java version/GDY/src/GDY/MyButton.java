@@ -16,7 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- * @Discription 按钮设置
+ * @Description 按钮设置
  * 应该所有的按钮都可以用这个！反正还可以
  *
  */
