@@ -1,9 +1,8 @@
 package GDY;
 import java.util.*;
-
 import javax.swing.JLabel;
-
 import java.io.IOException;
+
 public class gandengyan
 {
 	public static final String[] AllPoints = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2", "JOKER"};
@@ -12,7 +11,6 @@ public class gandengyan
 	public static HashMap<String, Integer> PRank = new HashMap<String, Integer>();
 	public static ArrayList<Poker> Deck = new ArrayList<Poker>();
 	public static int Number_of_players, First_player, Winner, Number_of_no;
-//	public static Map.Entry<String, String> Last_playing_card_type;
 	public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
 	
@@ -29,7 +27,7 @@ public class gandengyan
 	    } catch (IOException | InterruptedException ex) {}
 	}
 	
-	//输入玩家数量的部分，按钮赋值过来
+	// 控制台输入玩家数量
 	public static void startGame()
 	{
 		Scanner in = new Scanner(System.in);
@@ -42,7 +40,7 @@ public class gandengyan
 		}
 	}
 	
-	// prank deck初始化
+	// 初始化
 	public static void initGame()
 	{
 		for (int i = 0; i < 14; ++i)
@@ -54,22 +52,21 @@ public class gandengyan
 	    PRank.put(CardTypes[6], 2);
 	    PRank.put(CardTypes[7], 3);
 	    PRank.put("-1", -1);
-		
+
 		for (int i = 0; i < 13; ++i)
 			for (int j = 0; j < 4; ++j)
 				Deck.add(new Poker(AllColors[j], AllPoints[i]));
 		Deck.add(new Poker(AllColors[4], AllPoints[13]));
 		Deck.add(new Poker(AllColors[5], AllPoints[13]));
-		
+
 		Random rand = new Random();
 		First_player = rand.nextInt(Number_of_players);
 		Winner = -99;
 		Number_of_no = 0;
-//		Last_playing_card_type = Pair.of(CardTypes[0], "-1");
 		Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	}
 	
-	
+	// 随机洗牌
 	public static void Shuffle()
 	{
 		Collections.shuffle(Deck);
@@ -81,7 +78,7 @@ public class gandengyan
 		return (PRank.get(sa) < PRank.get(sb));
 	}
 	
-	
+	// 判断牌型
 	public static Pss getPokersType(ArrayList<Poker> ps)
 	{
 		if (ps.size() == 0)
@@ -155,14 +152,7 @@ public class gandengyan
 	}
 }
 
-//class Pair
-//{
-//    public static <T, U> Map.Entry<T, U> of(T first, U second)
-//    {
-//        return new AbstractMap.SimpleEntry<>(first, second);
-//    }
-//}
-
+// pair of (String, String)
 class Pss
 {
 	public String first;

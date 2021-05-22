@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame{
 	private StartPanel spanel;
-	private NumberOfPeople nop;
+	private ChooseNumberOfPeople nop;
 	
 	public GameFrame() {
 		this.setTitle("干瞪眼");
