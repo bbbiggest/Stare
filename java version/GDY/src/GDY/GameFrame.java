@@ -49,8 +49,8 @@ public class GameFrame extends JFrame{
 		j.setOpaque(false);
 		
 		// 添加开始的面板
-		spanel = new StartPanel();
-		this.add(spanel);
-		spanel.setOpaque(false);
+//		spanel = new StartPanel();
+//		this.add(spanel);
+//		spanel.setOpaque(false);
 	}
 }
