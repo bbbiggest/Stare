@@ -16,7 +16,7 @@ public class GameFrame extends JFrame{
 	private NumberOfPeople nop;
 	
 	public GameFrame() {
-		this.setTitle("GanDengYan");
+		this.setTitle("干瞪眼");
 		this.setDefaultCloseOperation(3);
 		this.setResizable(false);
 		
@@ -49,8 +49,8 @@ public class GameFrame extends JFrame{
 		j.setOpaque(false);
 		
 		// 添加开始的面板
-		spanel = new StartPanel();
-		this.add(spanel);
-		spanel.setOpaque(false);
+//		spanel = new StartPanel();
+//		this.add(spanel);
+//		spanel.setOpaque(false);
 	}
 }

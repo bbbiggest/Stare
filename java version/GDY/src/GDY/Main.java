@@ -5,7 +5,11 @@ public class Main
     public static void main(String[] args)
     {
         GameFrame gfm = new GameFrame();
+        StartPanel startpanel = new StartPanel();
+        gfm.add(startpanel);
+        startpanel.click(gfm);
         gfm.setVisible(true);
+        
         gandengyan.startGame();
         gandengyan.initGame();
         gandengyan.Shuffle();
