@@ -1,9 +1,6 @@
 package GDY;
 import java.awt.CardLayout;
-
 import javax.swing.JPanel;
-
-import GDY.GameFrame;
 public class Main
 {
 	

@@ -33,6 +33,7 @@ public class GameFrame extends JFrame{
 		// 初始化，显示开始界面
 		this.init();
 	}
+
 	
 	JLabel label = new JLabel();
 	public void init() {

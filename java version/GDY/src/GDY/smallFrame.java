@@ -36,10 +36,10 @@ public class smallFrame extends JFrame{
 		this.setTitle(title);
 		JLabel label = new JLabel(text,JLabel.CENTER);
 		this.setLayout(null);
-		this.setSize(400,250);
+		this.setSize(600,250);
 		this.setLocationRelativeTo(null);
-		label.setFont(new Font(null, Font.BOLD, 26));
-		label.setSize(400,200);
+		label.setFont(new Font(null, Font.BOLD, 15));
+		label.setSize(600,200);
 		//label.setHorizontalAlignment(label.CENTER);
 		
 		this.add(label);
@@ -90,6 +90,7 @@ public class smallFrame extends JFrame{
 	JTextField ip = new JTextField(9);
 	MyButton yes = new MyButton("确认");
 	String peopleNumber;
+	
 	smallFrame(String title, String s1, String s2){
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension size = new Dimension(500, 350);
