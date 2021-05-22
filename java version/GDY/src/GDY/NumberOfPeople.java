@@ -1,6 +1,7 @@
 package GDY;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -54,6 +55,11 @@ public class NumberOfPeople extends JFrame {
         // frame 的顶层容器设为透明，显示背景和控件
         JPanel j = (JPanel) this.getContentPane();
         j.setOpaque(false);
+        
+        JLabel labeltext = new JLabel("请选择人数",JLabel.CENTER);
+        labeltext.setFont(new Font(null, Font.BOLD, 36));
+        labeltext.setForeground(new Color(125, 161, 237));
+        labeltext.setBounds(400, 100, 500, 100);
 
         // 按钮设置
         people2 = new MyButton("2人");
@@ -73,7 +79,8 @@ public class NumberOfPeople extends JFrame {
         people4.setBounds(250, 420, 200, 100);
         people5.setBounds(550, 420, 200, 100);
         people6.setBounds(850, 420, 200, 100);
-
+        
+        jp.add(labeltext);
         jp.add(people6);
         jp.add(people5);
         jp.add(people4);

@@ -16,7 +16,7 @@ public class GameFrame extends JFrame{
 	private NumberOfPeople nop;
 	
 	public GameFrame() {
-		this.setTitle("GanDengYan");
+		this.setTitle("干瞪眼");
 		this.setDefaultCloseOperation(3);
 		this.setResizable(false);
 		
