@@ -1,3 +1,7 @@
+/*
+ * @Description: 玩家人数选择界面
+ */
+
 package GDY;
 
 import java.awt.CardLayout;
@@ -13,10 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-/*
- * @Description: 玩家人数选择界面
- */
 
 public class ChooseNumberOfPeople extends JFrame {
 
