@@ -43,7 +43,6 @@ public class gandengyan
 	// 初始化
 	public static void initGame()
 	{
-		Number_of_players = StartPanel.getNumber();
 		for (int i = 0; i < 14; ++i)
 			PRank.put(AllPoints[i], i + 1);
 		for (int i = 0; i < 6; ++i)

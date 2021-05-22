@@ -55,8 +55,8 @@ public class NumberOfPeople extends JFrame {
         // frame 的顶层容器设为透明，显示背景和控件
         JPanel j = (JPanel) this.getContentPane();
         j.setOpaque(false);
-        
-        JLabel labeltext = new JLabel("请选择人数",JLabel.CENTER);
+
+        JLabel labeltext = new JLabel("请选择人数", JLabel.CENTER);
         labeltext.setFont(new Font(null, Font.BOLD, 36));
         labeltext.setForeground(new Color(125, 161, 237));
         labeltext.setBounds(400, 100, 500, 100);
@@ -79,7 +79,7 @@ public class NumberOfPeople extends JFrame {
         people4.setBounds(250, 420, 200, 100);
         people5.setBounds(550, 420, 200, 100);
         people6.setBounds(850, 420, 200, 100);
-        
+
         jp.add(labeltext);
         jp.add(people6);
         jp.add(people5);
@@ -104,9 +104,9 @@ public class NumberOfPeople extends JFrame {
         people2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isok = true;
                 gp = new GamePanel(2);
-
+                gandengyan.Number_of_players = 2;
+                isok = true;
             }
         });
 
@@ -114,6 +114,7 @@ public class NumberOfPeople extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gp = new GamePanel(3);
+                gandengyan.Number_of_players = 3;
                 isok = true;
             }
         });
@@ -122,6 +123,7 @@ public class NumberOfPeople extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gp = new GamePanel(4);
+                gandengyan.Number_of_players = 4;
                 isok = true;
             }
         });
@@ -130,6 +132,7 @@ public class NumberOfPeople extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gp = new GamePanel(5);
+                gandengyan.Number_of_players = 5;
                 isok = true;
             }
         });
@@ -138,6 +141,7 @@ public class NumberOfPeople extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gp = new GamePanel(6);
+                gandengyan.Number_of_players = 6;
                 isok = true;
             }
         });
