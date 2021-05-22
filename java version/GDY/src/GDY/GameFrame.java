@@ -1,15 +1,17 @@
+/*
+ * @Description: 主窗口
+ * @Author: chhh-hao
+ * @Date: 2021-05
+ */
+
 package GDY;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-/**
- * @Description: 主窗体
- * 
- */
 
 public class GameFrame extends JFrame{
 	private StartPanel spanel;
