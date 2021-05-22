@@ -6,11 +6,13 @@ public class Poker implements Comparable<Poker>
 {
 	private String p_color;
 	private String p_point;
+	private String pic_addr;
 	public Poker() {}
 	public Poker(String p_color, String p_point)
 	{
 		this.p_color = p_color;
         this.p_point = p_point;
+        this.pic_addr = "/images/" + p_color + "-" + p_point + ".png";
 	}
 	public Poker(Poker pa)
 	{
@@ -25,6 +27,7 @@ public class Poker implements Comparable<Poker>
 	{
 		return this.p_point;
 	}
+	public String getPic_addr() { return this.pic_addr; }
 	public boolean equals(Object otherObject)
 	{
 		if (this == otherObject)
