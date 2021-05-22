@@ -142,7 +142,10 @@ public class StartPanel extends JPanel{
 									else {
 										// 确认端口和ip是否正确
 										// 进入游戏
-										createroom.setVisible(false);
+										
+										f.changebg();
+										cardlayout.show(mainpanel, "game");
+										joinroom.setVisible(false);
 										System.out.println("端口：" + joinroom.duankou.getText());
 										System.out.println("IP：" + joinroom.ip.getText());
 									}
