@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * @Description: 玩家人数选择界面
  */
 
-public class NumberOfPeople extends JFrame {
+public class ChooseNumberOfPeople extends JFrame {
 
     private GamePanel gp;
     private MyButton people2, people3, people4, people5, people6;
@@ -27,7 +27,7 @@ public class NumberOfPeople extends JFrame {
     CardLayout cardlayout = new CardLayout();
     private JPanel mainpanel = new JPanel(cardlayout);
 
-    NumberOfPeople() {
+    ChooseNumberOfPeople() {
 
         this.setTitle("干瞪眼");
         this.setDefaultCloseOperation(3);
