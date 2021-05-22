@@ -18,15 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-<<<<<<< HEAD:java version/GDY/src/GDY/ChooseNumberOfPeople.java
 public class ChooseNumberOfPeople extends JFrame {
-=======
-/*
- * @Description: 玩家人数选择界面
- */
-
-public class NumberOfPeople extends JFrame {
->>>>>>> parent of 2ba104c (rename NumberOfPeople.java to ChooseNumberOfPeople.java):java version/GDY/src/GDY/NumberOfPeople.java
 
     private GamePanel gp;
     private MyButton people2, people3, people4, people5, people6;
@@ -35,7 +27,7 @@ public class NumberOfPeople extends JFrame {
     CardLayout cardlayout = new CardLayout();
     private JPanel mainpanel = new JPanel(cardlayout);
 
-    NumberOfPeople() {
+    ChooseNumberOfPeople() {
 
         this.setTitle("干瞪眼");
         this.setDefaultCloseOperation(3);
