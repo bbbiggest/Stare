@@ -108,21 +108,28 @@ public class smallFrame extends JFrame{
     	JLabel jlb1 = new JLabel(s1,JLabel.CENTER);
     	jlb1.setText(s1);
     	jlb1.setFont(new Font(null, Font.BOLD, 20));
-    	jlb1.setBounds(80, 50, 100, 40);
+    	//jlb1.setBounds(80, 50, 100, 40);
     	
     	JLabel jlb2 = new JLabel(s2,JLabel.CENTER);
     	jlb2.setText(s2);
     	jlb2.setFont(new Font(null, Font.BOLD, 20));
-    	jlb2.setBounds(80, 130, 100, 40);
+    	//jlb2.setBounds(80, 130, 100, 40);
     	
-    	duankou.setFont(new Font(null, Font.PLAIN, 15));
-    	duankou.setBounds(180, 50, 200, 40);
+
     	if(s2=="IP") {
+    		jlb2.setBounds(80, 50, 100, 40);
+    		jlb1.setBounds(80, 130, 100, 40);
     		ip.setFont(new Font(null, Font.PLAIN, 15));
-        	ip.setBounds(180, 130, 200, 40);
+        	duankou.setBounds(180, 130, 200, 40);
+        	duankou.setFont(new Font(null, Font.PLAIN, 15));
+        	ip.setBounds(180, 50, 200, 40);
         	panel.add(ip);
     	}
     	else {
+    		jlb1.setBounds(80, 50, 100, 40);
+    		jlb2.setBounds(80, 130, 100, 40);
+        	duankou.setFont(new Font(null, Font.PLAIN, 15));
+        	duankou.setBounds(180, 50, 200, 40);
     		String[] choose = new String[] {
     				" ","2人","3人","4人","5人","6人"
     		};
