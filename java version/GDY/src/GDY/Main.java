@@ -21,7 +21,7 @@ public class Main
         GameFrame gfm = new GameFrame();
         
         gfm.add(mainpanel);
-        //cardlayout.show(mainpanel,"game");
+//        cardlayout.show(mainpanel,"game");
         cardlayout.show(mainpanel, "start");
         startpanel.click(gfm, cardlayout, mainpanel);
         gfm.setVisible(true);

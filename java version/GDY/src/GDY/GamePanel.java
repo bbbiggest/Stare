@@ -37,8 +37,9 @@ public class GamePanel extends JPanel{
 		this.setLayout(null);
 		this.setOpaque(false);
 		
-		JLabel[] text = new JLabel[6];
 		
+		// 用户名的位置
+		JLabel[] text = new JLabel[6];
 		for(int i = 0; i < 6; i++) {
 			//读取用户名
 			text[i] = new JLabel("用户" + (i + 1), JLabel.CENTER);
@@ -60,19 +61,48 @@ public class GamePanel extends JPanel{
 		this.add(text[4]);
 		this.add(text[5]);
 		
-		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
-//		Image img = pokerback.getImage();
-//		img.getScaledInstance(75, 110, Image.SCALE_AREA_AVERAGING);
-//		pokerback.setImage(img);
+		
+		// 每个人剩余牌数的位置
+		ImageIcon poker = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
 		JLabel[] poker_back = new JLabel[5];
 		
 		for(int i = 0; i < 5; i++) {
 			poker_back[i] = new JLabel();
-			poker_back[i].setIcon(pokerback);
+			poker_back[i].setIcon(poker);
 		}
 		poker_back[0].setBounds(600, 20, 100, 144);
-		
+		poker_back[1].setBounds(1130, 35, 100, 144);
+		poker_back[2].setBounds(40, 35, 100, 144);
+		poker_back[3].setBounds(40, 320, 100, 144);
+		poker_back[4].setBounds(1130, 320, 100, 144);
 		this.add(poker_back[0]);
+		this.add(poker_back[1]);
+		this.add(poker_back[2]);
+		this.add(poker_back[3]);
+		this.add(poker_back[4]);
+		
+		// 自己牌的位置
+		JLabel[] mypoker = new JLabel[5];
+		for(int i = 0; i < 5; i++) {
+			mypoker[i] = new JLabel();
+			mypoker[i].setIcon(poker);
+		}
+		mypoker[0].setBounds(350, 520, 100, 144);
+		
+		this.add(mypoker[0]);
+		this.add(mypoker[1]);
+		this.add(mypoker[2]);
+		this.add(mypoker[3]);
+		this.add(mypoker[4]);
+		
+		// 上次出牌的位置
+		JLabel[] lastpoker = new JLabel[5];
+		for(int i = 0; i < 5; i++) {
+			lastpoker[i] = new JLabel();
+			lastpoker[i].setIcon(poker);
+		}
+		lastpoker[0].setBounds(550, 280, 100, 144);
+		this.add(lastpoker[0]);
 		
 		this.setVisible(true);
 	}
