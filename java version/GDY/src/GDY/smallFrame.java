@@ -63,20 +63,20 @@ public class smallFrame extends JFrame{
     	panel.setLayout(null);
     	panel.setOpaque(false);
     	
-    	JLabel jlb1 = new JLabel(s1, JLabel.LEFT);
+    	JLabel jlb1 = new JLabel(s1, JLabel.CENTER);
     	JLabel jlb2 = new JLabel(s2, JLabel.LEFT);
     	JLabel jlb3 = new JLabel(s3, JLabel.LEFT);
     	JLabel jlb4 = new JLabel(s4, JLabel.LEFT);
     	
-    	jlb1.setFont(new Font(null, Font.BOLD, 20));
-    	jlb2.setFont(new Font(null, Font.BOLD, 20));
-    	jlb3.setFont(new Font(null, Font.BOLD, 20));
-    	jlb4.setFont(new Font(null, Font.BOLD, 20));
+    	jlb1.setFont(new Font(null, Font.BOLD, 24));
+    	jlb2.setFont(new Font(null, Font.PLAIN, 20));
+    	jlb3.setFont(new Font(null, Font.PLAIN, 20));
+    	jlb4.setFont(new Font(null, Font.PLAIN, 20));
     	
-    	jlb1.setBounds(150, 40, 500, 50);
-    	jlb2.setBounds(150, 100, 500, 50);
-    	jlb3.setBounds(150, 160, 500, 50);
-    	jlb4.setBounds(150, 220, 500, 50);
+    	jlb1.setBounds(0, 40, 500, 50);
+    	jlb2.setBounds(170, 100, 500, 50);
+    	jlb3.setBounds(170, 160, 500, 50);
+    	jlb4.setBounds(170, 220, 500, 50);
     	
     	panel.add(jlb1);
     	panel.add(jlb2);
