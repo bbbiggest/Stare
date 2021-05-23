@@ -22,7 +22,7 @@ public class tlmain
         GameFrame gfm = new GameFrame();
         
         gfm.add(mainpanel);
-        cardlayout.show(mainpanel, "start");
+        cardlayout.show(mainpanel, "game");
         startpanel.click(gfm, cardlayout, mainpanel);
         gfm.setVisible(true);
         return;
