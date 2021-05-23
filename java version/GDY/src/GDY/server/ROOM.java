@@ -101,6 +101,20 @@ public class ROOM extends Thread {
      */
     private void gameStart() {
 
+        //让服务器的每个玩家对象开始监听从客户端接收的消息
+        for (PLAYER p : players) new Thread(() -> {
+            try {
+                p.clearScore();
+                gameLogical(p);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    private void gameLogical(PLAYER player) throws IOException {
+        while (true) {
+            String msg = player.read();
+        }
     }
 
 
