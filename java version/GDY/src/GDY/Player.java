@@ -108,13 +108,24 @@ public class Player
     	}
     	return -1;
     }
+
+    public void noPlay()
+	{
+		if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0])) {
+			System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
+			return;
+		}
+		getPoker();
+		gandengyan.Number_of_no++;
+	}
     
     public void aLegalPlay()
     {
-    	Scanner in = new Scanner(System.in);
+//    	Scanner in = new Scanner(System.in);
         while (true)
         {
-        	String input = in.nextLine();
+//        	String input = in.nextLine();
+			String input = GamePanel.inputPoker;
             ArrayList<String> check = new ArrayList<String>();
             Scanner ss = new Scanner(input);
             String tem = "";
@@ -124,17 +135,17 @@ public class Player
             	check.add(tem);
             }
 
-            if (tem.equals("no") || tem.equals("NO") || tem.equals("No") || tem.equals("nO"))
-            {
-            	if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
-                {
-                    System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
-                    continue;
-                }
-                getPoker();
-                gandengyan.Number_of_no++;
-                break;
-            }
+//            if (tem.equals("no") || tem.equals("NO") || tem.equals("No") || tem.equals("nO"))
+//            {
+//            	if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
+//                {
+//                    System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
+//                    continue;
+//                }
+//                getPoker();
+//                gandengyan.Number_of_no++;
+//                break;
+//            }
             
             boolean isok = true;
             for (int i = 0; i < check.size(); ++i)

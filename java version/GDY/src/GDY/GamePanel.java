@@ -1,3 +1,7 @@
+/*
+ * @Description 打牌界面
+ */
+
 package GDY;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,10 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
-/**
- * 
- * @Description 打牌界面
- */
+
 
 // 基础界面，头像和牌数等 根据人数定位置
 // 改主面板的background
@@ -35,66 +36,54 @@ import javax.swing.WindowConstants;
 public class GamePanel extends JPanel{
 	
 	public static String inputPoker; // 输入的扑克牌
+	private static int[] text_x = {170, 400, 1050, 10, 10, 1050};
+	private static int[] text_y = {520, 40, 480, 480, 190, 190};
+	private static int text_width = 200, text_height = 50;
+	private static int[] poker_back_x = {600, 1130, 40, 40, 1130};
+	private static int[] poker_back_y = {20, 320, 320, 35, 35};
+	private static int poker_back_width = 100, poker_back_height = 144;
 	public GamePanel(){
 		this.setLayout(null);
 		this.setOpaque(false);
 		
-		
+		gandengyan.Number_of_players = 6;
 		// 用户名的位置
 		JLabel[] text = new JLabel[6];
-		for(int i = 0; i < 6; i++) {
+		for(int i = 0; i < gandengyan.Number_of_players; i++) {
 			//读取用户名
-			text[i] = new JLabel("用户" + (i + 1), JLabel.CENTER);
+			text[i] = new JLabel("玩家" + (i + 1) + ": " + (char)('A' + i), JLabel.CENTER);
 			//text[i].setText("用户" + (i + 1));
 			text[i].setFont(new Font("楷体",Font.BOLD,30));
 			text[i].setForeground(Color.LIGHT_GRAY);
+			text[i].setBounds(text_x[i], text_y[i], text_width, text_height);
+			this.add(text[i]);
 		}
-		text[0].setBounds(250, 580, 100, 50);
-		text[1].setBounds(450, 40, 100, 50);
-		text[2].setBounds(1130, 480, 100, 50);
-		text[3].setBounds(40, 480, 100, 50);
-		text[4].setBounds(40, 190, 100, 50);
-		text[5].setBounds(1130, 190, 100, 50);
-		this.add(text[0]);
-		this.add(text[1]);
-		this.add(text[2]);
-		this.add(text[3]);
-		this.add(text[4]);
-		this.add(text[5]);
-		
 		
 		// 每个人剩余牌数的位置
 		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 		JLabel[] poker_back = new JLabel[5];
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < gandengyan.Number_of_players - 1; i++) {
 			poker_back[i] = new JLabel();
 			poker_back[i].setIcon(pokerback);
+			poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
+			this.add(poker_back[i]);
 		}
-		poker_back[0].setBounds(600, 20, 100, 144);
-		poker_back[1].setBounds(1130, 35, 100, 144);
-		poker_back[2].setBounds(40, 35, 100, 144);
-		poker_back[3].setBounds(40, 320, 100, 144);
-		poker_back[4].setBounds(1130, 320, 100, 144);
-		this.add(poker_back[0]);
-		this.add(poker_back[1]);
-		this.add(poker_back[2]);
-		this.add(poker_back[3]);
-		this.add(poker_back[4]);
 		
 		// 输入框
 		JTextField textfield = new JTextField(20);
-		textfield.setBounds(900, 580, 200, 40);
+		textfield.setBounds(860, 580, 200, 40);
 		textfield.setFont(new Font(null, Font.PLAIN, 15));
 		this.add(textfield);
 		
-		// 确认键
-		MyButton yes = new MyButton("确认");
+		// 出牌键
+		MyButton yes = new MyButton("出牌");
 		yes.setFont(new Font(null, Font.BOLD, 20));
-		yes.setBounds(1130, 580, 100, 45);
+		yes.setBounds(1170, 580, 80, 45);
 		this.add(yes);
 		yes.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				inputPoker = textfield.getText();
 				textfield.setText("");
@@ -102,9 +91,21 @@ public class GamePanel extends JPanel{
 			}
 			
 		});
+
+		// 不出键
+		MyButton noButton = new MyButton("不出");
+		noButton.setFont(new Font(null, Font.BOLD, 20));
+		noButton.setBounds(1080, 580, 80, 45);
+		this.add(noButton);
+		noButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("no");
+			}
+		});
 		
 		// 提示文字
-		JLabel label = new JLabel("请输入符合规则的扑克牌点数，或者‘no’",JLabel.CENTER);
+		JLabel label = new JLabel("请输入符合规则的扑克牌点数，或者‘不出’",JLabel.CENTER);
 		label.setFont(new Font(null, Font.BOLD, 18));
 		label.setForeground(Color.LIGHT_GRAY);
 		label.setBounds(850, 630, 400, 40);
@@ -138,28 +139,31 @@ public class GamePanel extends JPanel{
     	
 		
 		// 上次出牌的位置
+		if (gandengyan.Last_playing_card.isEmpty() == false || true) {
 //		JLabel[] lastpoker = new JLabel[gandengyan.Last_playing_card.size()];
-		JLabel[] lastpoker = new JLabel[3];
-		gandengyan.Last_playing_card.add(new Poker("Club","3"));
-		gandengyan.Last_playing_card.add(new Poker("Club","4"));
-		gandengyan.Last_playing_card.add(new Poker("Club","5"));
-		int i = 0;
-		int left = 660 - (gandengyan.Last_playing_card.size() * 40 + 10);
-		for(var x : gandengyan.Last_playing_card) {
-			lastpoker[i] = new JLabel();
-    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
-    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-    		lastpoker[i].setIcon(img);
-    		i++;
-		}
-		for(int j = 0; j < gandengyan.Last_playing_card.size(); j++) {
-			lastpoker[j].setBounds(left + j*40, 260, 100, 144);
-		}
-		for(int j = gandengyan.Last_playing_card.size() - 1; j >= 0; j--) {
-			this.add(lastpoker[j]);
+			JLabel[] lastpoker = new JLabel[3];
+			gandengyan.Last_playing_card.add(new Poker("Club", "3"));
+			gandengyan.Last_playing_card.add(new Poker("Club", "4"));
+			gandengyan.Last_playing_card.add(new Poker("Club", "5"));
+			int i = 0;
+			int left = 660 - (gandengyan.Last_playing_card.size() * 40 + 10);
+			for (var x : gandengyan.Last_playing_card) {
+				lastpoker[i] = new JLabel();
+				ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+				img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+				lastpoker[i].setIcon(img);
+				i++;
+			}
+			for (int j = 0; j < gandengyan.Last_playing_card.size(); j++) {
+				lastpoker[j].setBounds(left + j * 40, 260, 100, 144);
+			}
+			for (int j = gandengyan.Last_playing_card.size() - 1; j >= 0; j--) {
+				this.add(lastpoker[j]);
+			}
 		}
 		
 		this.setVisible(true);
 	}
+
 
 }

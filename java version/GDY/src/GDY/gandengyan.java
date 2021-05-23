@@ -13,6 +13,7 @@ public class gandengyan
 	public static int Number_of_players, First_player, Winner, Number_of_no;
 	public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
+	public static Player[] Players;
 	
 	public static void clearScreen()
 	{
@@ -64,6 +65,10 @@ public class gandengyan
 		Winner = -99;
 		Number_of_no = 0;
 		Last_playing_card_type = new Pss(CardTypes[0], "-1");
+
+		Players = new Player[Number_of_players];
+        for (int i = 0; i < Number_of_players; ++i)
+            Players[i] = new Player(i, "Anonymous");
 	}
 	
 	// 随机洗牌
