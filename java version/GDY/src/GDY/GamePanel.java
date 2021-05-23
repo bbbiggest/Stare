@@ -34,6 +34,7 @@ import javax.swing.WindowConstants;
 
 public class GamePanel extends JPanel{
 	
+	public static String inputPoker; // 输入的扑克牌
 	public GamePanel(){
 		this.setLayout(null);
 		this.setOpaque(false);
@@ -82,40 +83,81 @@ public class GamePanel extends JPanel{
 		this.add(poker_back[3]);
 		this.add(poker_back[4]);
 		
-		// test
-		ArrayList<Poker> hand = new ArrayList<Poker>();
-		hand.add(new Poker("Club","3"));
-		hand.add(new Poker("Club","4"));
-		hand.add(new Poker("Club","5"));
-		JLabel label[] = new JLabel[54];
-    	int i = 0;
-    	for (var x : hand) {
-    		label[i] = new JLabel();
+		// 输入框
+		JTextField textfield = new JTextField(20);
+		textfield.setBounds(900, 580, 200, 40);
+		textfield.setFont(new Font(null, Font.PLAIN, 15));
+		this.add(textfield);
+		
+		// 确认键
+		MyButton yes = new MyButton("确认");
+		yes.setFont(new Font(null, Font.BOLD, 20));
+		yes.setBounds(1130, 580, 100, 45);
+		this.add(yes);
+		yes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputPoker = textfield.getText();
+				textfield.setText("");
+				System.out.println(inputPoker);
+			}
+			
+		});
+		
+		// 提示文字
+		JLabel label = new JLabel("请输入符合规则的扑克牌点数，或者‘no’",JLabel.CENTER);
+		label.setFont(new Font(null, Font.BOLD, 18));
+		label.setForeground(Color.LIGHT_GRAY);
+		label.setBounds(850, 630, 400, 40);
+		this.add(label);
+		
+//		// 自己的牌的位置test
+//		ArrayList<Poker> hand = new ArrayList<Poker>();
+//		hand.add(new Poker("Club","3"));
+//		hand.add(new Poker("Club","4"));
+//		hand.add(new Poker("Club","5"));
+//		JLabel label[] = new JLabel[54];
+//    	int i = 0;
+//    	for (var x : hand) {
+//    		label[i] = new JLabel();
+//    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+//    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+//    		label[i].setIcon(img);
+//    		i++;
+//    	}
+//    	int left = 640 - ((hand.size() + 1) * 25);
+//    	int right = 640 + ((hand.size() + 1) * 25);
+//    	for(int j = 0; j < hand.size(); j++) {
+//    		label[j].setBounds(left + j*40, 520, 100, 144);
+//    	}
+//    	for(int j = hand.size() - 1; j >= 0; j--) {
+////    		label[j].setBounds(right - j*40, 520, 100, 144);
+////    		this.add(label[j]);
+//    		this.add(label[j]);
+//    	}
+		
+    	
+		
+		// 上次出牌的位置
+//		JLabel[] lastpoker = new JLabel[gandengyan.Last_playing_card.size()];
+		JLabel[] lastpoker = new JLabel[3];
+		gandengyan.Last_playing_card.add(new Poker("Club","3"));
+		gandengyan.Last_playing_card.add(new Poker("Club","4"));
+		gandengyan.Last_playing_card.add(new Poker("Club","5"));
+		int i = 0;
+		int left = 660 - (gandengyan.Last_playing_card.size() * 40 + 10);
+		for(var x : gandengyan.Last_playing_card) {
+			lastpoker[i] = new JLabel();
     		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
     		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-    		label[i].setIcon(img);
+    		lastpoker[i].setIcon(img);
     		i++;
-    	}
-    	int left = 640 - ((hand.size() + 1) * 25);
-    	int right = 640 + ((hand.size() + 1) * 25);
-    	for(int j = 0; j < hand.size(); j++) {
-    		label[j].setBounds(left + j*40, 520, 100, 144);
-    	}
-    	for(int j = hand.size() - 1; j >= 0; j--) {
-//    		label[j].setBounds(right - j*40, 520, 100, 144);
-//    		this.add(label[j]);
-    		this.add(label[j]);
-    	}
-		
-		
-//		// 上次出牌的位置
-//		JLabel[] lastpoker = new JLabel[5];
-//		for(int i = 0; i < 5; i++) {
-//			lastpoker[i] = new JLabel();
-//			lastpoker[i].setIcon(poker);
-//		}
-//		lastpoker[0].setBounds(550, 280, 100, 144);
-//		this.add(lastpoker[0]);
+		}
+		for(int j = 0; j < gandengyan.Last_playing_card.size(); j++) {
+			lastpoker[j].setBounds(left + j*40, 260, 100, 144);
+		}
+		for(int j = gandengyan.Last_playing_card.size() - 1; j >= 0; j--) {
+			this.add(lastpoker[j]);
+		}
 		
 		this.setVisible(true);
 	}
