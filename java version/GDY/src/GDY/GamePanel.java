@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -47,7 +48,6 @@ public class GamePanel extends JPanel{
 			text[i].setFont(new Font("楷体",Font.BOLD,30));
 			text[i].setForeground(Color.LIGHT_GRAY);
 		}
-		System.out.println(text[0].getText());
 		text[0].setBounds(250, 580, 100, 50);
 		text[1].setBounds(450, 40, 100, 50);
 		text[2].setBounds(1130, 480, 100, 50);
@@ -63,7 +63,7 @@ public class GamePanel extends JPanel{
 		
 		
 		// 每个人剩余牌数的位置
-		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
+		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 		JLabel[] poker_back = new JLabel[5];
 		
@@ -81,6 +81,31 @@ public class GamePanel extends JPanel{
 		this.add(poker_back[2]);
 		this.add(poker_back[3]);
 		this.add(poker_back[4]);
+		
+		// test
+		ArrayList<Poker> hand = new ArrayList<Poker>();
+		hand.add(new Poker("Club","3"));
+		hand.add(new Poker("Club","4"));
+		hand.add(new Poker("Club","5"));
+		JLabel label[] = new JLabel[54];
+    	int i = 0;
+    	for (var x : hand) {
+    		label[i] = new JLabel();
+    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+    		label[i].setIcon(img);
+    		i++;
+    	}
+    	int left = 640 - ((hand.size() + 1) * 25);
+    	int right = 640 + ((hand.size() + 1) * 25);
+    	for(int j = 0; j < hand.size(); j++) {
+    		label[j].setBounds(left + j*40, 520, 100, 144);
+    	}
+    	for(int j = hand.size() - 1; j >= 0; j--) {
+//    		label[j].setBounds(right - j*40, 520, 100, 144);
+//    		this.add(label[j]);
+    		this.add(label[j]);
+    	}
 		
 		
 //		// 上次出牌的位置
