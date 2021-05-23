@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Objects;
 import javax.swing.*;
@@ -25,7 +26,6 @@ public class StartPanel extends JPanel{
 //	private boolean beginclick = false;
 	MyButton btn2 = new MyButton("Game Begin");
 	MyButton btn3 = new MyButton("Game Rules");
-	
 	
 	StartPanel(){
 //		logok = false;
@@ -144,7 +144,7 @@ public class StartPanel extends JPanel{
 										 * 加入等待加入界面
 										 *
 										 */
-										new smallFrame("waiting","等待玩家加入"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
+										new smallFrame("waiting", "等待玩家加入", "IP=@" + IP, "端口号：" + port, "游戏人数：" + createroom.peopleNumber);
 										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
 										cardlayout.show(mainpanel, "game");
 										createroom.setVisible(false);

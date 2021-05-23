@@ -63,12 +63,13 @@ public class GamePanel extends JPanel{
 		
 		
 		// 每个人剩余牌数的位置
-		ImageIcon poker = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
+		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/Club-3.png"));
+		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 		JLabel[] poker_back = new JLabel[5];
 		
 		for(int i = 0; i < 5; i++) {
 			poker_back[i] = new JLabel();
-			poker_back[i].setIcon(poker);
+			poker_back[i].setIcon(pokerback);
 		}
 		poker_back[0].setBounds(600, 20, 100, 144);
 		poker_back[1].setBounds(1130, 35, 100, 144);
@@ -82,14 +83,14 @@ public class GamePanel extends JPanel{
 		this.add(poker_back[4]);
 		
 		
-		// 上次出牌的位置
-		JLabel[] lastpoker = new JLabel[5];
-		for(int i = 0; i < 5; i++) {
-			lastpoker[i] = new JLabel();
-			lastpoker[i].setIcon(poker);
-		}
-		lastpoker[0].setBounds(550, 280, 100, 144);
-		this.add(lastpoker[0]);
+//		// 上次出牌的位置
+//		JLabel[] lastpoker = new JLabel[5];
+//		for(int i = 0; i < 5; i++) {
+//			lastpoker[i] = new JLabel();
+//			lastpoker[i].setIcon(poker);
+//		}
+//		lastpoker[0].setBounds(550, 280, 100, 144);
+//		this.add(lastpoker[0]);
 		
 		this.setVisible(true);
 	}
