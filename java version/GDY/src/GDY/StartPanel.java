@@ -3,7 +3,6 @@ import GDY.client.PLAYER;
 import GDY.server.ROOM;
 import java.awt.CardLayout;
 import java.awt.Font;
-import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class StartPanel extends JPanel{
 //	private boolean beginclick = false;
 	MyButton btn2 = new MyButton("Game Begin");
 	MyButton btn3 = new MyButton("Game Rules");
-
+	
 	
 	StartPanel(){
 //		logok = false;
@@ -82,7 +81,6 @@ public class StartPanel extends JPanel{
 	smallFrame createroom;
 	smallFrame frame;
 	PLAYER player;
-
 	public void click(GameFrame f, CardLayout cardlayout, JPanel mainpanel) {
 
 		// 开始游戏
@@ -91,12 +89,12 @@ public class StartPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
             	frame = new smallFrame("请输入用户名");
-
+            	String tems = frame.name.getText();
+            	player = new PLAYER(tems);
             	frame.btn1.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						String name = frame.name.getText();
-						player = new PLAYER(name);
+
 						if(frame.name.getText().isEmpty()) {
 							new smallFrame("error","用户名不能为空！");
 						}
@@ -105,7 +103,7 @@ public class StartPanel extends JPanel{
 
 							frame.setVisible(false);
 							createroom = new smallFrame("创建房间", "端口号", "人数");
-
+							
 							createroom.yes.addActionListener(new ActionListener() {
 
 
@@ -141,42 +139,36 @@ public class StartPanel extends JPanel{
 									else if(createroom.peopleNumber == "6人")
 										number = 6;
 									try{
-										 ROOM masterroom = new ROOM(port,number);
-										String IP = masterroom.getIPAddress();
+										String IP = new ROOM(port,number).getIPAddress();
 										/**********************************
 										 * 加入等待加入界面
 										 *
 										 */
-										player.connect("localhost", port);
-										smallFrame waitframe = new smallFrame("waiting","等待玩家加入"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
-//										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
-//										cardlayout.show(mainpanel, "game");
-//										createroom.setVisible(false);
+										new smallFrame("waiting","等待玩家加入"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
+										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
+										cardlayout.show(mainpanel, "game");
+										createroom.setVisible(false);
 										/**
 										 * 判断是否接入
 										 */
-										while (true) {
-											try {
-												String rec = player.read();
-												if (rec.equals("begin")) {
-
-													waitframe.setVisible(false);
-													System.out.println("master收到begin！有人来了！！！");
-													f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
-													cardlayout.show(mainpanel, "game");
-													createroom.setVisible(false);
-													return;
-												} else {
-													//刷新人员列表
-													System.out.println("未收到begin！还没有人来");
-													rec = rec.replaceAll(" ", "\n");
-													textArea1.setText("");
-													textArea1.append(rec+"\n");
-												}
-											} catch (IOException e) {
-												System.out.println("消息接收时出现错误");
-											}
-										}
+//										while (true) {
+//											try {
+//												String rec = player.read();
+//												if (rec.equals("begin")) {
+//													f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
+//													cardlayout.show(mainpanel, "game");
+//													createroom.setVisible(false);
+//													return;
+//												} else {
+//													//刷新人员列表
+//													rec = rec.replaceAll(" ", "\n");
+//													textArea1.setText("");
+//													textArea1.append(rec+"\n");
+//												}
+//											} catch (IOException e) {
+//												System.out.println("消息接收时出现错误");
+//											}
+//										}
 
 									}catch (IOException e) {
 										new smallFrame("error","创建失败，请退出重试");;
@@ -229,31 +221,6 @@ public class StartPanel extends JPanel{
 										int port = Integer.parseInt(joinroom.duankou.getText());
 										try {
 											player.connect(ipAddress,port);//连接服务器
-											while (true) {
-												try {
-													smallFrame waitframe = new smallFrame("waiting","等待玩家加入，游戏即将开始");
-													String rec = player.read();
-													if (rec.equals("begin")) {
-														waitframe.setVisible(false);
-														System.out.println("收到begin！有人来了！！！");
-														f.setTitle("干瞪眼"+"IP=@"+joinroom.ip.getText()+"端口号："+port);
-														cardlayout.show(mainpanel, "game");
-														createroom.setVisible(false);
-														return;
-													} else {
-														//刷新人员列表
-														System.out.println("未收到begin！还没有人来");
-														rec = rec.replaceAll(" ", "\n");
-
-													}
-												} catch (IOException e) {
-													System.out.println("消息接收时出现错误");
-												}
-											}
-
-
-
-
 										}catch (IOException e){
 											new smallFrame("error", "连接房间失败,请重试");
 										}
