@@ -25,6 +25,10 @@ public class Player
     {
         ID = tID;
     }
+    public void setName(String tname)
+	{
+		this.name = tname;
+	}
 
     
     // 显示自己的牌
