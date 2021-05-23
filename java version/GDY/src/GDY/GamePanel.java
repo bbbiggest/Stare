@@ -81,19 +81,6 @@ public class GamePanel extends JPanel{
 		this.add(poker_back[3]);
 		this.add(poker_back[4]);
 		
-		// 自己牌的位置
-		JLabel[] mypoker = new JLabel[5];
-		for(int i = 0; i < 5; i++) {
-			mypoker[i] = new JLabel();
-			mypoker[i].setIcon(poker);
-		}
-		mypoker[0].setBounds(350, 520, 100, 144);
-		
-		this.add(mypoker[0]);
-		this.add(mypoker[1]);
-		this.add(mypoker[2]);
-		this.add(mypoker[3]);
-		this.add(mypoker[4]);
 		
 		// 上次出牌的位置
 		JLabel[] lastpoker = new JLabel[5];

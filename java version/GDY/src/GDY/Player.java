@@ -1,6 +1,10 @@
 package GDY;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Player
 {
@@ -22,11 +26,31 @@ public class Player
         ID = tID;
     }
 
+    
+    // 显示自己的牌
     public void display_card()
     {
-        for (var x : hand)
-        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
-        System.out.println();
+//        for (var x : hand)
+//        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
+//        System.out.println();
+    	
+    	Main.gamepanel.setLayout(null);
+    	JLabel label[] = new JLabel[54];
+    	int i = 0;
+    	for (var x : hand) {
+    		label[i] = new JLabel();
+    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+    		label[i].setIcon(img);
+    		i++;
+    	}
+    	int left = 640 - ((hand.size() + 1) * 25);
+    	for(int j = 0; j < hand.size(); j++) {
+    		label[j].setBounds(left + j * 40, 520, 100, 144);
+    	}
+    	for(int j = hand.size() - 1; j >= 0; j--) {
+    		Main.gamepanel.add(label[j]);
+    	}
     }
     
     public int Get_number_of_remaining_hands()

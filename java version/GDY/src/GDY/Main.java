@@ -3,12 +3,12 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 public class Main
 {
-	
+	public static GamePanel gamepanel;
     public static void main(String[] args)
     {
     	CardLayout cardlayout = new CardLayout();
         JPanel mainpanel = new JPanel(cardlayout);
-        GamePanel gamepanel = new GamePanel();
+        gamepanel = new GamePanel();
         StartPanel startpanel = new StartPanel();
         
         mainpanel.add(startpanel,"start");
