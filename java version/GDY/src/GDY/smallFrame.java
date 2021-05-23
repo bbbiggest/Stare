@@ -32,6 +32,8 @@ import javax.swing.WindowConstants;
  */
 
 public class smallFrame extends JFrame{
+	
+	// 用于提示的界面
 	smallFrame(String title, String text){
 		this.setTitle(title);
 		JLabel label = new JLabel(text,JLabel.CENTER);
@@ -46,6 +48,45 @@ public class smallFrame extends JFrame{
 		this.setVisible(true);
 	}
 	
+	// 创建房间后显示的界面
+	smallFrame(String title, String s1, String s2, String s3, String s4){
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension size = new Dimension(500, 500);
+		int width = toolkit.getScreenSize().width;
+		int height = toolkit.getScreenSize().height;
+		this.setBounds((int)(width - size.getWidth()) / 2, 
+				(int)(height - size.getHeight()) / 2, (int)size.getWidth(), (int)size.getHeight());
+    	this.setTitle(title);
+    	this.setSize(500,350);
+    	
+    	JPanel panel = new JPanel();
+    	panel.setLayout(null);
+    	panel.setOpaque(false);
+    	
+    	JLabel jlb1 = new JLabel(s1, JLabel.LEFT);
+    	JLabel jlb2 = new JLabel(s2, JLabel.LEFT);
+    	JLabel jlb3 = new JLabel(s3, JLabel.LEFT);
+    	JLabel jlb4 = new JLabel(s4, JLabel.LEFT);
+    	
+    	jlb1.setFont(new Font(null, Font.BOLD, 20));
+    	jlb2.setFont(new Font(null, Font.BOLD, 20));
+    	jlb3.setFont(new Font(null, Font.BOLD, 20));
+    	jlb4.setFont(new Font(null, Font.BOLD, 20));
+    	
+    	jlb1.setBounds(150, 40, 500, 50);
+    	jlb2.setBounds(150, 100, 500, 50);
+    	jlb3.setBounds(150, 160, 500, 50);
+    	jlb4.setBounds(150, 220, 500, 50);
+    	
+    	panel.add(jlb1);
+    	panel.add(jlb2);
+    	panel.add(jlb3);
+    	panel.add(jlb4);
+    	this.add(panel);
+    	this.setVisible(true);
+	}
+	
+	// 创建房间和加入房间的界面
 	MyButton btn1 = new MyButton("创建房间");
 	MyButton btn2 = new MyButton("加入房间");
 	JTextField name = new JTextField(9);
