@@ -21,7 +21,10 @@ public class ROOM extends Thread {
      * */
     public ROOM(int port, int count) throws IOException {
         this.serverSocket = new ServerSocket(port, count);
-        IPAddress = getHostIp();
+//        IPAddress = getHostIp();
+        InetAddress IPAddr = InetAddress.getLocalHost();
+        IPAddress = IPAddr.getHostAddress();
+        System.out.println(IPAddress);
         this.count = count;
         this.players = new PLAYER[count];
         start();
@@ -35,26 +38,26 @@ public class ROOM extends Thread {
     /**
      * 获取本机的内网IP地址
      * */
-    private static String getHostIp() {
-        try{
-            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (allNetInterfaces.hasMoreElements()) {
-                NetworkInterface netInterface = allNetInterfaces.nextElement();
-                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
-                while (addresses.hasMoreElements()) {
-                    InetAddress ip = addresses.nextElement();
-                    if (ip instanceof Inet4Address
-                            && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
-                            && !ip.getHostAddress().contains(":")) {
-                        return ip.getHostAddress();
-                    }
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    private static String getHostIp() {
+//        try{
+//            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+//            while (allNetInterfaces.hasMoreElements()) {
+//                NetworkInterface netInterface = allNetInterfaces.nextElement();
+//                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+//                while (addresses.hasMoreElements()) {
+//                    InetAddress ip = addresses.nextElement();
+//                    if (ip instanceof Inet4Address
+//                            && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
+//                            && !ip.getHostAddress().contains(":")) {
+//                        return ip.getHostAddress();
+//                    }
+//                }
+//            }
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * 将消息发送给每一位连接的玩家
