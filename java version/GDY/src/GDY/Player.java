@@ -1,6 +1,10 @@
 package GDY;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Player
 {
@@ -22,11 +26,29 @@ public class Player
         ID = tID;
     }
 
-    public void display_card()
+    // 要传递GamePanel类
+    public void display_card(GamePanel gamepanel)
     {
-        for (var x : hand)
-        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
-        System.out.println();
+//        for (var x : hand)
+//        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
+//        System.out.println();
+    	gamepanel.setLayout(null);
+    	JLabel label[] = new JLabel[54];
+    	int i = 0;
+    	for (var x : hand) {
+    		label[i] = new JLabel();
+    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+    		label[i].setIcon(img);
+    		i++;
+    	}
+    	int left = 640 - ((hand.size() + 1) * 25);
+    	for(int j = 0; j < hand.size(); j++) {
+    		label[j].setBounds(left + j*40, 520, 100, 144);
+    	}
+    	for(int j = hand.size() - 1; j >= 0; j--) {
+    		gamepanel.add(label[j]);
+    	}
     }
     
     public int Get_number_of_remaining_hands()
@@ -241,7 +263,7 @@ public class Player
     	else
     		System.out.println("请输出要打出的牌的点数，或者输出\"no\"");
     	System.out.println("（如果有多张牌，请用空格隔开）\n");
-    	display_card();
+    	//display_card();
     	aLegalPlay();
     	if (hand.isEmpty())
             gandengyan.Winner = this.ID;
