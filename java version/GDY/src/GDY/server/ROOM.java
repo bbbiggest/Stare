@@ -7,12 +7,12 @@ import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.util.Enumeration;
 
+
 public class ROOM extends Thread {
     private ServerSocket serverSocket;
     private String IPAddress;
     private int count;  //玩家数量
     private PLAYER[] players;
-
 
     /**
      * 创建一个房间对象
@@ -61,10 +61,14 @@ public class ROOM extends Thread {
      * @param msg : 要发送的消息(指令、标志、数据)
      * */
     private void broadcast(String msg) {
+        int a = 0;
         for (int i=0; i<count; i++) {
-            if (players[i] != null)
+            if (players[i] != null) {
                 players[i].send(msg);
+                a = a+1;
+            }
         }
+
     }
 
     @Override
@@ -88,7 +92,7 @@ public class ROOM extends Thread {
         }
         //所有玩家都已加入，开始游戏
         broadcast("begin"); //发出通知，使客户端进入游戏界面
-        gameStart();
+        System.out.println("发begin信号");
     }
 
 
@@ -98,6 +102,21 @@ public class ROOM extends Thread {
      */
     private void gameStart() {
 
+        //让服务器的每个玩家对象开始监听从客户端接收的消息
+        for (PLAYER p : players) new Thread(() -> {
+            try {
+                p.clearScore();
+                gameLogical(p);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    private void gameLogical(PLAYER player) throws IOException {
+        while (true) {
+            String msg = player.read();
+
+        }
     }
 
 

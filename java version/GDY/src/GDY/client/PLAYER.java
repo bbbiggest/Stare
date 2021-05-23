@@ -23,6 +23,7 @@ public class PLAYER {
     }
 
      public void connect(String IPAddress, int port) throws IOException {
+        System.out.println("连接ing"+getName());
         socket = new Socket(IPAddress, port);    //通过IP地址和端口创建和服务器的连接
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);    //自动刷新
         this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
