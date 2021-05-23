@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,6 +29,7 @@ import javax.swing.WindowConstants;
 // 放自己的展开的扑克牌，别人的扑克牌（背面，显示数字）
 // 自己的扑克牌点击的时候，突出显示
 // 还有目前剩余未发的扑克牌数目
+//  如果可以实现选头像，就在界面加头像图片，如果不能选，就随机加（？）
 
 public class GamePanel extends JPanel{
 	
@@ -104,40 +104,7 @@ public class GamePanel extends JPanel{
 		lastpoker[0].setBounds(550, 280, 100, 144);
 		this.add(lastpoker[0]);
 		
-		// test
-		ArrayList<Poker> hand = new ArrayList<Poker>();
-		hand.add(new Poker("Club","3"));
-		hand.add(new Poker("Club","4"));
-		hand.add(new Poker("Club","5"));
-		JLabel label[] = new JLabel[54];
-    	int i = 0;
-    	for (var x : hand) {
-    		label[i] = new JLabel();
-    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
-    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-    		label[i].setIcon(img);
-    		i++;
-    	}
-    	int left = 640 - ((hand.size() + 1) * 25);
-    	int right = 640 + ((hand.size() + 1) * 25);
-    	for(int j = 0; j < hand.size(); j++) {
-    		label[j].setBounds(left + j*40, 520, 100, 144);
-    	}
-    	for(int j = hand.size() - 1; j >= 0; j--) {
-//    		label[j].setBounds(right - j*40, 520, 100, 144);
-//    		this.add(label[j]);
-    		this.add(label[j]);
-    	}
-		
-    	
-    	
 		this.setVisible(true);
-	}
-	
-	
-	// 根据人数改变布局
-	public void changenumber(int n) {
-		
 	}
 
 }

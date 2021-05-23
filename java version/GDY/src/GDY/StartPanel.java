@@ -144,8 +144,7 @@ public class StartPanel extends JPanel{
 										 * 加入等待加入界面
 										 *
 										 */
-										new smallFrame("waiting","等待玩家加入"+"IP=@"+IP+" 端口号："+port+" 游戏人数："+createroom.peopleNumber);
-										f.changebg();
+										new smallFrame("waiting","等待玩家加入"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
 										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
 										cardlayout.show(mainpanel, "game");
 										createroom.setVisible(false);

@@ -1,6 +1,5 @@
-/**
- * @Description: 玩家人数选择界面(delete)
- * 
+/*
+ * @Description: 玩家人数选择界面
  */
 
 package GDY;
