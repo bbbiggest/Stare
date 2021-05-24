@@ -1,4 +1,5 @@
 package GDY;
+import java.net.Socket;
 import java.util.*;
 import javax.swing.JLabel;
 import java.io.IOException;
@@ -155,6 +156,18 @@ public class gandengyan
 		else
 			return new Pss(CardTypes[0], "-1");
 	}
+
+//	public static void temp()
+//	{
+//		while (true)
+//		{
+//			Socket incoming = s.accept();
+//			Runnable r = ThreadedEchoHandler(incoming);
+//
+//			Thread t = new Thread(r);
+//			t.start();
+//		}
+//	}
 }
 
 // pair of (String, String)
