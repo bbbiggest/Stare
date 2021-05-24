@@ -35,13 +35,15 @@ public class GamePanel extends JPanel{
 	private static int[] poker_back_x = {600, 1130, 40, 40, 1130};
 	private static int[] poker_back_y = {20, 320, 320, 35, 35};
 	private static int poker_back_width = 100, poker_back_height = 144;
+	private static JLabel[] text;
+	private static JLabel[] poker_back;
 	public GamePanel(){
 		this.setLayout(null);
 		this.setOpaque(false);
 		
 		gandengyan.Number_of_players = 6;
 		// 用户名的位置
-		JLabel[] text = new JLabel[6];
+		text = new JLabel[6];
 		for(int i = 0; i < gandengyan.Number_of_players; i++) {
 			//读取用户名
 			text[i] = new JLabel("玩家" + (i + 1) + ": " + (char)('A' + i), JLabel.CENTER);
@@ -55,7 +57,7 @@ public class GamePanel extends JPanel{
 		// 每个人剩余牌数的位置
 		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-		JLabel[] poker_back = new JLabel[5];
+		poker_back = new JLabel[5];
 		
 		for(int i = 0; i < gandengyan.Number_of_players - 1; i++) {
 			poker_back[i] = new JLabel();
@@ -158,6 +160,15 @@ public class GamePanel extends JPanel{
 		
 		this.setVisible(true);
 	}
-
+	
+	// 隐藏用不到的label
+	public void changeNumber(int n) {
+		for(int i = n; i < 6; i++) {
+			text[i].setVisible(false);
+		}
+		for(int i = n - 1; i < 5; i++) {
+			poker_back[i].setVisible(false);
+		}
+	}
 
 }
