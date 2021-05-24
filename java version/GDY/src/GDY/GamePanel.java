@@ -164,12 +164,22 @@ public class GamePanel extends JPanel{
 	
 	// 隐藏用不到的label
 	public void changeNumber(int n) {
-		for(int i = n; i < 6; i++) {
-			text[i].setVisible(false);
+		if(n == 5) {
+			text[1].setVisible(false);
+			for(int i = 2; i < 6; i++) {
+				text[i].setText("玩家" + (i) + ": " + (char)('A' + i - 1));
+			}
+			poker_back[0].setVisible(false);
 		}
-		for(int i = n - 1; i < 5; i++) {
-			poker_back[i].setVisible(false);
+		else {
+			for(int i = n; i < 6; i++) {
+				text[i].setVisible(false);
+			}
+			for(int i = n - 1; i < 5; i++) {
+				poker_back[i].setVisible(false);
+			}
 		}
+
 	}
 
 }
