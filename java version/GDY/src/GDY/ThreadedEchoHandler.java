@@ -2,12 +2,13 @@ package GDY;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.*;
 import java.util.*;
 
 class ThreadedEchoHandler implements Runnable
 {
     private Socket incoming;
-    
+
     public ThreadedEchoHandler(Socket incomingSocket)
     {
         incoming = incomingSocket;
@@ -17,9 +18,9 @@ class ThreadedEchoHandler implements Runnable
     {
         try (InputStream inStream = incoming.getInputStream();
              OutputStream outStream = incoming.getOutputStream();
-             var in = new Scanner(inStream, "UTF-8");
+             var in = new Scanner(inStream, StandardCharsets.UTF_8);
              var out = new PrintWriter(
-                     new OutputStreamWriter(outStream, "UTF-8"),
+                     new OutputStreamWriter(outStream, StandardCharsets.UTF_8),
                      true /* autoFlush */))
         {
             out.println( "Hello! Enter BYE to exit." );
