@@ -106,30 +106,30 @@ public class GamePanel extends JPanel{
 		label.setBounds(850, 630, 400, 40);
 		this.add(label);
 		
-		// 自己的牌的位置test
-		ArrayList<Poker> hand = new ArrayList<Poker>();
-		hand.add(new Poker("Club","3"));
-		hand.add(new Poker("Club","4"));
-		hand.add(new Poker("Club","5"));
-		JLabel labeltest[] = new JLabel[54];
-    	int itest = 0;
-    	for (var x : hand) {
-    		labeltest[itest] = new JLabel();
-    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
-    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-    		labeltest[itest].setIcon(img);
-    		itest++;
-    	}
-    	int lefttest = 640 - ((hand.size() + 1) * 25);
-    	int right = 640 + ((hand.size() + 1) * 25);
-    	for(int j = 0; j < hand.size(); j++) {
-    		labeltest[j].setBounds(lefttest + j*40, 520, 100, 144);
-    	}
-    	for(int j = hand.size() - 1; j >= 0; j--) {
-//    		label[j].setBounds(right - j*40, 520, 100, 144);
-//    		this.add(label[j]);
-    		this.add(labeltest[j]);
-    	}
+//		// 自己的牌的位置test
+//		ArrayList<Poker> hand = new ArrayList<Poker>();
+//		hand.add(new Poker("Club","3"));
+//		hand.add(new Poker("Club","4"));
+//		hand.add(new Poker("Club","5"));
+//		JLabel labeltest[] = new JLabel[54];
+//    	int itest = 0;
+//    	for (var x : hand) {
+//    		labeltest[itest] = new JLabel();
+//    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+//    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+//    		labeltest[itest].setIcon(img);
+//    		itest++;
+//    	}
+//    	int lefttest = 640 - ((hand.size() + 1) * 25);
+//    	int right = 640 + ((hand.size() + 1) * 25);
+//    	for(int j = 0; j < hand.size(); j++) {
+//    		labeltest[j].setBounds(lefttest + j*40, 520, 100, 144);
+//    	}
+//    	for(int j = hand.size() - 1; j >= 0; j--) {
+////    		label[j].setBounds(right - j*40, 520, 100, 144);
+////    		this.add(label[j]);
+//    		this.add(labeltest[j]);
+//    	}
 		
     	
 		
