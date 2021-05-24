@@ -230,7 +230,6 @@ public class StartPanel extends JPanel {
                                                         System.out.println("收到begin！有人来了！！！");
                                                         f.setTitle("干瞪眼" + "IP=@" + joinroom.ip.getText() + "端口号：" + port);
                                                         cardlayout.show(mainpanel, "game");
-                                                        createroom.setVisible(false);
                                                         return;
                                                     } else {
                                                         //刷新人员列表
