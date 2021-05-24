@@ -1,8 +1,9 @@
-/**
- * @Description 打牌界面
+/*
+ * @Description: 打牌界面
  */
 
 package GDY;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,8 +30,8 @@ import javax.swing.WindowConstants;
 public class GamePanel extends JPanel{
 	
 	public static String inputPoker; // 输入的扑克牌
-	private static int[] text_x = {230, 400, 1080, 0, 0, 1080};
-	private static int[] text_y = {560, 50, 480, 480, 190, 190};
+	private static int[] text_x = {170, 350, 1030, 2, 2, 1030};
+	private static int[] text_y = {520, 50, 480, 480, 190, 190};
 	private static int text_width = 200, text_height = 50;
 	private static int[] poker_back_x = {600, 1130, 40, 40, 1130};
 	private static int[] poker_back_y = {20, 320, 320, 35, 35};
