@@ -168,6 +168,13 @@ public class gandengyan
 //			t.start();
 //		}
 //	}
+
+	private void broadcast(String msg) {
+        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
+            if (gandengyan.Players[i] != null);
+                gandengyan.Players[i].send(msg);
+        }
+    }
 }
 
 // pair of (String, String)
