@@ -17,6 +17,9 @@ public class tlmain
         
         mainpanel.add(startpanel,"start");
         mainpanel.add(gamepanel,"game");
+        
+        gamepanel.changeNumber(3);  // test
+        
         mainpanel.setOpaque(false);
         
         GameFrame gfm = new GameFrame();
