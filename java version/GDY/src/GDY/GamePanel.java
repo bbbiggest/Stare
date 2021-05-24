@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 
@@ -42,10 +43,9 @@ public class GamePanel extends JPanel{
 		this.setLayout(null);
 		this.setOpaque(false);
 		
-		gandengyan.Number_of_players = 6;
 		// 用户名的位置
 		text = new JLabel[6];
-		for(int i = 0; i < gandengyan.Number_of_players; i++) {
+		for(int i = 0; i < 6; i++) {
 			//读取用户名
 			text[i] = new JLabel("玩家" + (i + 1) + ": " + (char)('A' + i), JLabel.CENTER);
 			//text[i].setText("用户" + (i + 1));
@@ -59,13 +59,20 @@ public class GamePanel extends JPanel{
 		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 		poker_back = new JLabel[5];
-		
-		for(int i = 0; i < gandengyan.Number_of_players - 1; i++) {
+//		
+		for(int i = 0; i < 5; i++) {
 			poker_back[i] = new JLabel();
 			poker_back[i].setIcon(pokerback);
 			poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
+			
+			poker_back[i].setText("5");
+			poker_back[i].setFont(new Font(null, Font.BOLD, 60));
+			poker_back[i].setForeground(new Color(241,169,9));
+			poker_back[i].setHorizontalTextPosition(SwingConstants.CENTER);
+			poker_back[i].setVerticalTextPosition(SwingConstants.CENTER);
 			this.add(poker_back[i]);
 		}
+		
 		
 		// 输入框
 		JTextField textfield = new JTextField(20);
@@ -152,24 +159,41 @@ public class GamePanel extends JPanel{
 				i++;
 			}
 			for (int j = 0; j < gandengyan.Last_playing_card.size(); j++) {
-				lastpoker[j].setBounds(left + j * 40, 260, 100, 144);
+				lastpoker[j].setBounds(left + j * 40, 260, poker_back_width, poker_back_height);
 			}
 			for (int j = gandengyan.Last_playing_card.size() - 1; j >= 0; j--) {
 				this.add(lastpoker[j]);
 			}
 		}
 		
+//		// 牌堆剩余的牌
+//		JLabel remainPoker = new JLabel();
+//		remainPoker.setIcon(pokerback);
+//		remainPoker.setBounds(10, 530, poker_back_width, poker_back_height);
+//		this.add(remainPoker);
+		
 		this.setVisible(true);
 	}
 	
 	// 隐藏用不到的label
 	public void changeNumber(int n) {
-		for(int i = n; i < 6; i++) {
-			text[i].setVisible(false);
+		// int n = gandengyan.Number_of_players; 
+		if(n == 5) {
+			text[1].setVisible(false);
+			for(int i = 2; i < 6; i++) {
+				text[i].setText("玩家" + (i) + ": " + (char)('A' + i - 1));
+			}
+			poker_back[0].setVisible(false);
 		}
-		for(int i = n - 1; i < 5; i++) {
-			poker_back[i].setVisible(false);
+		else {
+			for(int i = n; i < 6; i++) {
+				text[i].setVisible(false);
+			}
+			for(int i = n - 1; i < 5; i++) {
+				poker_back[i].setVisible(false);
+			}
 		}
+
 	}
 
 }
