@@ -1,4 +1,4 @@
-/*
+/**
  * @Description 打牌界面
  */
 
@@ -26,18 +26,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 
-// 基础界面，头像和牌数等 根据人数定位置
-// 改主面板的background
-// 放自己的展开的扑克牌，别人的扑克牌（背面，显示数字）
-// 自己的扑克牌点击的时候，突出显示
-// 还有目前剩余未发的扑克牌数目
-//  如果可以实现选头像，就在界面加头像图片，如果不能选，就随机加（？）
-
 public class GamePanel extends JPanel{
 	
 	public static String inputPoker; // 输入的扑克牌
-	private static int[] text_x = {170, 400, 1050, 10, 10, 1050};
-	private static int[] text_y = {520, 40, 480, 480, 190, 190};
+	private static int[] text_x = {230, 400, 1080, 0, 0, 1080};
+	private static int[] text_y = {560, 50, 480, 480, 190, 190};
 	private static int text_width = 200, text_height = 50;
 	private static int[] poker_back_x = {600, 1130, 40, 40, 1130};
 	private static int[] poker_back_y = {20, 320, 320, 35, 35};
@@ -111,40 +104,41 @@ public class GamePanel extends JPanel{
 		label.setBounds(850, 630, 400, 40);
 		this.add(label);
 		
-//		// 自己的牌的位置test
-//		ArrayList<Poker> hand = new ArrayList<Poker>();
-//		hand.add(new Poker("Club","3"));
-//		hand.add(new Poker("Club","4"));
-//		hand.add(new Poker("Club","5"));
-//		JLabel label[] = new JLabel[54];
-//    	int i = 0;
-//    	for (var x : hand) {
-//    		label[i] = new JLabel();
-//    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
-//    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-//    		label[i].setIcon(img);
-//    		i++;
-//    	}
-//    	int left = 640 - ((hand.size() + 1) * 25);
-//    	int right = 640 + ((hand.size() + 1) * 25);
-//    	for(int j = 0; j < hand.size(); j++) {
-//    		label[j].setBounds(left + j*40, 520, 100, 144);
-//    	}
-//    	for(int j = hand.size() - 1; j >= 0; j--) {
-////    		label[j].setBounds(right - j*40, 520, 100, 144);
-////    		this.add(label[j]);
+		// 自己的牌的位置test
+		ArrayList<Poker> hand = new ArrayList<Poker>();
+		hand.add(new Poker("Club","3"));
+		hand.add(new Poker("Club","4"));
+		hand.add(new Poker("Club","5"));
+		JLabel labeltest[] = new JLabel[54];
+    	int itest = 0;
+    	for (var x : hand) {
+    		labeltest[itest] = new JLabel();
+    		ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+    		img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
+    		labeltest[itest].setIcon(img);
+    		itest++;
+    	}
+    	int lefttest = 640 - ((hand.size() + 1) * 25);
+    	int right = 640 + ((hand.size() + 1) * 25);
+    	for(int j = 0; j < hand.size(); j++) {
+    		labeltest[j].setBounds(lefttest + j*40, 520, 100, 144);
+    	}
+    	for(int j = hand.size() - 1; j >= 0; j--) {
+//    		label[j].setBounds(right - j*40, 520, 100, 144);
 //    		this.add(label[j]);
-//    	}
+    		this.add(labeltest[j]);
+    	}
 		
     	
 		
 		// 上次出牌的位置
 		if (gandengyan.Last_playing_card.isEmpty() == false || true) {
-//		JLabel[] lastpoker = new JLabel[gandengyan.Last_playing_card.size()];
-			JLabel[] lastpoker = new JLabel[3];
-			gandengyan.Last_playing_card.add(new Poker("Club", "3"));
-			gandengyan.Last_playing_card.add(new Poker("Club", "4"));
-			gandengyan.Last_playing_card.add(new Poker("Club", "5"));
+			JLabel[] lastpoker = new JLabel[gandengyan.Last_playing_card.size()];
+			// test
+//			JLabel[] lastpoker = new JLabel[3];
+//			gandengyan.Last_playing_card.add(new Poker("Club", "3"));
+//			gandengyan.Last_playing_card.add(new Poker("Club", "4"));
+//			gandengyan.Last_playing_card.add(new Poker("Club", "5"));
 			int i = 0;
 			int left = 660 - (gandengyan.Last_playing_card.size() * 40 + 10);
 			for (var x : gandengyan.Last_playing_card) {
