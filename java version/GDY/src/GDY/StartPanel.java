@@ -141,7 +141,8 @@ public class StartPanel extends JPanel {
                                          */
                                         player.connect("localhost", port);
                                         smallFrame waitframe = new smallFrame("waiting", "等待玩家加入", "IP=@" + IP, "端口号：" + port, "游戏人数：" + createroom.peopleNumber);
-
+                                        createroom.setVisible(false);
+                                        
 //										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
 //										cardlayout.show(mainpanel, "game");
 //										createroom.setVisible(false);
@@ -222,6 +223,7 @@ public class StartPanel extends JPanel {
                                             while (true) {
                                                 try {
                                                     smallFrame waitframe = new smallFrame("waiting", "等待玩家加入，游戏即将开始");
+                                                    joinroom.setVisible(false);
                                                     String rec = player.read();
                                                     if (rec.equals("begin")) {
                                                         waitframe.setVisible(false);
