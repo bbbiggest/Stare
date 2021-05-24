@@ -1,4 +1,4 @@
-/*
+/**
  * @Description: 开始界面
  */
 
@@ -23,15 +23,10 @@ import javax.swing.*;
 public class StartPanel extends JPanel {
     private JTextArea textArea1;
     private JPanel rootPanel;
-    //	private boolean logok =  false;
-//	private boolean beginclick = false;
     MyButton btn2 = new MyButton("Game Begin");
     MyButton btn3 = new MyButton("Game Rules");
 
     StartPanel() {
-//		logok = false;
-//		beginclick = false;
-
         this.setLayout(null);
         this.setOpaque(false);
 //		MyButton btn1 = new MyButton("Log in or Register");
@@ -45,7 +40,7 @@ public class StartPanel extends JPanel {
         btn3.setBounds(750, 500, 200, 65);
         this.setVisible(true);
 
-        // 游戏规则---bingo
+        // 游戏规则
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +141,8 @@ public class StartPanel extends JPanel {
                                          */
                                         player.connect("localhost", port);
                                         smallFrame waitframe = new smallFrame("waiting", "等待玩家加入", "IP=@" + IP, "端口号：" + port, "游戏人数：" + createroom.peopleNumber);
-
+                                        createroom.setVisible(false);
+                                        
 //										f.setTitle("干瞪眼"+"IP=@"+IP+"端口号："+port+"游戏人数："+createroom.peopleNumber);
 //										cardlayout.show(mainpanel, "game");
 //										createroom.setVisible(false);
@@ -227,6 +223,7 @@ public class StartPanel extends JPanel {
                                             while (true) {
                                                 try {
                                                     smallFrame waitframe = new smallFrame("waiting", "等待玩家加入，游戏即将开始");
+                                                    joinroom.setVisible(false);
                                                     String rec = player.read();
                                                     if (rec.equals("begin")) {
                                                         waitframe.setVisible(false);
