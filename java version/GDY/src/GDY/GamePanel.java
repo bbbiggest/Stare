@@ -67,7 +67,7 @@ public class GamePanel extends JPanel{
 			
 			poker_back[i].setText("5");
 			poker_back[i].setFont(new Font(null, Font.BOLD, 60));
-			poker_back[i].setForeground(new Color(241,169,9));
+			poker_back[i].setForeground(new Color(245, 133, 99));
 			poker_back[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			poker_back[i].setVerticalTextPosition(SwingConstants.CENTER);
 			this.add(poker_back[i]);

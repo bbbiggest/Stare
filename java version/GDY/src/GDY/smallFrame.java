@@ -115,11 +115,11 @@ public class smallFrame extends JFrame{
     	name.setFont(new Font(null, Font.PLAIN, 15));
     	name.setBounds(180, 100, 200, 40);
     	
-    	btn1.setBounds(100, 200, 100, 50);
-    	btn2.setBounds(290, 200, 100, 50);
+    	btn1.setBounds(70, 120, 150, 70);
+    	btn2.setBounds(260, 120, 150, 70);
     	
-    	panel.add(jlb1);
-    	panel.add(name);
+//    	panel.add(jlb1);
+//    	panel.add(name);
     	panel.add(btn1);
     	panel.add(btn2);
     	panel.setVisible(true);
@@ -200,5 +200,10 @@ public class smallFrame extends JFrame{
     	panel.setVisible(true);
     	this.add(panel);
     	this.setVisible(true);
+	}
+
+	public static void main(String[] args)
+	{
+		smallFrame sF = new smallFrame("test");
 	}
 }

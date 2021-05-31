@@ -23,6 +23,7 @@ import javax.swing.*;
 public class StartPanel extends JPanel {
     private JTextArea textArea1;
     private JPanel rootPanel;
+    public static PLAYER player;
     MyButton btn2 = new MyButton("Game Begin");
     MyButton btn3 = new MyButton("Game Rules");
 
@@ -76,7 +77,7 @@ public class StartPanel extends JPanel {
     // 点击开始游戏按钮
     smallFrame createroom;
     smallFrame frame;
-    PLAYER player;
+//    PLAYER player;
 
     public void click(GameFrame f, CardLayout cardlayout, JPanel mainpanel) {
 
@@ -172,7 +173,7 @@ public class StartPanel extends JPanel {
                                         }
                                     } catch (IOException e) {
                                         new smallFrame("error", "创建失败，请退出重试");
-                                        ;
+
                                     }
                                     //旧版：
 //									if(createroom.duankou.getText().isEmpty()) {
