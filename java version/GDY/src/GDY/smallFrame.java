@@ -173,7 +173,7 @@ public class smallFrame extends JFrame{
         	duankou.setFont(new Font(null, Font.PLAIN, 15));
         	duankou.setBounds(180, 50, 200, 40);
     		String[] choose = new String[] {
-    				" ","2人","3人","4人","5人","6人"
+    				"2人","3人","4人","5人","6人"
     		};
     		final JComboBox<String> box = new JComboBox<String>(choose);
     		box.setBounds(180, 130, 200, 40);
@@ -204,6 +204,6 @@ public class smallFrame extends JFrame{
 
 	public static void main(String[] args)
 	{
-		smallFrame sF = new smallFrame("test");
+		smallFrame sF = new smallFrame("加入房间", "端口号", "IP");
 	}
 }

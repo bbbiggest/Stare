@@ -11,22 +11,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class nameFrame {
+class nameFrame extends JDialog {
     String name;
 
-    nameFrame() {
-        JFrame nF = new JFrame();
+    nameFrame(Frame owner, String title, boolean modal) {
+        owner.setVisible(false);
         JTextField inputName = new JTextField(9);
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension size = new Dimension(500, 350);
         int width = toolkit.getScreenSize().width;
         int height = toolkit.getScreenSize().height;
-        nF.setBounds((int) (width - size.getWidth()) / 2,
+        this.setBounds((int) (width - size.getWidth()) / 2,
                 (int) (height - size.getHeight()) / 2, (int) size.getWidth(), (int) size.getHeight());
 
-        nF.setTitle("请输入用户名");
-        nF.setSize(500, 350);
+        this.setTitle("请输入用户名");
+        this.setSize(500, 350);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -48,8 +48,8 @@ class nameFrame {
         panel.add(jlb1);
         panel.add(inputName);
         panel.setVisible(true);
-        nF.add(panel);
-        nF.setVisible(true);
+        this.add(panel);
+        this.setVisible(true);
 
         confirm.addActionListener(new ActionListener() {
             @Override
@@ -59,17 +59,18 @@ class nameFrame {
                 } else {
                     System.out.println("用户名:" + inputName.getText());
                     String name = inputName.getText();
-                    nF.setVisible(false);
-                    new StartFrame(name);
+//                    owner.name = name;
+                    owner.setVisible(true);
+                    dispose();
                 }
             }
         });
 
     }
 
-    String getName() {
-        return this.name;
-    }
+//    String getName() {
+//        return this.name;
+//    }
 
 }
 

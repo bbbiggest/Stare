@@ -18,12 +18,22 @@ import java.util.Objects;
 import javax.swing.*;
 
 public class StartFrame extends JFrame {
+    String name;
     MyButton begin = new MyButton("Game Begin");
     MyButton rule = new MyButton("Game Rules");
+    boolean isJoinRoom;
 
-    StartFrame(String name) {
+    StartFrame() {
+        name = JOptionPane.showInputDialog(this,"请输入用户名");
+        while (name.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this,"用户名不能为空","提示",JOptionPane.WARNING_MESSAGE);
+            name = JOptionPane.showInputDialog(this,"请输入用户名");
+        }
+
+//        nameFrame nF = new nameFrame(this, "请输入用户名", true);
         this.setTitle("干瞪眼 " + name);
-        this.setDefaultCloseOperation(3);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension size = new Dimension(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
@@ -91,61 +101,89 @@ public class StartFrame extends JFrame {
             }
         });
 
+//        selectFrame sF = new selectFrame();
+//        sF.setVisible(false);
+        smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP");
+        joinRoom.setVisible(false);
+//        sF.crb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                sF.setEnabled(false);
+//                sF.setVisible(false);
+//                creamRoomFrame crF = new creamRoomFrame(sF, "创建房间", true);
+////                crF.setVisible(true);
+////                setEnabled(true);
+//            }
+//        });
+//        sF.jrb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                joinRoom.setVisible(true);
+//            }
+//        });
+
         begin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                smallFrame sF = new smallFrame("请选择");
-                sF.setVisible(true);
-                sF.btn1.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ;
-                    }
-                });
-                sF.btn2.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ;
-                    }
-                });
+//                setEnabled(false);
+//                selectFrame sF = new selectFrame(getFrames()[0], "请选择", true);
+//                sF.setVisible(true);
+                JDialog sF = new JDialog(getFrames()[0], "请选择", true);
+                setSelectFrame(sF);
+        }
+        });
+    }
+
+    void setSelectFrame(JDialog sF)
+    {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int width = toolkit.getScreenSize().width;
+        int height = toolkit.getScreenSize().height;
+        Dimension size = new Dimension(500, 350);
+        sF.setBounds((int)(width - size.getWidth()) / 2, (int)(height - size.getHeight()) / 2,
+                (int)size.getWidth(), (int)size.getHeight());
+        sF.setSize(500,350);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setOpaque(false);
+
+        MyButton crb = new MyButton("创建房间"); // create room button
+        MyButton jrb = new MyButton("加入房间"); // join room button
+        crb.setBounds(70, 120, 150, 70);
+        jrb.setBounds(260, 120, 150, 70);
+
+        panel.add(crb);
+        panel.add(jrb);
+        panel.setVisible(true);
+        sF.add(panel);
+        sF.setVisible(true);
+
+        crb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isJoinRoom = false;
+                sF.setEnabled(false);
+                sF.setVisible(false);
+                creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true);
+                crF.setVisible(true);
+            }
+        });
+        jrb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isJoinRoom = true;
+//                joinRoom.setVisible(true);
             }
         });
     }
 
-
-//    smallFrame createroom;
-//    smallFrame frame;
-//    public void click(GameFrame f, CardLayout cardlayout, JPanel mainpanel){
-//        begin.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                frame = new smallFrame("请选择游戏方式");
-//                frame.btn1.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        smallFrame smfm = new smallFrame("我点了创建房间","哈哈哈哈");
-//                    }
-//                });
-//
-//                frame.btn2.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        smallFrame smfm = new smallFrame("我点了加入房间","哈哈哈哈");
-//                    }
-//                });
-//
-//
-//            }
-//        });
-//    }
-
-//    void creatroom(String duankou)
-//    {
-//
-//    }
+    void setCreamRoomFrame(JDialog crF)
+    {
+        ;
+    }
 
     public static void main(String[] args) {
-        new nameFrame();
+        new StartFrame();
     }
 
 }
