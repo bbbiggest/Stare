@@ -23,6 +23,7 @@ public class mainPlayer {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);    //自动刷新
         this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
         send(name); //向服务器发送自己的名称
+        System.out.println("send my name");
     }
 
     public void send(String s) {

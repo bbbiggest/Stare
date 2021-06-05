@@ -127,8 +127,8 @@ public class smallFrame extends JFrame{
     	this.setVisible(true);
 	}
 	
-	JTextField duankou = new JTextField(9);
-	JTextField ip = new JTextField(9);
+	JTextField duankou = new JTextField("2323",9);
+	JTextField ip = new JTextField("localhost",9);
 	MyButton yes = new MyButton("确认");
 	String peopleNumber;
 	
@@ -161,9 +161,9 @@ public class smallFrame extends JFrame{
     	if(s2=="IP") {
     		jlb2.setBounds(80, 50, 100, 40);
     		jlb1.setBounds(80, 130, 100, 40);
-    		ip.setFont(new Font(null, Font.PLAIN, 15));
+    		ip.setFont(new Font("localhost", Font.PLAIN, 15));
         	duankou.setBounds(180, 130, 200, 40);
-        	duankou.setFont(new Font(null, Font.PLAIN, 15));
+        	duankou.setFont(new Font("2323", Font.PLAIN, 15));
         	ip.setBounds(180, 50, 200, 40);
         	panel.add(ip);
     	}

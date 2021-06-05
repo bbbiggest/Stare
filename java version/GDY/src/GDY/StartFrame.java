@@ -1,7 +1,7 @@
 package GDY;
 
 import GDY.client.PLAYER;
-import GDY.server.ROOM;
+
 
 import java.awt.*;
 import java.awt.CardLayout;
@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.plaf.FontUIResource;
-import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Objects;
@@ -150,13 +148,14 @@ public class StartFrame extends JFrame {
         if(options[optionSelected] == "创建房间")
         {
             System.out.println("创建房间");
-            creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true);
+            creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true,name);
             crF.setVisible(true);
-            CreamRoom(crF,name,crF.getThePort(),crF.getPeopleNumber());
 
         }else{
             System.out.println("加入房间");
             joinRoom.setVisible(true);
+
+
         }
 //        if (optionSelected >= 0) {
 //            System.out.println("点击的按钮: " + options[optionSelected]);
@@ -203,13 +202,19 @@ public class StartFrame extends JFrame {
 //        });
     }
 
-    void CreamRoom(creamRoomFrame frame,String name,int port,int count)
-    {
-        mainPlayer mainplayer = new mainPlayer(name);
-
-
-
-    }
+//    void CreamRoom(creamRoomFrame frame,String name,int port,int count){
+//        try {
+//            Room mainroom = new Room(port,count);
+//            String IP = mainroom.getIPAddress();
+//            mainroom.waitStart();
+//            mainPlayer player = new mainPlayer(name);
+//            player.connect(IP,port);
+//
+//        }catch(IOException e)
+//        {
+//            System.out.println("error");
+//        }
+//    }
 
     public static void main(String[] args) {
         new StartFrame();

@@ -15,7 +15,7 @@ public class gandengyan
 	public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
 	public static Player[] Players;
-	
+
 	public static void clearScreen()
 	{
 	    //Clears Screen in java
@@ -28,7 +28,7 @@ public class gandengyan
 
 	    } catch (IOException | InterruptedException ex) {}
 	}
-	
+
 	// 控制台输入玩家数量
 	public static void startGame()
 	{
@@ -41,7 +41,7 @@ public class gandengyan
 			Number_of_players = in.nextInt();
 		}
 	}
-	
+
 	// 初始化
 	public static void initGame()
 	{
@@ -71,19 +71,19 @@ public class gandengyan
         for (int i = 0; i < Number_of_players; ++i)
             Players[i] = new Player(i, "Anonymous");
 	}
-	
+
 	// 随机洗牌
 	public static void Shuffle()
 	{
 		Collections.shuffle(Deck);
 	}
-	
+
 	// 两张牌比较大小
 	public static boolean cmp_point(String sa, String sb)
 	{
 		return (PRank.get(sa) < PRank.get(sb));
 	}
-	
+
 	// 判断牌型
 	public static Pss getPokersType(ArrayList<Poker> ps)
 	{

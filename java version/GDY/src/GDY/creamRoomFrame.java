@@ -4,15 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class creamRoomFrame extends JDialog {
     private static int peopleNumber = -1;
     private static int thePort = -1;
-
+    public String name;
     creamRoomFrame () {}
 
-    creamRoomFrame(Frame owner, String title, boolean modal) {
+    creamRoomFrame(Frame owner, String title, boolean modal,String name) {
 //        owner.setVisible(false);
+        this.name = name;
         owner.setEnabled(!modal);
 //        this.setTitle("创建房间");
         this.setTitle(title);
@@ -56,6 +58,7 @@ public class creamRoomFrame extends JDialog {
                 peopleNumber = box.getSelectedItem().toString().charAt(0) - '0';
                 System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
 //                owner.setVisible(true);
+                creatroom();
                 dispose();
             }
         });
@@ -67,6 +70,24 @@ public class creamRoomFrame extends JDialog {
         curPanel.add(confirmButton);
         this.add(curPanel);
         this.setVisible(true);
+    }
+    void creatroom()
+    {
+        mainPlayer player = new mainPlayer(name);
+        try {
+
+                Room mainroom = new Room(getThePort(), getPeopleNumber());
+                String IP = mainroom.getIPAddress();
+                System.out.println("Player 马上链接");
+                player.connect(IP, getThePort());
+
+
+
+
+        }catch(IOException e)
+        {
+            System.out.println("error");
+        }
     }
 
     public int getPeopleNumber() { return peopleNumber; }

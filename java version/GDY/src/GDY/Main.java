@@ -10,19 +10,19 @@ public class Main
         JPanel mainpanel = new JPanel(cardlayout);
         gamepanel = new GamePanel();
         StartPanel startpanel = new StartPanel();
-        
+
         mainpanel.add(startpanel,"start");
         mainpanel.add(gamepanel,"game");
         mainpanel.setOpaque(false);
-        
+
         GameFrame gfm = new GameFrame();
-        
+
         gfm.add(mainpanel);
 //        cardlayout.show(mainpanel,"game");
         cardlayout.show(mainpanel, "start");
         startpanel.click(gfm, cardlayout, mainpanel);
         gfm.setVisible(true);
-        
+
 //        gandengyan.startGame();
 //        gandengyan.initGame();
 //        gandengyan.Shuffle();

@@ -29,7 +29,7 @@ import javax.swing.WindowConstants;
 
 
 public class GamePanel extends JPanel{
-	
+
 	public static String inputPoker; // 输入的扑克牌
 	private static int[] text_x = {170, 350, 1030, 2, 2, 1030};
 	private static int[] text_y = {520, 50, 480, 480, 190, 190};
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel{
 	public GamePanel(){
 		this.setLayout(null);
 		this.setOpaque(false);
-		
+
 		// 用户名的位置
 		text = new JLabel[6];
 		for(int i = 0; i < 6; i++) {
@@ -54,17 +54,17 @@ public class GamePanel extends JPanel{
 			text[i].setBounds(text_x[i], text_y[i], text_width, text_height);
 			this.add(text[i]);
 		}
-		
+
 		// 每个人剩余牌数的位置
 		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 		poker_back = new JLabel[5];
-//		
+//
 		for(int i = 0; i < 5; i++) {
 			poker_back[i] = new JLabel();
 			poker_back[i].setIcon(pokerback);
 			poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
-			
+
 			poker_back[i].setText("5");
 			poker_back[i].setFont(new Font(null, Font.BOLD, 60));
 			poker_back[i].setForeground(new Color(245, 133, 99));
@@ -72,14 +72,14 @@ public class GamePanel extends JPanel{
 			poker_back[i].setVerticalTextPosition(SwingConstants.CENTER);
 			this.add(poker_back[i]);
 		}
-		
-		
+
+
 		// 输入框
 		JTextField textfield = new JTextField(20);
 		textfield.setBounds(860, 580, 200, 40);
 		textfield.setFont(new Font(null, Font.PLAIN, 15));
 		this.add(textfield);
-		
+
 		// 出牌键
 		MyButton yes = new MyButton("出牌");
 		yes.setFont(new Font(null, Font.BOLD, 20));
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel{
 				textfield.setText("");
 				System.out.println(inputPoker);
 			}
-			
+
 		});
 
 		// 不出键
@@ -106,14 +106,14 @@ public class GamePanel extends JPanel{
 				System.out.println("no");
 			}
 		});
-		
+
 		// 提示文字
 		JLabel label = new JLabel("请输入符合规则的扑克牌点数，或者‘不出’",JLabel.CENTER);
 		label.setFont(new Font(null, Font.BOLD, 18));
 		label.setForeground(Color.LIGHT_GRAY);
 		label.setBounds(850, 630, 400, 40);
 		this.add(label);
-		
+
 //		// 自己的牌的位置test
 //		ArrayList<Poker> hand = new ArrayList<Poker>();
 //		hand.add(new Poker("Club","3"));
@@ -138,9 +138,9 @@ public class GamePanel extends JPanel{
 ////    		this.add(label[j]);
 //    		this.add(labeltest[j]);
 //    	}
-		
-    	
-		
+
+
+
 		// 上次出牌的位置
 		if (gandengyan.Last_playing_card.isEmpty() == false || true) {
 			JLabel[] lastpoker = new JLabel[gandengyan.Last_playing_card.size()];
@@ -165,19 +165,19 @@ public class GamePanel extends JPanel{
 				this.add(lastpoker[j]);
 			}
 		}
-		
+
 //		// 牌堆剩余的牌
 //		JLabel remainPoker = new JLabel();
 //		remainPoker.setIcon(pokerback);
 //		remainPoker.setBounds(10, 530, poker_back_width, poker_back_height);
 //		this.add(remainPoker);
-		
+
 		this.setVisible(true);
 	}
-	
+
 	// 隐藏用不到的label
 	public void changeNumber(int n) {
-		// int n = gandengyan.Number_of_players; 
+		// int n = gandengyan.Number_of_players;
 		if(n == 5) {
 			text[1].setVisible(false);
 			for(int i = 2; i < 6; i++) {

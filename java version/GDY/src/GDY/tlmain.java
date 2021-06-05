@@ -14,16 +14,16 @@ public class tlmain
         JPanel mainpanel = new JPanel(cardlayout);
         gamepanel = new GamePanel();
         StartPanel startpanel = new StartPanel();
-        
+
         mainpanel.add(startpanel,"start");
         mainpanel.add(gamepanel,"game");
-        
+
         gamepanel.changeNumber(3);  // test
-        
+
         mainpanel.setOpaque(false);
-        
+
         GameFrame gfm = new GameFrame();
-        
+
         gfm.add(mainpanel);
         cardlayout.show(mainpanel, "game");
         startpanel.click(gfm, cardlayout, mainpanel);
