@@ -103,8 +103,7 @@ public class StartFrame extends JFrame {
 
 //        selectFrame sF = new selectFrame();
 //        sF.setVisible(false);
-        smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP");
-        joinRoom.setVisible(false);
+
 //        sF.crb.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -128,58 +127,88 @@ public class StartFrame extends JFrame {
 //                setEnabled(false);
 //                selectFrame sF = new selectFrame(getFrames()[0], "请选择", true);
 //                sF.setVisible(true);
-                JDialog sF = new JDialog(getFrames()[0], "请选择", true);
-                setSelectFrame(sF);
+//                JDialog sF = new JDialog(getFrames()[0], "请选择", true);
+                setSelectFrame(name);
         }
         });
     }
-
-    void setSelectFrame(JDialog sF)
+    void setSelectFrame(String name)
     {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        int width = toolkit.getScreenSize().width;
-        int height = toolkit.getScreenSize().height;
-        Dimension size = new Dimension(500, 350);
-        sF.setBounds((int)(width - size.getWidth()) / 2, (int)(height - size.getHeight()) / 2,
-                (int)size.getWidth(), (int)size.getHeight());
-        sF.setSize(500,350);
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setOpaque(false);
+        smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP");
+        joinRoom.setVisible(false);
+        Object[] options = new Object[]{"创建房间","加入房间"};
+        int optionSelected = JOptionPane.showOptionDialog(
+                getFrames()[0],
+                "请点击按钮选择",
+                "请选择游戏方式",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.ERROR_MESSAGE,
+                null,
+                options,
+                options[1]
+        );
+        if(options[optionSelected] == "创建房间")
+        {
+            System.out.println("创建房间");
+            creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true);
+            crF.setVisible(true);
+            CreamRoom(crF,name,crF.getThePort(),crF.getPeopleNumber());
 
-        MyButton crb = new MyButton("创建房间"); // create room button
-        MyButton jrb = new MyButton("加入房间"); // join room button
-        crb.setBounds(70, 120, 150, 70);
-        jrb.setBounds(260, 120, 150, 70);
+        }else{
+            System.out.println("加入房间");
+            joinRoom.setVisible(true);
+        }
+//        if (optionSelected >= 0) {
+//            System.out.println("点击的按钮: " + options[optionSelected]);
+//        }
 
-        panel.add(crb);
-        panel.add(jrb);
-        panel.setVisible(true);
-        sF.add(panel);
-        sF.setVisible(true);
-
-        crb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isJoinRoom = false;
-                sF.setEnabled(false);
-                sF.setVisible(false);
-                creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true);
-                crF.setVisible(true);
-            }
-        });
-        jrb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isJoinRoom = true;
-//                joinRoom.setVisible(true);
-            }
-        });
+//        Toolkit toolkit = Toolkit.getDefaultToolkit();
+//        int width = toolkit.getScreenSize().width;
+//        int height = toolkit.getScreenSize().height;
+//        Dimension size = new Dimension(500, 350);
+//        sF.setBounds((int)(width - size.getWidth()) / 2, (int)(height - size.getHeight()) / 2,
+//                (int)size.getWidth(), (int)size.getHeight());
+//        sF.setSize(500,350);
+//
+//        JPanel panel = new JPanel();
+//        panel.setLayout(null);
+//        panel.setOpaque(false);
+//
+//        crb.setBounds(70, 120, 150, 70);
+//        jrb.setBounds(260, 120, 150, 70);
+//
+//        panel.add(crb);
+//        panel.add(jrb);
+//        panel.setVisible(true);
+//        sF.setContentPane(panel);
+//        sF.setVisible(true);
+//        crb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("创建房间");
+//                isJoinRoom = false;
+//                sF.setEnabled(false);
+//                sF.setVisible(false);
+//                creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true);
+//                crF.setVisible(true);
+//            }
+//        });
+//        jrb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("加入房间");
+//                isJoinRoom = true;
+////                joinRoom.setVisible(true);
+//            }
+//        });
     }
 
-    void setCreamRoomFrame(JDialog crF)
+    void CreamRoom(creamRoomFrame frame,String name,int port,int count)
     {
-        ;
+        mainPlayer mainplayer = new mainPlayer(name);
+
+
+
     }
 
     public static void main(String[] args) {

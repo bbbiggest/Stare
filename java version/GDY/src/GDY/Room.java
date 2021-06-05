@@ -1,12 +1,28 @@
 package GDY;
 
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.*;
 import java.util.*;
 
 
-class Room {
+public class Room extends Thread{
+    private int port;
+    private int count;
+    private ServerSocket serverSocket;
+    private String IPAddress;
+    private mainPlayer[] players;
+    public Room(int port,int count)throws IOException{
+        this.serverSocket = new ServerSocket(port, count);
+        this.port = port;
+        this.count = count;
+        InetAddress IPAddr = InetAddress.getLocalHost();
+        IPAddress = IPAddr.getHostAddress();
+        System.out.println(IPAddress);
+        this.players = new mainPlayer[count];
+        start();
+    }
     public void waitStart(int RoomPort) {
         try (var s = new ServerSocket(RoomPort)) {
             int i = 0;
@@ -24,7 +40,15 @@ class Room {
             e.printStackTrace();
         }
     }
-
+    public String getIPAddress() {
+        return IPAddress;
+    }
+    private void broadcast(String msg) {
+        for (int i=0; i<count; i++) {
+            if (players[i] != null)
+                players[i].send(msg);
+        }
+    }
 //    private void broadcast(String msg) {
 //        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
 //            if (gandengyan.Players[i] != null);
