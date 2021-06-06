@@ -12,12 +12,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.swing.plaf.FontUIResource;
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Objects;
 import javax.swing.*;
 
 public class StartPanel extends JPanel {

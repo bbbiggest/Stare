@@ -1,22 +1,15 @@
 package GDY;
 
-import GDY.client.PLAYER;
-
 
 import java.awt.*;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import javax.swing.plaf.FontUIResource;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Objects;
 import javax.swing.*;
 
 public class StartFrame extends JFrame {
-    String name;
+    public String name;
     MyButton begin = new MyButton("Game Begin");
     MyButton rule = new MyButton("Game Rules");
     boolean isJoinRoom;
@@ -67,6 +60,7 @@ public class StartFrame extends JFrame {
         startPanel.setVisible(true);
         this.add(startPanel);
         this.setVisible(true);
+
 
         //rule按钮
         rule.addActionListener(new ActionListener() {
@@ -122,18 +116,19 @@ public class StartFrame extends JFrame {
         begin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 //                setEnabled(false);
 //                selectFrame sF = new selectFrame(getFrames()[0], "请选择", true);
 //                sF.setVisible(true);
 //                JDialog sF = new JDialog(getFrames()[0], "请选择", true);
                 setSelectFrame(name);
+                //startPanel.setVisible(false);
         }
         });
     }
     void setSelectFrame(String name)
     {
-        smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP");
-        joinRoom.setVisible(false);
+
         Object[] options = new Object[]{"创建房间","加入房间"};
         int optionSelected = JOptionPane.showOptionDialog(
                 getFrames()[0],
@@ -147,11 +142,14 @@ public class StartFrame extends JFrame {
         );
         if(options[optionSelected] == "创建房间")
         {
+
             System.out.println("创建房间");
             creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true,name);
             crF.setVisible(true);
 
         }else{
+            smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP",name);
+            joinRoom.setVisible(false);
             System.out.println("加入房间");
             joinRoom.setVisible(true);
 

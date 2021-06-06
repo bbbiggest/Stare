@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class creamRoomFrame extends JDialog {
+public class creamRoomFrame extends JDialog{
     private static int peopleNumber = -1;
     private static int thePort = -1;
     public String name;
@@ -15,6 +15,7 @@ public class creamRoomFrame extends JDialog {
     creamRoomFrame(Frame owner, String title, boolean modal,String name) {
 //        owner.setVisible(false);
         this.name = name;
+
         owner.setEnabled(!modal);
 //        this.setTitle("创建房间");
         this.setTitle(title);
@@ -58,8 +59,11 @@ public class creamRoomFrame extends JDialog {
                 peopleNumber = box.getSelectedItem().toString().charAt(0) - '0';
                 System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
 //                owner.setVisible(true);
-                creatroom();
+                mainPlayer player = new mainPlayer(name);
+                creatroom(player,name);
+
                 dispose();
+                System.out.println("game begin");
             }
         });
 
@@ -71,15 +75,20 @@ public class creamRoomFrame extends JDialog {
         this.add(curPanel);
         this.setVisible(true);
     }
-    void creatroom()
+
+
+    void creatroom(mainPlayer player,String name)
     {
-        mainPlayer player = new mainPlayer(name);
+
         try {
+
 
                 Room mainroom = new Room(getThePort(), getPeopleNumber());
                 String IP = mainroom.getIPAddress();
                 System.out.println("Player 马上链接");
                 player.connect(IP, getThePort());
+                waiting(player);
+//                player1.connect(IP,getThePort());
 
 
 
@@ -87,6 +96,20 @@ public class creamRoomFrame extends JDialog {
         }catch(IOException e)
         {
             System.out.println("error");
+        }
+    }
+    void waiting(mainPlayer player)
+    {
+        while (true) {
+            try {
+                String rec = player.read();
+                if (rec.equals("begin")) {
+                    System.out.println("收到! run game");
+                    break;
+                }
+            } catch (IOException e) {
+                //System.out.println("消息接收时出现错误");
+            }
         }
     }
 

@@ -1,11 +1,14 @@
 package GDY;
 import java.io.*;
 import java.net.Socket;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+import java.util.*;
 
-public class mainPlayer {
+public class mainPlayer{
     private Socket socket;
-    private String name;
+    public String name;
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
 
@@ -19,15 +22,26 @@ public class mainPlayer {
 
 
     public void connect(String IPAddress, int port) throws IOException {
-        socket = new Socket(IPAddress, port);    //通过IP地址和端口创建和服务器的连接
-        this.printWriter = new PrintWriter(socket.getOutputStream(), true);    //自动刷新
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-        send(name); //向服务器发送自己的名称
-        System.out.println("send my name");
+        try(Socket s = new Socket(IPAddress,port)){
+            System.out.println("hhhhhh,接上了");
+            this.printWriter = new PrintWriter(s.getOutputStream(), true);    //自动刷新
+            this.bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream(), StandardCharsets.UTF_8));
+            send(getName());
+            System.out.println(name);
+
+        }catch (IOException e)
+        {
+            System.out.println("mainPlayer error，未找到服务器");
+        }
+
+    }
+    public mainPlayer(Socket incomingSocket)
+    {
+        socket = incomingSocket;
     }
 
-    public void send(String s) {
-        printWriter.println(new String(s.getBytes(StandardCharsets.UTF_8)));
+    public void send(String msg) {
+        printWriter.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
     }
 
     public void disconnect() {

@@ -4,8 +4,6 @@
 
 package GDY;
 
-import GDY.client.PLAYER;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

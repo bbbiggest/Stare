@@ -1,16 +1,10 @@
 package GDY;
 
 
-import java.io.*;
 import java.net.*;
-import java.nio.charset.*;
-import java.util.*;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.ServerSocket;
-import java.util.Enumeration;
 
 
 public class Room extends Thread{
@@ -28,31 +22,41 @@ public class Room extends Thread{
         InetAddress IPAddr = InetAddress.getLocalHost();
         IPAddress = IPAddr.getHostAddress();
         System.out.println(IPAddress);
+        start();
+
+    }
+    public void run()
+    {
         try(ServerSocket serverSocket = new ServerSocket(port, count)) {
-            int  i = 1;
+            int  i = 0;
+
             Socket[] socket = new Socket[count];
-            while(true)
+            smallFrame wait = new smallFrame("waitting..."+"IP:"+IPAddress+"端口号:"+port,"IP:"+IPAddress+"\r"+"端口号:"+String.valueOf(port));
+            wait.setVisible(true);
+            while(i<count)
             {
 
                 Socket incoming = serverSocket.accept();
-                System.out.println("Spawning "+ i);
-                Runnable r = new ThreadedEchoHandler(incoming);
-                Thread t = new Thread(r);
-                t.start();
+                System.out.println("hello");
+                System.out.println("玩家 "+ i);
                 i++;
             }
+            wait.setVisible(false);
+            System.out.println("wow,人到齐了");
+            broadcast("begin");
+
 
         }catch (IOException e)
         {
+            System.out.println("Room error!");
             e.printStackTrace();
         }
-
     }
 
     public String getIPAddress() {
         return IPAddress;
     }
-    private void broadcast(String msg) {
+    public void broadcast(String msg) {
         for (int i=0; i<count; i++) {
             if (players[i] != null)
                 players[i].send(msg);
