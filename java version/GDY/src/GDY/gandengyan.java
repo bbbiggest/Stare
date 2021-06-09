@@ -1,4 +1,5 @@
 package GDY;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ public class gandengyan
 	public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
 	public static Player[] Players;
+	public static Seat[] Seats;
 
 	public static void clearScreen()
 	{
@@ -67,9 +69,12 @@ public class gandengyan
 		Number_of_no = 0;
 		Last_playing_card_type = new Pss(CardTypes[0], "-1");
 
-		Players = new Player[Number_of_players];
-        for (int i = 0; i < Number_of_players; ++i)
-            Players[i] = new Player(i, "Anonymous");
+//		Players = new Player[Number_of_players];
+//        for (int i = 0; i < Number_of_players; ++i)
+//            Players[i] = new Player(i, "Anonymous");
+		Seats = new Seat[Number_of_players];
+		for (int i = 0; i < Number_of_players; ++i)
+			Seats[i] = new Seat(i);
 	}
 
 	// 随机洗牌
@@ -157,23 +162,37 @@ public class gandengyan
 			return new Pss(CardTypes[0], "-1");
 	}
 
-//	public static void temp()
-//	{
-//		while (true)
-//		{
-//			Socket incoming = s.accept();
-//			Runnable r = ThreadedEchoHandler(incoming);
-//
-//			Thread t = new Thread(r);
-//			t.start();
-//		}
-//	}
+	public static void ThreadedEchoServer()
+	{
+		try (var s = new ServerSocket(8189))
+		{
+			int i = 1;
+			while (true)
+			{
+				Socket incoming = s.accept();
+				System.out.println("Spawning " + i);
+				Runnable r = new ThreadedEchoHandler(incoming);
+				var t = new Thread(r);
+				t.start();
+				i++;
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	private void broadcast(String msg) {
         for (int i = 0; i < gandengyan.Number_of_players; ++i) {
             if (gandengyan.Players[i] != null);
                 gandengyan.Players[i].send(msg);
         }
+    }
+
+    public static void main(String[] args)
+    {
+        gandengyan.ThreadedEchoServer();
     }
 }
 

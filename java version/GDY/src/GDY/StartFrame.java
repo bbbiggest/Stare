@@ -1,6 +1,5 @@
 package GDY;
 
-
 import java.awt.*;
 import java.awt.CardLayout;
 import java.awt.Font;
