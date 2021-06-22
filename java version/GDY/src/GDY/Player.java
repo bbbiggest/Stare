@@ -21,17 +21,21 @@ public class Player {
         this.name = "Anonymous";
     }
 
-    public Player(int ID, String name) {
-        this.ID = ID;
-        this.name = name;
-    }
-
     public void setID(int tID) {
         ID = tID;
     }
 
     public void setName(String tname) {
         this.name = tname;
+    }
+
+    void autoset() throws IOException {
+        name = Main.start.getname();
+        if (Main.isJoinRoom) {
+            connect_server(Main.start.getTheIP(), Main.start.getThePort());
+        } else {
+            connect_server(Main.gdy.getIPAddress(), Main.start.getThePort());
+        }
     }
 
 
@@ -41,7 +45,7 @@ public class Player {
 //        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
 //        System.out.println();
 
-        Main.gamepanel.setLayout(null);
+//        Main.gamepanel.setLayout(null);
         JLabel label[] = new JLabel[54];
         int i = 0;
         for (var x : hand) {
@@ -55,9 +59,9 @@ public class Player {
         for (int j = 0; j < hand.size(); j++) {
             label[j].setBounds(left + j * 40, 520, 100, 144);
         }
-        for (int j = hand.size() - 1; j >= 0; j--) {
-            Main.gamepanel.add(label[j]);
-        }
+//        for (int j = hand.size() - 1; j >= 0; j--) {
+//            Main.gamepanel.add(label[j]);
+//        }
     }
 
     public int Get_number_of_remaining_hands() {

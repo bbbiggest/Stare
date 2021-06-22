@@ -8,18 +8,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import javax.swing.*;
 
 public class StartFrame extends JFrame {
-    public String name;
-    MyButton begin = new MyButton("Game Begin");
-    MyButton rule = new MyButton("Game Rules");
-    public boolean isok = false;
-    boolean isJoinRoom;
+    private String name;
     private static int peopleNumber = -1;
     private static int thePort = -1;
     private static String theIP = "";
+
+    private MyButton begin = new MyButton("Game Begin");
+    private MyButton rule = new MyButton("Game Rules");
     private JFrame scjF; // SelectFrame, CreamFrame and JoinFrame
+
+    String getname() { return this.name; }
+    int getPeopleNumber() { return this.peopleNumber; }
+    int getThePort() { return this.thePort; }
+    String getTheIP() { return this.theIP; }
 
     StartFrame() {
         name = JOptionPane.showInputDialog(this, "请输入用户名");
@@ -146,7 +151,7 @@ public class StartFrame extends JFrame {
         crb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isJoinRoom = false;
+                Main.isJoinRoom = false;
                 scjF.remove(panel);
                 setCreamFrame();
             }
@@ -154,7 +159,7 @@ public class StartFrame extends JFrame {
         jrb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isJoinRoom = true;
+                Main.isJoinRoom = true;
                 scjF.remove(panel);
                 setJoinFrame();
             }
@@ -202,9 +207,15 @@ public class StartFrame extends JFrame {
                 thePort = Integer.parseInt(inputPort.getText().trim());
                 peopleNumber = box.getSelectedItem().toString().charAt(0) - '0';
                 System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
-//                mainPlayer player = new mainPlayer(name);
                 setEnabled(true);
-                isok = true;
+                setVisible(false);
+                try {
+                    Main.returnMain();
+                } catch (UnknownHostException unknownHostException) {
+                    unknownHostException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
 
@@ -266,45 +277,16 @@ public class StartFrame extends JFrame {
                 thePort = Integer.parseInt(inputPort.getText().trim());
                 theIP = inputIP.getText();
                 System.out.println("ip is: " + theIP + "\nport is: " + thePort);
-                mainPlayer player = new mainPlayer(name);
                 setEnabled(true);
-                isok = true;
+                setVisible(false);
+                try {
+                    Main.returnMain();
+                } catch (IOException unknownHostException) {
+                    unknownHostException.printStackTrace();
+                }
             }
         });
     }
-
-
-//    void setSelectFrame(String name) {
-//
-//        Object[] options = new Object[]{"创建房间", "加入房间"};
-//        int optionSelected = JOptionPane.showOptionDialog(
-//                getFrames()[0],
-//                "请点击按钮选择",
-//                "请选择游戏方式",
-//                JOptionPane.YES_NO_CANCEL_OPTION,
-//                JOptionPane.ERROR_MESSAGE,
-//                null,
-//                options,
-//                options[1]
-//        );
-//        if (options[optionSelected] == "创建房间") {
-//
-//            System.out.println("创建房间");
-//            creamRoomFrame crF = new creamRoomFrame(getFrames()[0], "创建房间", true, name);
-//            crF.setVisible(true);
-//
-//        } else {
-//            smallFrame joinRoom = new smallFrame("加入房间", "端口号", "IP", name);
-//            joinRoom.setVisible(false);
-//            System.out.println("加入房间");
-//            joinRoom.setVisible(true);
-//
-//
-//        }
-////        if (optionSelected >= 0) {
-////            System.out.println("点击的按钮: " + options[optionSelected]);
-////        }
-//    }
 
 //    void CreamRoom(creamRoomFrame frame,String name,int port,int count){
 //        try {
@@ -319,9 +301,5 @@ public class StartFrame extends JFrame {
 //            System.out.println("error");
 //        }
 //    }
-
-    public static void main(String[] args) {
-        new StartFrame();
-    }
 
 }

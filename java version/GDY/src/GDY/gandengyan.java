@@ -1,8 +1,10 @@
 package GDY;
+
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.*;
-import javax.swing.JLabel;
 import java.io.IOException;
 
 public class gandengyan
@@ -15,8 +17,17 @@ public class gandengyan
 	public static int Number_of_players, First_player, Winner, Number_of_no;
 	public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
 	public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
-	public static Player[] Players;
 	public static Seat[] Seats;
+	public static String IPAddress;
+
+	gandengyan() throws UnknownHostException {
+		InetAddress IPAddr = InetAddress.getLocalHost();
+		IPAddress = IPAddr.getHostAddress();
+	}
+
+	String getIPAddress() {
+		return this.getIPAddress();
+	}
 
 	public static void clearScreen()
 	{
@@ -29,19 +40,6 @@ public class gandengyan
 	            Runtime.getRuntime().exec("clear");
 
 	    } catch (IOException | InterruptedException ex) {}
-	}
-
-	// 控制台输入玩家数量
-	public static void startGame()
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.println("请输入玩家数量(2~6)");
-		Number_of_players = in.nextInt();
-		while (Number_of_players < 2 || Number_of_players > 6)
-		{
-			System.out.println("请输入玩家数量(2~6)");
-			Number_of_players = in.nextInt();
-		}
 	}
 
 	// 初始化
@@ -69,25 +67,16 @@ public class gandengyan
 		Number_of_no = 0;
 		Last_playing_card_type = new Pss(CardTypes[0], "-1");
 
-//		Players = new Player[Number_of_players];
-//        for (int i = 0; i < Number_of_players; ++i)
-//            Players[i] = new Player(i, "Anonymous");
 		Seats = new Seat[Number_of_players];
 		for (int i = 0; i < Number_of_players; ++i)
 			Seats[i] = new Seat(i);
 	}
 
 	// 随机洗牌
-	public static void Shuffle()
-	{
-		Collections.shuffle(Deck);
-	}
+	public static void Shuffle() { Collections.shuffle(Deck); }
 
 	// 两张牌比较大小
-	public static boolean cmp_point(String sa, String sb)
-	{
-		return (PRank.get(sa) < PRank.get(sb));
-	}
+	public static boolean cmp_point(String sa, String sb) { return (PRank.get(sa) < PRank.get(sb)); }
 
 	// 判断牌型
 	public static Pss getPokersType(ArrayList<Poker> ps)
@@ -185,17 +174,14 @@ public class gandengyan
 
 	private void broadcast(String msg) {
         for (int i = 0; i < gandengyan.Number_of_players; ++i) {
-            if (gandengyan.Players[i] != null);
-                gandengyan.Players[i].send(msg);
+            if (gandengyan.Seats[i] != null);
+                gandengyan.Seats[i].send(msg);
         }
     }
 
-    public static void main(String[] args) {
-//        gandengyan.ThreadedEchoServer();
-    }
 }
 
-// pair of (String, String)
+// pair of <String, String>
 class Pss
 {
 	public String first;

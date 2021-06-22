@@ -6,27 +6,14 @@ package GDY;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
 
 public class GamePanel extends JPanel{
 
@@ -138,7 +125,6 @@ public class GamePanel extends JPanel{
 ////    		this.add(label[j]);
 //    		this.add(labeltest[j]);
 //    	}
-
 
 
 		// 上次出牌的位置

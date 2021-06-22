@@ -1,6 +1,7 @@
 package GDY;
 
 
+import javax.swing.*;
 import java.net.*;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -31,8 +32,7 @@ public class Room extends Thread{
             int  i = 0;
 
             Socket[] socket = new Socket[count];
-            smallFrame wait = new smallFrame("waitting..."+"IP:"+IPAddress+"端口号:"+port,"IP:"+IPAddress+"\r"+"端口号:"+String.valueOf(port));
-            wait.setVisible(true);
+            JOptionPane.showMessageDialog(Main.start, "waitting..."+"IP:"+IPAddress+"端口号:"+port+"IP:"+IPAddress+"\r"+"端口号:"+String.valueOf(port), "等待", JOptionPane.WARNING_MESSAGE);
             while(i<count)
             {
 
@@ -41,7 +41,6 @@ public class Room extends Thread{
                 System.out.println("玩家 "+ i);
                 i++;
             }
-            wait.setVisible(false);
             System.out.println("wow,人到齐了");
             broadcast("begin");
 
