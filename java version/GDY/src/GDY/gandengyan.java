@@ -190,9 +190,8 @@ public class gandengyan
         }
     }
 
-    public static void main(String[] args)
-    {
-        gandengyan.ThreadedEchoServer();
+    public static void main(String[] args) {
+//        gandengyan.ThreadedEchoServer();
     }
 }
 
