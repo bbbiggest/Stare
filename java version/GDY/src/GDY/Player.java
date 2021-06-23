@@ -9,16 +9,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Player {
-    private int ID;
-    private String name;
+    private int ID = 0;
+    private String name = "Anonymous";
     private ArrayList<Poker> hand = new ArrayList<Poker>();
     private Socket mySocket;
     private PrintWriter pWriter;
     private BufferedReader bReader;
 
-    public Player() {
-        this.ID = 0;
-        this.name = "Anonymous";
+    public Player() throws IOException {
+        this.name = Main.start.getname();
+//        if (!Main.isJoinRoom) {
+//            mySocket = new Socket(Main.gdy.getIPAddress(), Main.start.getThePort());
+//            this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
+//            this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
+//        }
     }
 
     public void setID(int tID) {
@@ -30,11 +34,11 @@ public class Player {
     }
 
     void autoset() throws IOException {
-        name = Main.start.getname();
         if (Main.isJoinRoom) {
             connect_server(Main.start.getTheIP(), Main.start.getThePort());
         } else {
-            connect_server(Main.gdy.getIPAddress(), Main.start.getThePort());
+            connect_server(Main.gdy.IPAddress, Main.start.getThePort());
+            System.out.println("connnect " + Main.gdy.IPAddress + ' ' + Main.start.getThePort());
         }
     }
 
@@ -256,6 +260,8 @@ public class Player {
         this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
         this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
         send(name);
+        this.ID = Integer.parseInt(read().trim());
+        System.out.println(ID + "yes");
     }
 
     public void send(String msg) {

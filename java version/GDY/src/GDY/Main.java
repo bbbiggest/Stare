@@ -1,22 +1,36 @@
 package GDY;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.net.UnknownHostException;
 
-public class Main
-{
+public class Main {
     public static StartFrame start;
+    public static JFrame GameFrame;
     public static Player me;
     public static boolean isJoinRoom;
     public static gandengyan gdy;
+    Main() { start = new StartFrame(); }
+
     public static void returnMain() throws IOException {
         if (!isJoinRoom) {
             gdy = new gandengyan();
+            gdy.readyToStart();
+        } else {
+            me = new Player();
+            me.autoset();
         }
-        me = new Player();
-        me.autoset();
+        if (isJoinRoom) {
+            JOptionPane.showMessageDialog(GameFrame, "等待人到齐后游戏开始\n", "waitting...", JOptionPane.WARNING_MESSAGE);
+        }
+        while (me.read() != "start")
+            ;
+        GameFrame = new JFrame();
+        GamePanel curGame = new GamePanel();
+        GameFrame.add(curGame);
+        GameFrame.setVisible(true);
     }
+
     public static void main(String[] args) {
-        start = new StartFrame();
+        new Main();
     }
 }

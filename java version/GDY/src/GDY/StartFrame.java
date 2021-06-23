@@ -209,6 +209,7 @@ public class StartFrame extends JFrame {
                 System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
                 setEnabled(true);
                 setVisible(false);
+                scjF.dispose();
                 try {
                     Main.returnMain();
                 } catch (UnknownHostException unknownHostException) {
@@ -279,6 +280,7 @@ public class StartFrame extends JFrame {
                 System.out.println("ip is: " + theIP + "\nport is: " + thePort);
                 setEnabled(true);
                 setVisible(false);
+                scjF.dispose();
                 try {
                     Main.returnMain();
                 } catch (IOException unknownHostException) {
@@ -287,19 +289,5 @@ public class StartFrame extends JFrame {
             }
         });
     }
-
-//    void CreamRoom(creamRoomFrame frame,String name,int port,int count){
-//        try {
-//            Room mainroom = new Room(port,count);
-//            String IP = mainroom.getIPAddress();
-//            mainroom.waitStart();
-//            mainPlayer player = new mainPlayer(name);
-//            player.connect(IP,port);
-//
-//        }catch(IOException e)
-//        {
-//            System.out.println("error");
-//        }
-//    }
 
 }

@@ -1,35 +1,64 @@
 package GDY;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
-public class Seat {
+public class Seat implements Runnable {
     private int ID;
     private String name;
-    private String IP;
-    private int Port;
-    private Socket mySocket;
+    private Socket incoming;
     private PrintWriter pWriter;
     private BufferedReader bReader;
 
-    public Seat(int ID) { this.ID = ID; }
-
-    public void sitDown(String name, String IP, int Port) throws IOException {
-        this.name = name;
-        this.IP = IP;
-        this.Port = Port;
-        connect_server(this.IP, this.Port);
+    public Seat(int ID, Socket incomingSocket) throws IOException {
+        this.ID = ID;
+        this.incoming = incomingSocket;
+        this.pWriter = new PrintWriter(incoming.getOutputStream(), true);
+        this.bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
+//        if (ID == 0) {
+//            name = Main.start.getname();
+//        }
     }
 
-    public void connect_server(String IPAddress, int Port) throws IOException {
-        mySocket = new Socket(IPAddress, Port);
-        this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
-        this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
-        send(Integer.toString(ID));
+//    public void sitDown(Socket mySocket) throws IOException {
+//        this.mySocket = mySocket;
+//        this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
+//        this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
+//        this.name = read();
+//        send(Integer.toString(ID));
+//        System.out.println("玩家 " + this.ID);
+//    }
+
+    public void run()
+    {
+        try (InputStream inStream = incoming.getInputStream();
+             OutputStream outStream = incoming.getOutputStream();
+             var in = new Scanner(inStream, StandardCharsets.UTF_8);
+             var out = new PrintWriter(
+                     new OutputStreamWriter(outStream, StandardCharsets.UTF_8),
+                     true /* autoFlush */))
+        {
+//            if (ID != 0)
+                this.name = in.next();
+            System.out.println(ID + "-" + name);
+            out.println(this.ID);
+
+            // echo client input
+            var done = false;
+            while (!done && in.hasNextLine())
+            {
+                String line = in.nextLine();
+                out.println("Echo: " + line);
+                if (line.trim().equals("BYE"))
+                    done = true;
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void send(String msg) {
