@@ -44,11 +44,16 @@ public class gandengyan {
             });
             t1.start();
             for (int i = 0; i < Number_of_players; ++i) {
+                System.out.println(1);
                 Socket incoming = s.accept();
+                System.out.println(2);
                 Runnable r = new Seat(i, incoming);
+                System.out.println(3);
                 var t = new Thread(r);
                 t.start();
+                System.out.println(4);
             }
+            System.out.println("people all arrive");
         } catch (IOException e) {
             e.printStackTrace();
         }

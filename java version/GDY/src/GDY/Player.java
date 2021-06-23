@@ -35,7 +35,9 @@ public class Player {
 
     void autoset() throws IOException {
         if (Main.isJoinRoom) {
+            System.out.println("is Join");
             connect_server(Main.start.getTheIP(), Main.start.getThePort());
+            System.out.println("connnect " + Main.start.getTheIP() + ' ' + Main.start.getThePort());
         } else {
             connect_server(Main.gdy.IPAddress, Main.start.getThePort());
             System.out.println("connnect " + Main.gdy.IPAddress + ' ' + Main.start.getThePort());

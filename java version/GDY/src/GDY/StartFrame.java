@@ -21,10 +21,21 @@ public class StartFrame extends JFrame {
     private MyButton rule = new MyButton("Game Rules");
     private JFrame scjF; // SelectFrame, CreamFrame and JoinFrame
 
-    String getname() { return this.name; }
-    int getPeopleNumber() { return this.peopleNumber; }
-    int getThePort() { return this.thePort; }
-    String getTheIP() { return this.theIP; }
+    String getname() {
+        return this.name;
+    }
+
+    int getPeopleNumber() {
+        return this.peopleNumber;
+    }
+
+    int getThePort() {
+        return this.thePort;
+    }
+
+    String getTheIP() {
+        return this.theIP;
+    }
 
     StartFrame() {
         name = JOptionPane.showInputDialog(this, "请输入用户名");
@@ -109,11 +120,9 @@ public class StartFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 scjF = new JFrame();
                 scjF.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                scjF.addWindowListener(new WindowAdapter()
-                {
+                scjF.addWindowListener(new WindowAdapter() {
                     @Override
-                    public void windowClosing(WindowEvent e)
-                    {
+                    public void windowClosing(WindowEvent e) {
                         setEnabled(true);
                         e.getWindow().dispose();
                     }
@@ -212,8 +221,6 @@ public class StartFrame extends JFrame {
                 scjF.dispose();
                 try {
                     Main.returnMain();
-                } catch (UnknownHostException unknownHostException) {
-                    unknownHostException.printStackTrace();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -283,8 +290,8 @@ public class StartFrame extends JFrame {
                 scjF.dispose();
                 try {
                     Main.returnMain();
-                } catch (IOException unknownHostException) {
-                    unknownHostException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
             }
         });
