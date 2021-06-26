@@ -12,18 +12,13 @@ public class Player {
     private int ID = 0;
     private String name = "Anonymous";
     private ArrayList<Poker> hand = new ArrayList<Poker>();
-    private Socket mySocket;
+    private Socket incoming;
     private PrintWriter pWriter;
     private BufferedReader bReader;
+    private Scanner in;
+    private PrintWriter out;
 
-    public Player() throws IOException {
-        this.name = Main.start.getname();
-//        if (!Main.isJoinRoom) {
-//            mySocket = new Socket(Main.gdy.getIPAddress(), Main.start.getThePort());
-//            this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
-//            this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
-//        }
-    }
+    public Player() { this.name = Main.start.getname(); }
 
     public void setID(int tID) {
         ID = tID;
@@ -258,19 +253,32 @@ public class Player {
     }
 
     public void connect_server(String IPAddress, int Port) throws IOException {
-        mySocket = new Socket(IPAddress, Port);
-        this.pWriter = new PrintWriter(mySocket.getOutputStream(), true);
-        this.bReader = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), StandardCharsets.UTF_8));
-        send(name);
-        this.ID = Integer.parseInt(read().trim());
+        incoming = new Socket(IPAddress, Port);
+        InputStream inStream = incoming.getInputStream();
+        OutputStream outStream = incoming.getOutputStream();
+        in = new Scanner(inStream, StandardCharsets.UTF_8);
+        out = new PrintWriter(
+                new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true /* autoFlush */);
+//        this.pWriter = new PrintWriter(incoming.getOutputStream(), true);
+//        this.bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
+//        send(name);
+        out.println(name);
+        this.ID = in.nextInt();
         System.out.println(ID + "yes");
     }
 
     public void send(String msg) {
-        pWriter.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
+//        out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
+        out.println(msg);
     }
 
     public String read() throws IOException {
-        return bReader.readLine();
+//        return bReader.readLine();
+        if (in.hasNextLine()) {
+            String line = in.nextLine();
+            System.out.println("read: " + line);
+            return line.trim();
+        }
+        return "";
     }
 }

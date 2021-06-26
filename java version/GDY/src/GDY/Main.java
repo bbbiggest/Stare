@@ -27,8 +27,9 @@ public class Main {
             JOptionPane.showMessageDialog(GameFrame, "等待人到齐后游戏开始\n",
                     "waitting...", JOptionPane.WARNING_MESSAGE);
         }
-        while (me.read() != "start")
+        while (!me.read().equals("start"))
             ;
+        System.out.println("Main30 - while end");
         GameFrame = new JFrame();
         GamePanel curGame = new GamePanel();
         GameFrame.add(curGame);

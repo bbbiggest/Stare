@@ -1,10 +1,6 @@
 package GDY;
 
-import javax.swing.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.*;
 import java.io.IOException;
 
@@ -20,10 +16,13 @@ public class gandengyan {
     public static Seat[] Seats;
     public static String IPAddress;
 
-    gandengyan() throws UnknownHostException {
-        InetAddress IPAddr = InetAddress.getLocalHost();
+    gandengyan() throws UnknownHostException, SocketException {
+//        InetAddress IPAddr = InetAddress.getLocalHost();
+//        IPAddress = IPAddr.getHostAddress();
+        InetAddress IPAddr = getLocalHostExactAddress();
         IPAddress = IPAddr.getHostAddress();
-        Number_of_players = Main.start.getPeopleNumber();
+//        Number_of_players = Main.start.getPeopleNumber();
+        Number_of_players = 1;
     }
 
     void readyToStart() {
@@ -44,19 +43,26 @@ public class gandengyan {
             });
             t1.start();
             for (int i = 0; i < Number_of_players; ++i) {
-                System.out.println(1);
+//                System.out.println(1);
                 Socket incoming = s.accept();
-                System.out.println(2);
-                Runnable r = new Seat(i, incoming);
-                System.out.println(3);
-                var t = new Thread(r);
+//                System.out.println(2);
+//                Runnable r = new Seat(i, incoming);
+                Seats[i] = new Seat(i, incoming);
+//                System.out.println(3);
+                var t = new Thread(Seats[i]);
                 t.start();
-                System.out.println(4);
+//                System.out.println(4);
             }
             System.out.println("people all arrive");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        var t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                broadcast("start");
+            }
+        });
     }
 
     public static void clearScreen() {
@@ -70,6 +76,33 @@ public class gandengyan {
 
         } catch (IOException | InterruptedException ex) {
         }
+    }
+
+    public static InetAddress getLocalHostExactAddress() {
+        try {
+            InetAddress candidateAddress = null;
+            Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                NetworkInterface iface = networkInterfaces.nextElement();
+                for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
+                    InetAddress inetAddr = inetAddrs.nextElement();
+                    if (!inetAddr.isLoopbackAddress()) {
+                        if (inetAddr.isSiteLocalAddress()) {
+                            return inetAddr;
+                        }
+                        if (candidateAddress == null) {
+                            candidateAddress = inetAddr;
+                        }
+
+                    }
+                }
+            }
+
+            return candidateAddress == null ? InetAddress.getLocalHost() : candidateAddress;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // 初始化
@@ -187,10 +220,11 @@ public class gandengyan {
     }
 
     private void broadcast(String msg) {
-        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
-            if (gandengyan.Seats[i] != null) ;
-            gandengyan.Seats[i].send(msg);
+        for (int i = 0; i < Number_of_players; ++i) {
+            if (Seats[i] != null)
+                Seats[i].send(msg);
         }
+        System.out.println("broadcast: " + msg);
     }
 
 }
