@@ -1,6 +1,7 @@
 package GDY;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 public class Main {
@@ -10,12 +11,14 @@ public class Main {
     }
 
     public static StartFrame start;
-    public static JFrame GameFrame;
-    public static Player me;
-    public static boolean isJoinRoom;
+    public static GameFrame GF;
+    public static boolean isJoinRoom, isok = false;
     public static gandengyan gdy;
+    public static Player me;
 
-    Main() { start = new StartFrame(); }
+    Main() {
+        start = new StartFrame();
+    }
 
     public static void returnMain() throws IOException {
         if (!isJoinRoom) {
@@ -24,15 +27,22 @@ public class Main {
         } else {
             me = new Player();
             me.autoset();
-            JOptionPane.showMessageDialog(GameFrame, "等待人到齐后游戏开始\n",
-                    "waitting...", JOptionPane.WARNING_MESSAGE);
         }
-        while (!me.read().equals("start"))
-            ;
-        System.out.println("Main30 - while end");
-        GameFrame = new JFrame();
-        GamePanel curGame = new GamePanel();
-        GameFrame.add(curGame);
-        GameFrame.setVisible(true);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("wait isok");
+                while (!isok) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("isok");
+                GF.startGame();
+            }
+        });
+        t.start();
     }
 }

@@ -20,13 +20,10 @@ public class Player {
 
     public Player() { this.name = Main.start.getname(); }
 
-    public void setID(int tID) {
-        ID = tID;
-    }
+    public void setID(int tID) { ID = tID; }
 
-    public void setName(String tname) {
-        this.name = tname;
-    }
+    public int getID() { return this.ID; }
+    public String getName() { return this.name; }
 
     void autoset() throws IOException {
         if (Main.isJoinRoom) {
@@ -37,6 +34,13 @@ public class Player {
             connect_server(Main.gdy.IPAddress, Main.start.getThePort());
             System.out.println("connnect " + Main.gdy.IPAddress + ' ' + Main.start.getThePort());
         }
+        Main.GF = new GameFrame();
+        Main.GF.waitting();
+        System.out.println("GF waitting");
+        while (!read().equals("start"))
+            ;
+        Main.isok = true;
+        System.out.println("isok = true");
     }
 
 
@@ -70,9 +74,10 @@ public class Player {
     }
 
     public void getPoker() {
-        if (!gandengyan.Deck.isEmpty()) {
-            hand.add(gandengyan.Deck.get(0));
-            gandengyan.Deck.remove(0);
+        send("getPoker");
+        String line = read();
+        if (!line.equals("none")) {
+            hand.add(new Poker(line));
             hand.sort(null);
         }
     }
@@ -95,7 +100,7 @@ public class Player {
                 return false;
             }
         }
-        gandengyan.Last_playing_card = Discard_pile;
+        GameInfo.Last_playing_card = Discard_pile;
         return true;
     }
 
@@ -108,12 +113,12 @@ public class Player {
     }
 
     public void noPlay() {
-        if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0])) {
+        if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0])) {
             System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
             return;
         }
         getPoker();
-        gandengyan.Number_of_no++;
+        GameInfo.Number_of_no++;
     }
 
     public void aLegalPlay() {
@@ -131,13 +136,13 @@ public class Player {
 
 //            if (tem.equals("no") || tem.equals("NO") || tem.equals("No") || tem.equals("nO"))
 //            {
-//            	if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
+//            	if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
 //                {
 //                    System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
 //                    continue;
 //                }
 //                getPoker();
-//                gandengyan.Number_of_no++;
+//                GameInfo.Number_of_no++;
 //                break;
 //            }
 
@@ -160,7 +165,7 @@ public class Player {
                     isok = false;
                     break;
                 } else if (curp.length() == 5) {
-                    if (curp.equals(gandengyan.AllPoints[13]))
+                    if (curp.equals(GameInfo.AllPoints[13]))
                         continue;
                     isok = false;
                     break;
@@ -170,7 +175,7 @@ public class Player {
                 }
             }
             if (isok == false) {
-                if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
+                if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
                     System.out.println("请输入正确的扑克牌点数");
                 else
                     System.out.println("请输入正确的扑克牌点数，或者‘no’");
@@ -188,44 +193,44 @@ public class Player {
                     break;
                 }
             }
-            if (isok == false) {
-                if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
+            if (!isok) {
+                if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
                     System.out.println("请输入你所拥有的扑克牌点数");
                 else
                     System.out.println("请输入你所拥有的扑克牌点数，或者‘no’");
                 continue;
             }
 
-            Pss cur = gandengyan.getPokersType(check2);
-            if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0])) {
-                if (cur.first.equals(gandengyan.CardTypes[0])) {
+            Pss cur = GameInfo.getPokersType(check2);
+            if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0])) {
+                if (cur.first.equals(GameInfo.CardTypes[0])) {
                     System.out.println("请输入符合规则的扑克牌点数");
                     continue;
                 }
                 discard(check);
-                gandengyan.Number_of_no = 0;
-                gandengyan.Last_playing_card_type = cur;
+                GameInfo.Number_of_no = 0;
+                GameInfo.Last_playing_card_type = cur;
                 break;
-            } else if (gandengyan.PRank.get(cur.first) > gandengyan.PRank.get(gandengyan.Last_playing_card_type.first)) {
+            } else if (GameInfo.PRank.get(cur.first) > GameInfo.PRank.get(GameInfo.Last_playing_card_type.first)) {
                 discard(check);
-                gandengyan.Number_of_no = 0;
-                gandengyan.Last_playing_card_type = cur;
+                GameInfo.Number_of_no = 0;
+                GameInfo.Last_playing_card_type = cur;
                 break;
-            } else if (gandengyan.PRank.get(cur.first) == gandengyan.PRank.get(gandengyan.Last_playing_card_type.first)) {
-                if (gandengyan.PRank.get(cur.first) == 6 && gandengyan.PRank.get(cur.second) > gandengyan.PRank.get(gandengyan.Last_playing_card_type.second)) {
+            } else if (GameInfo.PRank.get(cur.first) == GameInfo.PRank.get(GameInfo.Last_playing_card_type.first)) {
+                if (GameInfo.PRank.get(cur.first) == 6 && GameInfo.PRank.get(cur.second) > GameInfo.PRank.get(GameInfo.Last_playing_card_type.second)) {
                     discard(check);
-                    gandengyan.Number_of_no = 0;
-                    gandengyan.Last_playing_card_type = cur;
+                    GameInfo.Number_of_no = 0;
+                    GameInfo.Last_playing_card_type = cur;
                     break;
-                } else if (gandengyan.PRank.get(cur.second) == 13 && gandengyan.PRank.get(gandengyan.Last_playing_card_type.second) != 13) {
+                } else if (GameInfo.PRank.get(cur.second) == 13 && GameInfo.PRank.get(GameInfo.Last_playing_card_type.second) != 13) {
                     discard(check);
-                    gandengyan.Number_of_no = 0;
-                    gandengyan.Last_playing_card_type = cur;
+                    GameInfo.Number_of_no = 0;
+                    GameInfo.Last_playing_card_type = cur;
                     break;
-                } else if (gandengyan.PRank.get(cur.second) == gandengyan.PRank.get(gandengyan.Last_playing_card_type.second) + 1) {
+                } else if (GameInfo.PRank.get(cur.second) == GameInfo.PRank.get(GameInfo.Last_playing_card_type.second) + 1) {
                     discard(check);
-                    gandengyan.Number_of_no = 0;
-                    gandengyan.Last_playing_card_type = cur;
+                    GameInfo.Number_of_no = 0;
+                    GameInfo.Last_playing_card_type = cur;
                     break;
                 } else {
                     System.out.println("请输入符合规则的扑克牌点数，或者‘no’");
@@ -241,7 +246,7 @@ public class Player {
     public void Round() {
         System.out.println("这是 玩家" + this.ID + "号 的回合, 请出牌");
         System.out.println();
-        if (gandengyan.Last_playing_card_type.first.equals(gandengyan.CardTypes[0]))
+        if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
             System.out.println("请输出要打出的牌的点数");
         else
             System.out.println("请输出要打出的牌的点数，或者输出\"no\"");
@@ -249,7 +254,7 @@ public class Player {
         display_card();
         aLegalPlay();
         if (hand.isEmpty())
-            gandengyan.Winner = this.ID;
+            GameInfo.Winner = this.ID;
     }
 
     public void connect_server(String IPAddress, int Port) throws IOException {
@@ -258,7 +263,7 @@ public class Player {
         OutputStream outStream = incoming.getOutputStream();
         in = new Scanner(inStream, StandardCharsets.UTF_8);
         out = new PrintWriter(
-                new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true /* autoFlush */);
+                new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
 //        this.pWriter = new PrintWriter(incoming.getOutputStream(), true);
 //        this.bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
 //        send(name);
@@ -267,12 +272,26 @@ public class Player {
         System.out.println(ID + "yes");
     }
 
+    public void acceptInfo() {
+        while (read().equals("INFO") == false)
+            ;
+        if (read().equals("startInfo")) {
+            Main.GF.Info.Number_of_players = in.nextInt();
+            for (int i = 1; i < Main.GF.Info.Number_of_players; ++i) {
+                Main.GF.Info.players_name[i] = read();
+            }
+        }
+        else if (read().equals("gameInfo")) {
+            ;
+        }
+    }
+
     public void send(String msg) {
 //        out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
         out.println(msg);
     }
 
-    public String read() throws IOException {
+    public String read() {
 //        return bReader.readLine();
         if (in.hasNextLine()) {
             String line = in.nextLine();

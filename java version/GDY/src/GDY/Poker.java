@@ -1,6 +1,4 @@
 package GDY;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Poker implements Comparable<Poker>
 {
@@ -16,10 +14,17 @@ public class Poker implements Comparable<Poker>
         this.p_point = p_point;
         this.pic_addr = "/images/" + p_color + "-" + p_point + ".png";
 	}
+	public Poker(String sp) {
+		int delimitersp = sp.indexOf("-");
+		this.p_color = sp.substring(0, delimitersp);
+		this.p_point = sp.substring(delimitersp + 1, sp.length());
+		this.pic_addr = "/images/" + this.p_color + "-" + this.p_point + ".png";
+	}
 	public Poker(Poker pa)
 	{
 		this.p_color = pa.p_color;
 		this.p_point = pa.p_point;
+		this.pic_addr = "/images/" + this.p_color + "-" + this.p_point + ".png";
 	}
 	public String getColor()
 	{
@@ -43,8 +48,11 @@ public class Poker implements Comparable<Poker>
 	}
 	public int compareTo(Poker other)
 	{
-		int diff = Integer.compare(gandengyan.PRank.get(this.p_point), gandengyan.PRank.get(other.p_point));
-		return diff != 0 ? diff : Integer.compare(gandengyan.PRank.get(this.p_color), gandengyan.PRank.get(other.p_color));
+		int diff = Integer.compare(GameInfo.PRank.get(this.p_point), GameInfo.PRank.get(other.p_point));
+		return diff != 0 ? diff : Integer.compare(GameInfo.PRank.get(this.p_color), GameInfo.PRank.get(other.p_color));
+	}
+	public String toString() {
+		return (p_color + "-" + p_point);
 	}
 }
 

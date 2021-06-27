@@ -21,21 +21,20 @@ public class GamePanel extends JPanel{
 	private static int[] text_x = {170, 350, 1030, 2, 2, 1030};
 	private static int[] text_y = {520, 50, 480, 480, 190, 190};
 	private static int text_width = 200, text_height = 50;
-	private static int[] poker_back_x = {600, 1130, 40, 40, 1130};
-	private static int[] poker_back_y = {20, 320, 320, 35, 35};
+	private static int[] poker_back_x = {0, 600, 1130, 40, 40, 1130};
+	private static int[] poker_back_y = {0, 20, 320, 320, 35, 35};
 	private static int poker_back_width = 100, poker_back_height = 144;
 	private static JLabel[] text;
 	private static JLabel[] poker_back;
-	public GamePanel(){
+	public GamePanel(GameInfo Info){
 		this.setLayout(null);
 		this.setOpaque(false);
 
 		// 用户名的位置
-		text = new JLabel[6];
-		for(int i = 0; i < 6; i++) {
+		text = new JLabel[Info.Number_of_players];
+		for(int i = 0; i < Info.Number_of_players; ++i) {
 			//读取用户名
-			text[i] = new JLabel("玩家" + (i + 1) + ": " + (char)('A' + i), JLabel.CENTER);
-			//text[i].setText("用户" + (i + 1));
+			text[i] = new JLabel("玩家" + Info.players_name[i], JLabel.CENTER);
 			text[i].setFont(new Font("楷体",Font.BOLD,30));
 			text[i].setForeground(Color.LIGHT_GRAY);
 			text[i].setBounds(text_x[i], text_y[i], text_width, text_height);
@@ -45,14 +44,14 @@ public class GamePanel extends JPanel{
 		// 每个人剩余牌数的位置
 		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-		poker_back = new JLabel[5];
+		poker_back = new JLabel[Info.Number_of_players];
 //
-		for(int i = 0; i < 5; i++) {
+		for(int i = 1; i < Info.Number_of_players; ++i) {
 			poker_back[i] = new JLabel();
 			poker_back[i].setIcon(pokerback);
 			poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
 
-			poker_back[i].setText("5");
+//			poker_back[i].setText("" + Info.pokers_num[i]);
 			poker_back[i].setFont(new Font(null, Font.BOLD, 60));
 			poker_back[i].setForeground(new Color(245, 133, 99));
 			poker_back[i].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -180,6 +179,10 @@ public class GamePanel extends JPanel{
 			}
 		}
 
+	}
+
+	void updateInfo(GameInfo Info) {
+		;
 	}
 
 }

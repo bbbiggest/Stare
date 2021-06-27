@@ -1,9 +1,8 @@
-package GDY;
-
-/**
+/*
  * @Description: 游戏规则
- *
  */
+
+package GDY;
 
 public abstract class GameRule {
     public final static int FRAME_WIDTH = 1280;
@@ -48,8 +47,4 @@ public abstract class GameRule {
             + "第一个出完手中所有牌的玩家胜利，其余玩家失败。\r\n"
             + "\r\n"
             + "以牌剩于多少来判定输赢额度，输家手上有王牌的加倍结算（比如输家手上有5张牌时输了且5张牌中有1张是王牌结算时按10张牌算）";
-
-//    public final static String Test_Account = "123";
-//    public final static String Test_Password = "123";
-
 }
