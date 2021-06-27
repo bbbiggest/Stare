@@ -93,8 +93,7 @@ public class Player {
                 }
             }
             if (!isok) {
-                for (int j = 0; j < Discard_pile.size(); ++j)
-                    hand.add(Discard_pile.get(j));
+                hand.addAll(Discard_pile);
                 return false;
             }
         }
@@ -124,7 +123,7 @@ public class Player {
             String input = GamePanel.inputPoker;
             ArrayList<String> check = new ArrayList<>();
             Scanner ss = new Scanner(input);
-            String tem = "";
+            String tem;
             while (ss.hasNext()) {
                 tem = ss.next();
                 check.add(tem);
@@ -170,7 +169,7 @@ public class Player {
                     break;
                 }
             }
-            if (isok == false) {
+            if (!isok) {
                 if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
                     System.out.println("请输入正确的扑克牌点数");
                 else
@@ -178,7 +177,7 @@ public class Player {
                 continue;
             }
 
-            ArrayList<Poker> check2 = new ArrayList<Poker>();
+            ArrayList<Poker> check2 = new ArrayList<>();
             isok = true;
             for (int i = 0; i < check.size(); ++i) {
                 int ind = FindInd(check.get(i));
@@ -212,7 +211,7 @@ public class Player {
                 GameInfo.Number_of_no = 0;
                 GameInfo.Last_playing_card_type = cur;
                 break;
-            } else if (GameInfo.PRank.get(cur.first) == GameInfo.PRank.get(GameInfo.Last_playing_card_type.first)) {
+            } else if (GameInfo.PRank.get(cur.first).equals(GameInfo.PRank.get(GameInfo.Last_playing_card_type.first))) {
                 if (GameInfo.PRank.get(cur.first) == 6 && GameInfo.PRank.get(cur.second) > GameInfo.PRank.get(GameInfo.Last_playing_card_type.second)) {
                     discard(check);
                     GameInfo.Number_of_no = 0;
@@ -228,14 +227,8 @@ public class Player {
                     GameInfo.Number_of_no = 0;
                     GameInfo.Last_playing_card_type = cur;
                     break;
-                } else {
-                    System.out.println("请输入符合规则的扑克牌点数，或者‘no’");
-                    continue;
-                }
-            } else {
-                System.out.println("请输入符合规则的扑克牌点数，或者‘no’");
-                continue;
-            }
+                } else { System.out.println("请输入符合规则的扑克牌点数，或者‘no’"); }
+            } else { System.out.println("请输入符合规则的扑克牌点数，或者‘no’"); }
         }
     }
 

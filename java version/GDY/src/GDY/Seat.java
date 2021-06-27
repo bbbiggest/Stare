@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Seat {
     private final int ID;
     private final String name;
-    private BufferedReader bReader;
+    private final BufferedReader bReader;
     private final Scanner in;
     private final PrintWriter out;
 

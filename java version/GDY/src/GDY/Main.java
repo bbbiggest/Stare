@@ -26,7 +26,7 @@ public class Main {
             me = new Player();
             me.autoset();
         }
-        Thread t = new Thread(() -> {
+        var t = new Thread(() -> {
             System.out.println("wait isok");
             while (!isok) {
                 try {

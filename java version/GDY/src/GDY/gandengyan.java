@@ -19,8 +19,8 @@ public class gandengyan {
         InetAddress IPAddr = getLocalHostExactAddress();
         assert IPAddr != null;
         IPAddress = IPAddr.getHostAddress();
-        Number_of_players = Main.start.getPeopleNumber();
-//        Number_of_players = 1;
+//        Number_of_players = Main.start.getPeopleNumber();
+        Number_of_players = 1;
     }
 
     void readyToStart() {
@@ -100,7 +100,7 @@ public class gandengyan {
     // 随机洗牌
     void Shuffle() { Collections.shuffle(Deck); }
 
-    private void broadcast(String msg) {
+    void broadcast(String msg) {
         for (int i = 0; i < Number_of_players; ++i) {
             if (Seats[i] != null)
                 Seats[i].send(msg);
