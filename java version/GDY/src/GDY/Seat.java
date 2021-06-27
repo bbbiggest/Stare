@@ -6,27 +6,26 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Seat {
-    private int ID;
-    private String name;
-    private Socket incoming;
-    private PrintWriter pWriter;
+    private final int ID;
+    private final String name;
     private BufferedReader bReader;
-    private Scanner in;
-    private PrintWriter out;
+    private final Scanner in;
+    private final PrintWriter out;
+
+    public int getID() { return ID; }
+    public String getName() { return name; }
 
     public Seat(int ID, Socket incomingSocket) throws IOException {
         this.ID = ID;
-        this.incoming = incomingSocket;
-        this.pWriter = new PrintWriter(incoming.getOutputStream(), true);
-        this.bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
-        InputStream inStream = incoming.getInputStream();
-        OutputStream outStream = incoming.getOutputStream();
+        this.bReader = new BufferedReader(new InputStreamReader(incomingSocket.getInputStream(), StandardCharsets.UTF_8));
+        InputStream inStream = incomingSocket.getInputStream();
+        OutputStream outStream = incomingSocket.getOutputStream();
         in = new Scanner(inStream, StandardCharsets.UTF_8);
         out = new PrintWriter(
                 new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
         this.name = read();
         System.out.println(ID + "-" + name);
-        out.println(this.ID);
+        out.println(ID);
     }
 
     void putPoker() {
@@ -44,8 +43,20 @@ public class Seat {
         System.out.println("send: " + msg);
     }
 
-    public String read() {
-//        return bReader.readLine();
-        return in.nextLine();
+    public String read() throws IOException {
+        return bReader.readLine().trim();
+//        return in.nextLine();
+    }
+
+    public void sendStartInfo() {
+        // Number_of_players, players_name[], First_player
+        send("startInfo");
+        send("" + gandengyan.Number_of_players);
+        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
+            if (i == ID)
+                continue;
+            send(gandengyan.Seats[i].getID() + "号 " + gandengyan.Seats[i].getName());
+        }
+        send("" + gandengyan.First_player);
     }
 }

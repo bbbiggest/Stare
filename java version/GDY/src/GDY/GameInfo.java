@@ -7,10 +7,10 @@ public class GameInfo {
     public static final String[] AllPoints = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2", "JOKER"};
     public static final String[] AllColors = {"Diamond", "Club", "Heart", "Spade", "Black", "Red"};
     public static final String[] CardTypes = {"Invalid", "Single", "Pair", "Straight", "Cons_pairs", "Three", "Bomb", "KingBomb"};
-    public static HashMap<String, Integer> PRank = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> PRank = new HashMap<>();
     public static int Number_of_players, First_player, Winner, Number_of_no;
     public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
-    public static ArrayList<Poker> Last_playing_card = new ArrayList<Poker>();
+    public static ArrayList<Poker> Last_playing_card = new ArrayList<>();
     public static String[] players_name;
     public static int[] pokers_num;
     GameInfo () {}

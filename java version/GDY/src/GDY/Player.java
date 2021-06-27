@@ -10,17 +10,15 @@ import javax.swing.JLabel;
 
 public class Player {
     private int ID = 0;
-    private String name = "Anonymous";
-    private ArrayList<Poker> hand = new ArrayList<Poker>();
-    private Socket incoming;
-    private PrintWriter pWriter;
+    private final String name;
+    private ArrayList<Poker> hand = new ArrayList<>();
     private BufferedReader bReader;
     private Scanner in;
     private PrintWriter out;
 
     public Player() { this.name = Main.start.getname(); }
 
-    public void setID(int tID) { ID = tID; }
+//    public void setID(int tID) { ID = tID; }
 
     public int getID() { return this.ID; }
     public String getName() { return this.name; }
@@ -31,8 +29,8 @@ public class Player {
             connect_server(Main.start.getTheIP(), Main.start.getThePort());
             System.out.println("connnect " + Main.start.getTheIP() + ' ' + Main.start.getThePort());
         } else {
-            connect_server(Main.gdy.IPAddress, Main.start.getThePort());
-            System.out.println("connnect " + Main.gdy.IPAddress + ' ' + Main.start.getThePort());
+            connect_server(gandengyan.IPAddress, Main.start.getThePort());
+            System.out.println("connnect " + gandengyan.IPAddress + ' ' + Main.start.getThePort());
         }
         Main.GF = new GameFrame();
         Main.GF.waitting();
@@ -73,7 +71,7 @@ public class Player {
         return hand.size();
     }
 
-    public void getPoker() {
+    public void getPoker() throws IOException {
         send("getPoker");
         String line = read();
         if (!line.equals("none")) {
@@ -83,7 +81,7 @@ public class Player {
     }
 
     public boolean discard(ArrayList<String> dc) {
-        ArrayList<Poker> Discard_pile = new ArrayList<Poker>();
+        ArrayList<Poker> Discard_pile = new ArrayList<>();
         for (int i = 0; i < dc.size(); ++i) {
             boolean isok = false;
             for (int j = 0; j < hand.size(); ++j) {
@@ -112,7 +110,7 @@ public class Player {
         return -1;
     }
 
-    public void noPlay() {
+    public void noPlay() throws IOException {
         if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0])) {
             System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
             return;
@@ -122,11 +120,9 @@ public class Player {
     }
 
     public void aLegalPlay() {
-//    	Scanner in = new Scanner(System.in);
         while (true) {
-//        	String input = in.nextLine();
             String input = GamePanel.inputPoker;
-            ArrayList<String> check = new ArrayList<String>();
+            ArrayList<String> check = new ArrayList<>();
             Scanner ss = new Scanner(input);
             String tem = "";
             while (ss.hasNext()) {
@@ -258,28 +254,30 @@ public class Player {
     }
 
     public void connect_server(String IPAddress, int Port) throws IOException {
-        incoming = new Socket(IPAddress, Port);
+        Socket incoming = new Socket(IPAddress, Port);
         InputStream inStream = incoming.getInputStream();
         OutputStream outStream = incoming.getOutputStream();
         in = new Scanner(inStream, StandardCharsets.UTF_8);
         out = new PrintWriter(
                 new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
-//        this.pWriter = new PrintWriter(incoming.getOutputStream(), true);
-//        this.bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
-//        send(name);
-        out.println(name);
-        this.ID = in.nextInt();
-        System.out.println(ID + "yes");
+        bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
+        send(name);
+        this.ID = Integer.parseInt(read());
+        System.out.println(ID + " yes");
     }
 
-    public void acceptInfo() {
-        while (read().equals("INFO") == false)
+    public void acceptInfo() throws IOException {
+        while (!read().equals("INFO"))
             ;
         if (read().equals("startInfo")) {
-            Main.GF.Info.Number_of_players = in.nextInt();
-            for (int i = 1; i < Main.GF.Info.Number_of_players; ++i) {
-                Main.GF.Info.players_name[i] = read();
+            GameInfo.Number_of_players = Integer.parseInt(read());
+            GameInfo.players_name = new String[GameInfo.Number_of_players];
+            GameInfo.players_name[0] = ID + "号 " + name;
+            GameInfo.pokers_num = new int[GameInfo.Number_of_players];
+            for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+                GameInfo.players_name[i] = read();
             }
+            GameInfo.First_player = Integer.parseInt(read());
         }
         else if (read().equals("gameInfo")) {
             ;
@@ -291,13 +289,13 @@ public class Player {
         out.println(msg);
     }
 
-    public String read() {
-//        return bReader.readLine();
-        if (in.hasNextLine()) {
-            String line = in.nextLine();
-            System.out.println("read: " + line);
-            return line.trim();
-        }
-        return "";
+    public String read() throws IOException {
+        return bReader.readLine().trim();
+//        if (in.hasNextLine()) {
+//            String line = in.nextLine();
+//            System.out.println("read: " + line);
+//            return line.trim();
+//        }
+//        return "";
     }
 }

@@ -1,7 +1,5 @@
 package GDY;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {
@@ -28,19 +26,20 @@ public class Main {
             me = new Player();
             me.autoset();
         }
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("wait isok");
-                while (!isok) {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Thread t = new Thread(() -> {
+            System.out.println("wait isok");
+            while (!isok) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                System.out.println("isok");
+            }
+            System.out.println("isok");
+            try {
                 GF.startGame();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         t.start();

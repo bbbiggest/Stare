@@ -1,7 +1,3 @@
-/*
- * @Description: 打牌界面
- */
-
 package GDY;
 
 import java.awt.Color;
@@ -9,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,23 +16,24 @@ import javax.swing.SwingConstants;
 public class GamePanel extends JPanel{
 
 	public static String inputPoker; // 输入的扑克牌
-	private static int[] text_x = {170, 350, 1030, 2, 2, 1030};
-	private static int[] text_y = {520, 50, 480, 480, 190, 190};
-	private static int text_width = 200, text_height = 50;
-	private static int[] poker_back_x = {0, 600, 1130, 40, 40, 1130};
-	private static int[] poker_back_y = {0, 20, 320, 320, 35, 35};
-	private static int poker_back_width = 100, poker_back_height = 144;
+	private final int[] text_x = {170, 350, 1030, 2, 2, 1030};
+	private static final int[] text_y = {520, 50, 480, 480, 190, 190};
+	private static final int text_width = 200, text_height = 50;
+	private static final int[] poker_back_x = {5, 600, 1130, 40, 40, 1130};
+	private static final int[] poker_back_y = {535, 20, 320, 320, 35, 35};
+	private static final int poker_back_width = 100, poker_back_height = 144;
 	private static JLabel[] text;
 	private static JLabel[] poker_back;
-	public GamePanel(GameInfo Info){
+	public GamePanel() throws IOException {
+		Main.me.acceptInfo();
 		this.setLayout(null);
 		this.setOpaque(false);
 
 		// 用户名的位置
-		text = new JLabel[Info.Number_of_players];
-		for(int i = 0; i < Info.Number_of_players; ++i) {
+		text = new JLabel[GameInfo.Number_of_players];
+		for(int i = 0; i < GameInfo.Number_of_players; ++i) {
 			//读取用户名
-			text[i] = new JLabel("玩家" + Info.players_name[i], JLabel.CENTER);
+			text[i] = new JLabel("玩家" + GameInfo.players_name[i], JLabel.CENTER);
 			text[i].setFont(new Font("楷体",Font.BOLD,30));
 			text[i].setForeground(Color.LIGHT_GRAY);
 			text[i].setBounds(text_x[i], text_y[i], text_width, text_height);
@@ -42,11 +41,11 @@ public class GamePanel extends JPanel{
 		}
 
 		// 每个人剩余牌数的位置
-		ImageIcon pokerback = new ImageIcon(this.getClass().getResource("/images/purple_back.png"));
+		ImageIcon pokerback = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/purple_back.png")));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-		poker_back = new JLabel[Info.Number_of_players];
+		poker_back = new JLabel[GameInfo.Number_of_players];
 //
-		for(int i = 1; i < Info.Number_of_players; ++i) {
+		for(int i = 0; i < GameInfo.Number_of_players; ++i) {
 			poker_back[i] = new JLabel();
 			poker_back[i].setIcon(pokerback);
 			poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
@@ -68,22 +67,18 @@ public class GamePanel extends JPanel{
 
 		// 出牌键
 		MyButton yes = new MyButton("出牌");
-		yes.setFont(new Font(null, Font.BOLD, 20));
+		yes.setFont(new Font(null, Font.PLAIN, 20));
 		yes.setBounds(1170, 580, 80, 45);
 		this.add(yes);
-		yes.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				inputPoker = textfield.getText();
-				textfield.setText("");
-				System.out.println(inputPoker);
-			}
-
+		yes.addActionListener(e -> {
+			inputPoker = textfield.getText();
+			textfield.setText("");
+			System.out.println(inputPoker);
 		});
 
 		// 不出键
 		MyButton noButton = new MyButton("不出");
-		noButton.setFont(new Font(null, Font.BOLD, 20));
+		noButton.setFont(new Font(null, Font.PLAIN, 20));
 		noButton.setBounds(1080, 580, 80, 45);
 		this.add(noButton);
 		noButton.addActionListener(new ActionListener() {
@@ -138,7 +133,7 @@ public class GamePanel extends JPanel{
 			int left = 660 - (gandengyan.Last_playing_card.size() * 40 + 10);
 			for (var x : gandengyan.Last_playing_card) {
 				lastpoker[i] = new JLabel();
-				ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
+				ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(x.getPic_addr())));
 				img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
 				lastpoker[i].setIcon(img);
 				i++;
@@ -181,7 +176,7 @@ public class GamePanel extends JPanel{
 
 	}
 
-	void updateInfo(GameInfo Info) {
+	void updateInfo() {
 		;
 	}
 

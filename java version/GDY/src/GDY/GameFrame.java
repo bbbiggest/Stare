@@ -3,6 +3,8 @@ package GDY;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +32,7 @@ public class GameFrame extends JFrame{
 		this.getLayeredPane().add(label, Integer.valueOf(Integer.MIN_VALUE));
 
 		// 设置窗体背景
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/background4.jpg"));
+		ImageIcon icon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/background4.jpg")));
 		icon.setImage(icon.getImage().getScaledInstance(GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT, Image.SCALE_DEFAULT));
 		label.setBounds(0, 0, GameRule.FRAME_WIDTH, GameRule.FRAME_HEIGHT);
 		label.setHorizontalAlignment(0);
@@ -47,7 +49,7 @@ public class GameFrame extends JFrame{
 		if (Main.isJoinRoom)
 			waitLabel.setText("等待人到齐后游戏开始");
 		else
-			waitLabel.setText("<html>等待别人加入<br>IP: " + Main.gdy.IPAddress + "<br>端口号: "
+			waitLabel.setText("<html>等待别人加入<br>IP: " + gandengyan.IPAddress + "<br>端口号: "
 					+ Main.start.getThePort() + "</html>");
 		waitLabel.setFont(new Font("楷体", Font.BOLD, 30));
 		waitLabel.setForeground(Color.YELLOW);
@@ -55,24 +57,24 @@ public class GameFrame extends JFrame{
 		setEnabled(false);
 	}
 
-	void startGame() {
+	void startGame() throws IOException {
 		remove(waitLabel);
 		setEnabled(true);
-		curGame = new GamePanel(Info);
+		curGame = new GamePanel();
 		add(curGame);
 		revalidate();
 		repaint();
 	}
 
 	void update() {
-		curGame.updateInfo(Info);
+		curGame.updateInfo();
 		revalidate();
 		repaint();
 	}
 
 	void win() {
 		winLabel = new JLabel("", SwingConstants.CENTER);
-		winLabel.setText("<html>游戏结束<br>玩家" + Info.players_name[Info.Winner] + " 胜利！！！</html>");
+		winLabel.setText("<html>游戏结束<br>玩家" + GameInfo.players_name[GameInfo.Winner] + " 胜利！！！</html>");
 		winLabel.setFont(new Font("楷体", Font.BOLD, 30));
 		winLabel.setForeground(Color.YELLOW);
 		add(winLabel);
