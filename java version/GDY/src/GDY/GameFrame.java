@@ -16,7 +16,7 @@ public class GameFrame extends JFrame{
     JLabel label = new JLabel();
 	public GameFrame() {
 		Info = new GameInfo();
-		this.setTitle("干瞪眼 " + Main.me.getID() + "号玩家 " + Main.me.getName());
+		this.setTitle("干瞪眼 玩家" + Main.me.getID() + "号 " + Main.me.getName());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 
@@ -54,6 +54,8 @@ public class GameFrame extends JFrame{
 		waitLabel.setFont(new Font("楷体", Font.BOLD, 30));
 		waitLabel.setForeground(Color.YELLOW);
 		add(waitLabel);
+		revalidate();
+		repaint();
 		setEnabled(false);
 	}
 

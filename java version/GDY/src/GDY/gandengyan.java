@@ -19,35 +19,39 @@ public class gandengyan {
         InetAddress IPAddr = getLocalHostExactAddress();
         assert IPAddr != null;
         IPAddress = IPAddr.getHostAddress();
-//        Number_of_players = Main.start.getPeopleNumber();
-        Number_of_players = 1;
+        Number_of_players = Main.start.getPeopleNumber();
+//        Number_of_players = 1;
     }
 
     void readyToStart() {
         Seats = new Seat[Number_of_players];
-        try (var s = new ServerSocket(Main.start.getThePort())) {
-            var t1 = new Thread(() -> {
-                try {
-                    Main.me = new Player();
-                    Main.me.autoset();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            t1.start();
-            for (int i = 0; i < Number_of_players; ++i) {
-                Socket incoming = s.accept();
-                Seats[i] = new Seat(i, incoming);
+        var t1 = new Thread(() -> {
+            try {
+                Main.me = new Player();
+                Main.me.autoset();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            System.out.println("people all arrive");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        initGame();
-        broadcast("start");
-        broadcast("INFO");
-        for (int i = 0; i < Number_of_players; ++i)
-            Seats[i].sendStartInfo();
+        });
+        t1.start();
+        var t2 = new Thread(() -> {
+            try (var s = new ServerSocket(Main.start.getThePort())) {
+
+                for (int i = 0; i < Number_of_players; ++i) {
+                    Socket incoming = s.accept();
+                    Seats[i] = new Seat(i, incoming);
+                }
+                System.out.println("people all arrive");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            initGame();
+            broadcast("start");
+            broadcast("INFO");
+            for (int i = 0; i < Number_of_players; ++i)
+                Seats[i].sendStartInfo();
+        });
+        t2.start();
     }
 
     public static InetAddress getLocalHostExactAddress() {
