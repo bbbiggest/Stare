@@ -13,9 +13,7 @@ public class GameInfo {
     public static ArrayList<Poker> Last_playing_card = new ArrayList<>();
     public static String[] players_name;
     public static int[] pokers_num;
-    GameInfo () {}
-
-    void initGame() {
+    GameInfo () {
         for (int i = 0; i < 14; ++i)
             PRank.put(AllPoints[i], i + 1);
         for (int i = 0; i < 6; ++i)

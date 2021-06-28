@@ -50,6 +50,12 @@ public class gandengyan {
             broadcast("INFO");
             for (int i = 0; i < Number_of_players; ++i)
                 Seats[i].sendStartInfo();
+            for (int i = 0; i < 5; ++i) {
+                for (int j = 0; j < Number_of_players; ++j)
+                    Seats[j].putPoker();
+            }
+            Seats[First_player].putPoker();
+
         });
         t2.start();
     }
@@ -63,13 +69,13 @@ public class gandengyan {
                 for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
                     InetAddress inetAddr = inetAddrs.nextElement();
                     if (!inetAddr.isLoopbackAddress()) {
-                        if (inetAddr.isSiteLocalAddress()) {
-                            return inetAddr;
+                        if (inetAddr.isSiteLocalAddress()
+                                && !inetAddr.getHostAddress().equals(InetAddress.getLocalHost().getHostAddress())) {
+                            candidateAddress = inetAddr;
                         }
                         if (candidateAddress == null) {
                             candidateAddress = inetAddr;
                         }
-
                     }
                 }
             }

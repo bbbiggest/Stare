@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 public class Player {
     private int ID = 0;
     private final String name;
-    private ArrayList<Poker> hand = new ArrayList<>();
+    public ArrayList<Poker> hand = new ArrayList<>(), wantPut = new ArrayList<>();
     private BufferedReader bReader;
     private Scanner in;
     private PrintWriter out;
@@ -41,38 +41,13 @@ public class Player {
         System.out.println("isok = true");
     }
 
-
-    // 显示自己的牌
-    public void display_card() {
-//        for (var x : hand)
-//        	System.out.print(x.getColor() + '|' + x.getPoint() + "  ");
-//        System.out.println();
-
-//        Main.gamepanel.setLayout(null);
-        JLabel label[] = new JLabel[54];
-        int i = 0;
-        for (var x : hand) {
-            label[i] = new JLabel();
-            ImageIcon img = new ImageIcon(this.getClass().getResource(x.getPic_addr()));
-            img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-            label[i].setIcon(img);
-            i++;
-        }
-        int left = 640 - ((hand.size() + 1) * 25);
-        for (int j = 0; j < hand.size(); j++) {
-            label[j].setBounds(left + j * 40, 520, 100, 144);
-        }
-//        for (int j = hand.size() - 1; j >= 0; j--) {
-//            Main.gamepanel.add(label[j]);
-//        }
-    }
-
     public int Get_number_of_remaining_hands() {
         return hand.size();
     }
 
-    public void getPoker() throws IOException {
-        send("getPoker");
+    public void getPoker(int op) throws IOException {
+        if (op == 1)
+            send("getPoker");
         String line = read();
         if (!line.equals("none")) {
             hand.add(new Poker(line));
@@ -114,7 +89,7 @@ public class Player {
             System.out.println("您是本轮第一个玩家，必须输入扑克牌的点数");
             return;
         }
-        getPoker();
+        getPoker(1);
         GameInfo.Number_of_no++;
     }
 
@@ -240,7 +215,6 @@ public class Player {
         else
             System.out.println("请输出要打出的牌的点数，或者输出\"no\"");
         System.out.println("（如果有多张牌，请用空格隔开）\n");
-        display_card();
         aLegalPlay();
         if (hand.isEmpty())
             GameInfo.Winner = this.ID;
@@ -271,6 +245,12 @@ public class Player {
                 GameInfo.players_name[i] = read();
             }
             GameInfo.First_player = Integer.parseInt(read());
+            for (int i = 0; i < 5; ++i) { getPoker(0); }
+            if (GameInfo.First_player == ID)
+                getPoker(0);
+            GameInfo.pokers_num[0] = hand.size();
+            if (GameInfo.First_player < ID)
+                GameInfo.First_player++;
         }
         else if (read().equals("gameInfo")) {
             ;
@@ -283,7 +263,9 @@ public class Player {
     }
 
     public String read() throws IOException {
-        return bReader.readLine().trim();
+        String line = bReader.readLine();
+        System.out.println("read: " + line);
+        return line.trim();
 //        if (in.hasNextLine()) {
 //            String line = in.nextLine();
 //            System.out.println("read: " + line);

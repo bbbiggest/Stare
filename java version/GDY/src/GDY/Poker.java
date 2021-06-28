@@ -4,7 +4,6 @@ public class Poker implements Comparable<Poker>
 {
 	private String p_color;
 	private String p_point;
-
 	private String pic_addr;
 
 	public Poker() {}
@@ -44,7 +43,7 @@ public class Poker implements Comparable<Poker>
 		if (getClass() != otherObject.getClass())
 			return false;
 		Poker other = (Poker)otherObject;
-			return p_point.equals(other.p_point) && p_point.equals(other.p_color);
+			return (p_point.equals(other.p_point) && p_point.equals(other.p_color));
 	}
 	public int compareTo(Poker other)
 	{
