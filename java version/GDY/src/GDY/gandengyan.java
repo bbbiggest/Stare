@@ -55,7 +55,9 @@ public class gandengyan {
                     Seats[j].putPoker();
             }
             Seats[First_player].putPoker();
-
+            broadcast("INFO");
+            for (int i = 0; i < Number_of_players; ++i)
+                Seats[i].sendGameInfo();
         });
         t2.start();
     }
@@ -108,7 +110,6 @@ public class gandengyan {
 
     void broadcast(String msg) {
         for (int i = 0; i < Number_of_players; ++i) {
-            if (Seats[i] != null)
                 Seats[i].send(msg);
         }
         System.out.println("broadcast: " + msg);

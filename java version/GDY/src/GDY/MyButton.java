@@ -7,19 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.AbstractButton;
-import javax.swing.JComponent;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
-/**
- * @Description 按钮设置
- * 应该所有的按钮都可以用这个！反正还可以
- *
- */
 
 public class MyButton extends JButton {  
     private static final long serialVersionUID = 1L;  

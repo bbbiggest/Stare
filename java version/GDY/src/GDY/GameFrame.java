@@ -68,7 +68,7 @@ public class GameFrame extends JFrame{
 		repaint();
 	}
 
-	void update() {
+	void update() throws IOException {
 		curGame.updateInfo();
 		revalidate();
 		repaint();

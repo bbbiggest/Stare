@@ -27,6 +27,7 @@ public class GamePanel extends JPanel{
 	private MyButton yesButton, noButton;
 	private JLabel prompt, roundLabel;
 	private PokerLabel hand[];
+	private JLabel poker_back[];
 	public GamePanel() throws IOException {
 		Main.me.acceptInfo();
 		this.setLayout(null);
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel{
 		// 每个人剩余牌数的位置
 		ImageIcon pokerback = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/purple_back.png")));
 		pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-		JLabel[] poker_back = new JLabel[GameInfo.Number_of_players];
+		poker_back = new JLabel[GameInfo.Number_of_players];
 //
 		for(int i = 0; i < GameInfo.Number_of_players; ++i) {
 			poker_back[i] = new JLabel();
@@ -63,7 +64,7 @@ public class GamePanel extends JPanel{
 
 		// 出牌键
 		yesButton = new MyButton("出牌");
-		yesButton.setFont(new Font(null, Font.PLAIN, 20));
+		yesButton.setFont(new Font(null, Font.BOLD, 18));
 		yesButton.setBounds(520, 426, 80, 45);
 		this.add(yesButton);
 		yesButton.addActionListener(e -> {
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel{
 
 		// 不出键
 		noButton = new MyButton("不出");
-		noButton.setFont(new Font(null, Font.PLAIN, 20));
+		noButton.setFont(new Font(null, Font.BOLD, 18));
 		noButton.setBounds(680, 426, 80, 45);
 		this.add(noButton);
 		noButton.addActionListener(e -> {
@@ -155,10 +156,13 @@ public class GamePanel extends JPanel{
 		this.setVisible(true);
 	}
 
-	void updateInfo() {
-		for (int i = 0; i < hand.length; ++i)
-			remove(hand[i]);
-		;
+	void updateInfo() throws IOException {
+//		for (int i = 0; i < hand.length; ++i)
+//			remove(hand[i]);
+		Main.me.acceptInfo();
+		for (int i = 0; i < GameInfo.Number_of_players; ++i) {
+			poker_back[i].setText("" + GameInfo.pokers_num[i]);
+		}
 	}
 
 	void setPrompt(String s) {

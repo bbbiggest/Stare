@@ -11,6 +11,7 @@ public class Seat {
     private final BufferedReader bReader;
     private final Scanner in;
     private final PrintWriter out;
+    private int pokers_num;
 
     public int getID() { return ID; }
     public String getName() { return name; }
@@ -58,5 +59,18 @@ public class Seat {
             send(gandengyan.Seats[i].getID() + "号 " + gandengyan.Seats[i].getName());
         }
         send("" + gandengyan.First_player);
+        if (gandengyan.First_player == ID)
+            pokers_num = 6;
+        else
+            pokers_num = 5;
+    }
+
+    public void sendGameInfo() {
+        send("gameInfo");
+        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
+            if (i == ID)
+                continue;
+            send("" + gandengyan.Seats[i].pokers_num);
+        }
     }
 }

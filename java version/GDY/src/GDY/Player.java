@@ -253,7 +253,8 @@ public class Player {
                 GameInfo.First_player++;
         }
         else if (read().equals("gameInfo")) {
-            ;
+            for (int i = 1; i < GameInfo.Number_of_players; ++i)
+                GameInfo.pokers_num[i] = Integer.parseInt(read());;
         }
     }
 

@@ -17,8 +17,8 @@ public class StartFrame extends JFrame {
     private static int thePort = -1;
     private static String theIP = "";
 
-    private MyButton begin = new MyButton("Game Begin");
-    private MyButton rule = new MyButton("Game Rules");
+    private MyButton begin = new MyButton("开始游戏");
+    private MyButton rule = new MyButton("游戏规则");
     private JFrame scjF; // SelectFrame, CreamFrame and JoinFrame
 
     String getname() {
