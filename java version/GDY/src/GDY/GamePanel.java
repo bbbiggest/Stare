@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
 
     private static final int[] text_x = {170, 350, 1030, 2, 2, 1030};
     private static final int[] text_y = {520, 50, 480, 480, 190, 190};
-    private static final int text_width = 200, text_height = 50;
+    private static final int text_width = 300, text_height = 50;
     private static final int[] poker_back_x = {5, 600, 1130, 40, 40, 1130};
     private static final int[] poker_back_y = {535, 20, 320, 320, 35, 35};
     private static final int poker_back_width = 100, poker_back_height = 144;
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < GameInfo.Number_of_players; ++i) {
             //读取用户名
             nameLabel[i] = new JLabel("玩家" + GameInfo.players_name[i], JLabel.CENTER);
-            nameLabel[i].setFont(new Font("楷体", Font.BOLD, 30));
+            nameLabel[i].setFont(new Font("楷体", Font.BOLD, 28));
             nameLabel[i].setForeground(Color.LIGHT_GRAY);
             nameLabel[i].setBounds(text_x[i], text_y[i], text_width, text_height);
             this.add(nameLabel[i]);

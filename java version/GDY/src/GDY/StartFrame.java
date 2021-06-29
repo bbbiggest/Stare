@@ -183,7 +183,7 @@ public class StartFrame extends JFrame {
         numberText.setFont(new Font(null, Font.BOLD, 20));
         numberText.setBounds(60, 150, 100, 40);
 
-        final String[] chooseNumber = new String[]{"2人", "3人", "4人", "5人", "6人", "1人"};
+        final String[] chooseNumber = new String[]{"2人", "3人", "4人", "5人", "6人", "1人寂寞模式"};
         final JComboBox<String> box = new JComboBox<>(chooseNumber);
         box.setBounds(180, 150, 200, 40);
         box.setFocusable(false);
@@ -238,7 +238,7 @@ public class StartFrame extends JFrame {
 
         JTextField inputIP = new JTextField(9);
         inputIP.setFont(new Font(null, Font.PLAIN, 15));
-        inputIP.setText("localhost");
+        inputIP.setText("");
         inputIP.setBounds(180, 60, 200, 40);
 
         JTextField inputPort = new JTextField(9);
