@@ -3,12 +3,10 @@ package GDY;
 import java.awt.*;
 import java.awt.CardLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.net.UnknownHostException;
+import java.util.Objects;
 import javax.swing.*;
 
 public class StartFrame extends JFrame {
@@ -17,8 +15,6 @@ public class StartFrame extends JFrame {
     private static int thePort = -1;
     private static String theIP = "";
 
-    private MyButton begin = new MyButton("开始游戏");
-    private MyButton rule = new MyButton("游戏规则");
     private JFrame scjF; // SelectFrame, CreamFrame and JoinFrame
 
     String getname() {
@@ -44,7 +40,6 @@ public class StartFrame extends JFrame {
             name = JOptionPane.showInputDialog(this, "请输入用户名");
         }
 
-//        nameFrame nF = new nameFrame(this, "请输入用户名", true);
         this.setTitle("干瞪眼 " + name);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -74,9 +69,11 @@ public class StartFrame extends JFrame {
         JPanel startPanel = new JPanel(cardlayout);
         startPanel.setLayout(null);
         startPanel.setOpaque(false);
+        MyButton begin = new MyButton("开始游戏");
         startPanel.add(begin);    //  Game Gegin
         begin.setBounds(350, 500, 200, 65);
 
+        MyButton rule = new MyButton("游戏规则");
         startPanel.add(rule);   //   Game Rules
         rule.setBounds(750, 500, 200, 65);
         startPanel.setVisible(true);
@@ -85,51 +82,41 @@ public class StartFrame extends JFrame {
 
 
         // rule按钮
-        rule.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame ruleframe = new JFrame("Game Rules");
-                ruleframe.setLayout(null);
-                ruleframe.setSize(700, 500);
-                ruleframe.setLocationRelativeTo(null);
+        rule.addActionListener(e -> {
+            JFrame ruleframe = new JFrame("Game Rules");
+            ruleframe.setLayout(null);
+            ruleframe.setSize(700, 500);
+            ruleframe.setLocationRelativeTo(null);
 
-                JTextArea ta = new JTextArea();
-                ta.setLineWrap(true);
-                ta.setFont(new Font(null, Font.PLAIN, 15));
-                ta.setText(GameRule.GAME_RULES);
-                ta.setEditable(false);
-                JScrollPane scroll = new JScrollPane(
-                        ta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            JTextArea ta = new JTextArea();
+            ta.setLineWrap(true);
+            ta.setFont(new Font(null, Font.PLAIN, 15));
+            ta.setText(GameRule.GAME_RULES);
+            ta.setEditable(false);
+            JScrollPane scroll = new JScrollPane(
+                    ta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-                ruleframe.setContentPane(scroll);
+            ruleframe.setContentPane(scroll);
 
-                JScrollBar bar = scroll.getVerticalScrollBar();
-                // 确保滚动条在最上方
-                javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        bar.setValue(0);
-                    }
-                });
-                ruleframe.setVisible(true);
-            }
+            JScrollBar bar = scroll.getVerticalScrollBar();
+            // 确保滚动条在最上方
+            SwingUtilities.invokeLater(() -> bar.setValue(0));
+            ruleframe.setVisible(true);
         });
 
-        begin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                scjF = new JFrame();
-                scjF.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                scjF.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        setEnabled(true);
-                        e.getWindow().dispose();
-                    }
-                });
-                setEnabled(false);
-                setSelectFrame();
-            }
+        begin.addActionListener(e -> {
+            scjF = new JFrame();
+            scjF.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            scjF.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    setEnabled(true);
+                    e.getWindow().dispose();
+                }
+            });
+            setEnabled(false);
+            setSelectFrame();
         });
     }
 
@@ -157,21 +144,15 @@ public class StartFrame extends JFrame {
         scjF.add(panel);
         scjF.setVisible(true);
 
-        crb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.isJoinRoom = false;
-                scjF.remove(panel);
-                setCreamFrame();
-            }
+        crb.addActionListener(e -> {
+            Main.isJoinRoom = false;
+            scjF.remove(panel);
+            setCreamFrame();
         });
-        jrb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.isJoinRoom = true;
-                scjF.remove(panel);
-                setJoinFrame();
-            }
+        jrb.addActionListener(e -> {
+            Main.isJoinRoom = true;
+            scjF.remove(panel);
+            setJoinFrame();
         });
     }
 
@@ -202,28 +183,25 @@ public class StartFrame extends JFrame {
         numberText.setFont(new Font(null, Font.BOLD, 20));
         numberText.setBounds(60, 150, 100, 40);
 
-        final String[] chooseNumber = new String[]{"2人", "3人", "4人", "5人", "6人"};
-        final JComboBox<String> box = new JComboBox<String>(chooseNumber);
+        final String[] chooseNumber = new String[]{"2人", "3人", "4人", "5人", "6人", "1人"};
+        final JComboBox<String> box = new JComboBox<>(chooseNumber);
         box.setBounds(180, 150, 200, 40);
         box.setFocusable(false);
         box.setFont(new Font(null, Font.BOLD, 15));
 
         MyButton confirmButton = new MyButton("确认");
         confirmButton.setBounds(190, 220, 120, 55);
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                thePort = Integer.parseInt(inputPort.getText().trim());
-                peopleNumber = box.getSelectedItem().toString().charAt(0) - '0';
-                System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
-                setEnabled(true);
-                setVisible(false);
-                scjF.dispose();
-                try {
-                    Main.returnMain();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+        confirmButton.addActionListener(e -> {
+            thePort = Integer.parseInt(inputPort.getText().trim());
+            peopleNumber = Objects.requireNonNull(box.getSelectedItem()).toString().charAt(0) - '0';
+            System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
+            setEnabled(true);
+            setVisible(false);
+            scjF.dispose();
+            try {
+                Main.returnMain();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
 
@@ -279,20 +257,17 @@ public class StartFrame extends JFrame {
         scjF.add(curPanel);
         scjF.setVisible(true);
 
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                thePort = Integer.parseInt(inputPort.getText().trim());
-                theIP = inputIP.getText();
-                System.out.println("ip is: " + theIP + "\nport is: " + thePort);
-                setEnabled(true);
-                setVisible(false);
-                scjF.dispose();
-                try {
-                    Main.returnMain();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+        confirmButton.addActionListener(e -> {
+            thePort = Integer.parseInt(inputPort.getText().trim());
+            theIP = inputIP.getText();
+            System.out.println("ip is: " + theIP + "\nport is: " + thePort);
+            setEnabled(true);
+            setVisible(false);
+            scjF.dispose();
+            try {
+                Main.returnMain();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
     }

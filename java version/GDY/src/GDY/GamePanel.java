@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel {
     private static final int poker_back_width = 100, poker_back_height = 144;
     private final MyButton yesButton, noButton;
     private final JLabel prompt, roundLabel;
-    private PokerLabel hand[];
+    private PokerLabel[] hand;
     private final JLabel[] poker_back;
 
     public GamePanel() throws IOException {
@@ -62,10 +63,6 @@ public class GamePanel extends JPanel {
         yesButton = new MyButton("出牌");
         yesButton.setFont(new Font(null, Font.BOLD, 18));
         yesButton.setBounds(520, 426, 80, 45);
-//		if (Main.me.hand.size() == 6) {
-//			yesButton.setBounds(600, 426, 80, 45);
-//			this.add(yesButton);
-//		}
         yesButton.addActionListener(e -> {
             System.out.print("want put: ");
             for (var x : Main.me.wantPut) {
@@ -73,6 +70,7 @@ public class GamePanel extends JPanel {
             }
             System.out.println();
             Main.me.wantPlay();
+            Main.me.wantPut = new ArrayList<>();
             updateHand();
         });
 
@@ -80,7 +78,6 @@ public class GamePanel extends JPanel {
         noButton = new MyButton("不出");
         noButton.setFont(new Font(null, Font.BOLD, 18));
         noButton.setBounds(680, 426, 80, 45);
-//		this.add(noButton);
         noButton.addActionListener(e -> {
             try {
                 Main.me.noPlay();
@@ -92,16 +89,12 @@ public class GamePanel extends JPanel {
         });
 
         // 提示文字
-        prompt = new JLabel("请出牌", JLabel.CENTER);
-        setPrompt("请出牌");
+        prompt = new JLabel("", JLabel.CENTER);
         prompt.setFont(new Font("楷体", Font.PLAIN, 17));
         prompt.setForeground(Color.YELLOW);
         prompt.setBounds(440, 479, 400, 20);
         add(prompt);
-//		roundLabel = new JLabel("轮到 玩家" + GameInfo.players_name[GameInfo.First_player] + " 的回合", JLabel.CENTER);
         roundLabel = new JLabel("这是XX的回合", JLabel.CENTER);
-//		if (Main.me.hand.size() == 6)
-//			roundLabel.setText("这是您的回合");
         roundLabel.setFont(new Font("楷体", Font.PLAIN, 24));
         roundLabel.setForeground(Color.YELLOW);
         roundLabel.setBounds(440, 200, 400, 40);
@@ -119,8 +112,8 @@ public class GamePanel extends JPanel {
 
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                for (int i = 0; i < hand.length; ++i) {
-                    hand[i].allDown();
+                for (PokerLabel pokerLabel : hand) {
+                    pokerLabel.allDown();
                 }
             }
         });
@@ -150,12 +143,6 @@ public class GamePanel extends JPanel {
 //			}
 //		}
 
-//		// 牌堆剩余的牌
-//		JLabel remainPoker = new JLabel();
-//		remainPoker.setIcon(pokerback);
-//		remainPoker.setBounds(10, 530, poker_back_width, poker_back_height);
-//		this.add(remainPoker);
-
         this.setVisible(true);
     }
 
@@ -179,28 +166,25 @@ public class GamePanel extends JPanel {
         } else {
             roundLabel.setText("轮到 玩家" + GameInfo.players_name[GameInfo.round] + " 的回合");
         }
-        System.out.println("GF-182ok");
         if (GameInfo.round == 0) {
             if (!GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0])) {
                 yesButton.setBounds(520, 426, 80, 45);
                 add(yesButton);
                 add(noButton);
-                System.out.println("add yes and no button");
             } else {
                 yesButton.setBounds(600, 426, 80, 45);
                 this.add(yesButton);
-                System.out.println("only yes");
+                remove(noButton);
             }
         } else {
             remove(yesButton);
             remove(noButton);
+            prompt.setText("");
         }
-        System.out.println("GF-198ok");
     }
 
     private void updateHand() {
-        for (int i = 0; i < hand.length; ++i)
-            remove(hand[i]);
+        for (PokerLabel pokerLabel : hand) remove(pokerLabel);
         hand = new PokerLabel[Main.me.hand.size()];
         int handleft = 640 - ((Main.me.hand.size()) * 25);
         for (int i = 0; i < Main.me.hand.size(); ++i) {

@@ -28,11 +28,6 @@ public class GameInfo {
         PRank.put("-1", -1);
     }
 
-    // 两张牌比较大小
-    public static boolean cmp_point(String sa, String sb) {
-        return (PRank.get(sa) < PRank.get(sb));
-    }
-
     // 判断牌型
     public static Pss getPokersType(ArrayList<Poker> ps) {
         if (ps.size() == 0)
@@ -70,7 +65,7 @@ public class GameInfo {
                 return new Pss(CardTypes[0], "-1");
         } else if (ps.size() == 4) {
             String temPoint = ps.get(0).getPoint();
-            ArrayList<String> cnt_diff = new ArrayList();
+            ArrayList<String> cnt_diff = new ArrayList<>();
             int cnt_same = 0;
             for (int i = 0; i < 4; ++i) {
                 if (ps.get(i).getPoint().equals(temPoint) || ps.get(i).getPoint().equals(AllPoints[13]))

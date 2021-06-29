@@ -10,12 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameFrame extends JFrame{
-	GameInfo Info;
 	GamePanel curGame;
 	JLabel waitLabel, winLabel;
     JLabel label = new JLabel();
 	public GameFrame() {
-		Info = new GameInfo();
+		new GameInfo();
 		this.setTitle("干瞪眼 玩家" + Main.me.getID() + "号 " + Main.me.getName());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);

@@ -4,13 +4,11 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Seat {
     private final int ID;
     private final String name;
     private final BufferedReader bReader;
-    private final Scanner in;
     private final PrintWriter out;
     public int pokers_num;
     public ArrayList<String> Last_playing_card = new ArrayList<>();
@@ -26,9 +24,7 @@ public class Seat {
     public Seat(int ID, Socket incomingSocket) throws IOException {
         this.ID = ID;
         this.bReader = new BufferedReader(new InputStreamReader(incomingSocket.getInputStream(), StandardCharsets.UTF_8));
-        InputStream inStream = incomingSocket.getInputStream();
         OutputStream outStream = incomingSocket.getOutputStream();
-        in = new Scanner(inStream, StandardCharsets.UTF_8);
         out = new PrintWriter(
                 new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
         this.name = read();
@@ -47,8 +43,7 @@ public class Seat {
 
     public void send(String msg) {
         out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
-//        out.println(msg);
-        System.out.println("send: " + msg);
+//        System.out.println("send: " + msg);
     }
 
     public String read() throws IOException {
@@ -93,11 +88,12 @@ public class Seat {
         send("" + gandengyan.Winner);
     }
 
-    public void Round() throws IOException {
+    public void Round() throws IOException, InterruptedException {
         String line = read();
         while (!line.equals("roundInfo")) {
             if (line.equals("getPoker"))
                 putPoker();
+            line = read();
         }
         pokers_num = Integer.parseInt(read());
         gandengyan.Last_playing_card_type.first = read();

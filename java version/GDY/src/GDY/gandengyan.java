@@ -19,8 +19,8 @@ public class gandengyan {
         InetAddress IPAddr = getLocalHostExactAddress();
         assert IPAddr != null;
         IPAddress = IPAddr.getHostAddress();
-//        Number_of_players = Main.start.getPeopleNumber();
-        Number_of_players = 1;
+        Number_of_players = Main.start.getPeopleNumber();
+//        Number_of_players = 1;
     }
 
     void readyToStart() {
@@ -62,7 +62,6 @@ public class gandengyan {
     void Game() {
         var t = new Thread(() -> {
             for (round = First_player; ; ++round) {
-                round %= Number_of_players;
                 if (Number_of_no == Number_of_players) {
                     round--;
                     Number_of_no = 0;
@@ -71,11 +70,13 @@ public class gandengyan {
                         Seats[i].Last_playing_card = new ArrayList<>();
                     }
                 }
+                round %= Number_of_players;
+                broadcastGameInfo();
                 broadcast("ROUND");
                 broadcast("" + round);
                 try {
                     Seats[round].Round();
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
                 for (int i = 0; i < Number_of_players; ++i) {

@@ -12,12 +12,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyButton extends JButton {  
-    private static final long serialVersionUID = 1L;  
+    private static final long serialVersionUID = 1L;
     public static final Color BUTTON_COLOR1 = new Color(125, 161, 237);  
-    public static final Color BUTTON_COLOR2 = new Color(91, 118, 173);  
-    public static final Color BUTTON_BAK_COLOR1_1 = new Color(108, 135, 210, 179);  
-    public static final Color BUTTON_BAK_COLOR1_2 = new Color(108, 135, 210, 255);  
-    public static final Color BUTTON_BAK_COLOR2_1 = new Color(180, 230, 250, 179);  
+    public static final Color BUTTON_COLOR2 = new Color(91, 118, 173);
+    public static final Color BUTTON_BAK_COLOR1_2 = new Color(108, 135, 210, 255);
     public static final Color BUTTON_BAK_COLOR2_2 = new Color(180, 230, 250, 255);  
     public static final Color BUTTON_FOREGROUND_COLOR = Color.BLACK;  
     private boolean hover;  

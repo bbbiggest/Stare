@@ -10,7 +10,6 @@ public class Player {
     private final String name;
     public ArrayList<Poker> hand = new ArrayList<>(), wantPut = new ArrayList<>();
     private BufferedReader bReader;
-    private Scanner in;
     private PrintWriter out;
 
     public Player() {
@@ -56,9 +55,9 @@ public class Player {
     }
 
     void discard() {
-        for (int i = 0; i < wantPut.size(); ++i) {
+        for (Poker poker : wantPut) {
             for (int j = 0; j < hand.size(); ++j) {
-                if (hand.get(j).equals(wantPut.get(i))) {
+                if (hand.get(j).equals(poker)) {
                     hand.remove(j);
                     break;
                 }
@@ -85,29 +84,14 @@ public class Player {
         if (GameInfo.isLegal()) {
             discard();
 //            Number_of_no = 0;
-        }
-        else {
+        } else {
             Main.GF.setPrompt("请选择符合游戏规则的扑克牌");
         }
     }
 
-//    public void Round() {
-//        System.out.println("这是 玩家" + this.ID + "号 的回合, 请出牌");
-//        System.out.println();
-//        if (GameInfo.Last_playing_card_type.first.equals(GameInfo.CardTypes[0]))
-//            System.out.println("请输出要打出的牌的点数");
-//        else
-//            System.out.println("请输出要打出的牌的点数，或者输出\"no\"");
-//        System.out.println("（如果有多张牌，请用空格隔开）\n");
-//        if (hand.isEmpty())
-//            GameInfo.Winner = this.ID;
-//    }
-
     void connect_server(String IPAddress, int Port) throws IOException {
         Socket incoming = new Socket(IPAddress, Port);
-        InputStream inStream = incoming.getInputStream();
         OutputStream outStream = incoming.getOutputStream();
-        in = new Scanner(inStream, StandardCharsets.UTF_8);
         out = new PrintWriter(
                 new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
         bReader = new BufferedReader(new InputStreamReader(incoming.getInputStream(), StandardCharsets.UTF_8));
@@ -119,7 +103,8 @@ public class Player {
     public void acceptInfo() throws IOException {
         while (!read().equals("INFO"))
             ;
-        if (read().equals("startInfo")) {
+        String line = read();
+        if (line.equals("startInfo")) {
             GameInfo.Number_of_players = Integer.parseInt(read());
             GameInfo.Last_playing_card = new ArrayList[GameInfo.Number_of_players];
             for (int i = 0; i < GameInfo.Number_of_players; ++i)
@@ -140,7 +125,7 @@ public class Player {
             GameInfo.pokers_num[0] = hand.size();
             if (GameInfo.First_player < ID)
                 GameInfo.First_player++;
-        } else if (read().equals("gameInfo")) {
+        } else if (line.equals("gameInfo")) {
             for (int i = 1; i < GameInfo.Number_of_players; ++i)
                 GameInfo.pokers_num[i] = Integer.parseInt(read());
             GameInfo.Number_of_no = Integer.parseInt(read());
@@ -158,43 +143,33 @@ public class Player {
     }
 
     void acceptRound() throws IOException {
+        acceptInfo();
         while (!read().equals("ROUND"))
             ;
         GameInfo.round = Integer.parseInt(read());
-        System.out.println("||||||||||||||||||");
         if (GameInfo.round == ID) {
             GameInfo.round = 0;
             GameInfo.canNext = false;
         } else if (GameInfo.round < ID) {
             GameInfo.round++;
         }
-        System.out.println("Player-170 ok");
-        var t = new Thread(() -> {
-            Main.GF.updateRound();
-        });
+        var t = new Thread(() -> Main.GF.updateRound());
         t.start();
-        System.out.println("Player-175 ok");
-        var t2 = new Thread(() -> {
-            if (GameInfo.round == 0) {
-                System.out.println("ready to sendMyInfo");
-                while (!GameInfo.canNext) {
-                    try {
-                        Thread.sleep(80);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        if (GameInfo.round == 0) {
+            while (!GameInfo.canNext) {
+                try {
+                    Thread.sleep(80);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                System.out.println("ready to sendMyInfo2");
-                sendMyInfo();
-                System.out.println("already to sendMyInfo");
             }
-            try {
-                Main.GF.update();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        t2.start();
+            sendMyInfo();
+        }
+        try {
+            Main.GF.update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void sendMyInfo() {
@@ -210,7 +185,6 @@ public class Player {
 
     public void send(String msg) {
         out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
-//        out.println(msg);
         System.out.println("player send: " + msg);
     }
 
@@ -218,11 +192,5 @@ public class Player {
         String line = bReader.readLine();
         System.out.println("read: " + line);
         return line.trim();
-//        if (in.hasNextLine()) {
-//            String line = in.nextLine();
-//            System.out.println("read: " + line);
-//            return line.trim();
-//        }
-//        return "";
     }
 }
