@@ -74,6 +74,22 @@ public class GameFrame extends JFrame{
 		repaint();
 	}
 
+	public void updateRound() {
+		curGame.updateRound();
+		revalidate();
+		repaint();
+	}
+
+	void Game() throws IOException {
+		curGame.updateInfo();
+		System.out.println("GF-85ok");
+		while (GameInfo.Winner == -99) {
+			System.out.println("GF-87ok");
+			Main.me.acceptRound();
+		}
+		win();
+	}
+
 	void win() {
 		winLabel = new JLabel("", SwingConstants.CENTER);
 		winLabel.setText("<html>游戏结束<br>玩家" + GameInfo.players_name[GameInfo.Winner] + " 胜利！！！</html>");

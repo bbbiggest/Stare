@@ -12,11 +12,16 @@ public class Seat {
     private final BufferedReader bReader;
     private final Scanner in;
     private final PrintWriter out;
-    private int pokers_num;
-    private ArrayList<String> Last_playing_card = new ArrayList<>();
+    public int pokers_num;
+    public ArrayList<String> Last_playing_card = new ArrayList<>();
 
-    public int getID() { return ID; }
-    public String getName() { return name; }
+    public int getID() {
+        return ID;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public Seat(int ID, Socket incomingSocket) throws IOException {
         this.ID = ID;
@@ -48,7 +53,6 @@ public class Seat {
 
     public String read() throws IOException {
         return bReader.readLine().trim();
-//        return in.nextLine();
     }
 
     public void sendStartInfo() {
@@ -87,5 +91,22 @@ public class Seat {
             }
         }
         send("" + gandengyan.Winner);
+    }
+
+    public void Round() throws IOException {
+        String line = read();
+        while (!line.equals("roundInfo")) {
+            if (line.equals("getPoker"))
+                putPoker();
+        }
+        pokers_num = Integer.parseInt(read());
+        gandengyan.Last_playing_card_type.first = read();
+        gandengyan.Last_playing_card_type.second = read();
+        int cnt = Integer.parseInt(read());
+        Last_playing_card = new ArrayList<>();
+        for (int i = 0; i < cnt; ++i) {
+            Last_playing_card.add(read());
+        }
+        gandengyan.Number_of_no = Integer.parseInt(read());
     }
 }

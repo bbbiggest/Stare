@@ -13,6 +13,7 @@ public class gandengyan {
     public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
     public static Seat[] Seats;
     public static String IPAddress;
+    public static int round;
 
     gandengyan() {
         InetAddress IPAddr = getLocalHostExactAddress();
@@ -53,8 +54,43 @@ public class gandengyan {
             }
             Seats[First_player].putPoker();
             broadcastGameInfo();
+            Game();
         });
         t2.start();
+    }
+
+    void Game() {
+        var t = new Thread(() -> {
+            for (round = First_player; ; ++round) {
+                round %= Number_of_players;
+                if (Number_of_no == Number_of_players) {
+                    round--;
+                    Number_of_no = 0;
+                    Last_playing_card_type = new Pss(CardTypes[0], "-1");
+                    for (int i = 0; i < Number_of_players; ++i) {
+                        Seats[i].Last_playing_card = new ArrayList<>();
+                    }
+                }
+                broadcast("ROUND");
+                broadcast("" + round);
+                try {
+                    Seats[round].Round();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < Number_of_players; ++i) {
+                    if (Seats[i].pokers_num == 0) {
+                        Winner = i;
+                        break;
+                    }
+                }
+                broadcastGameInfo();
+                if (Winner != -99) {
+                    break;
+                }
+            }
+        });
+        t.start();
     }
 
     public static InetAddress getLocalHostExactAddress() {

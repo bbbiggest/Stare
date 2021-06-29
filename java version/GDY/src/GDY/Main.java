@@ -22,6 +22,7 @@ public class Main {
         if (!isJoinRoom) {
             gdy = new gandengyan();
             gdy.readyToStart();
+//            gdy.Game();
         } else {
             me = new Player();
             me.autoset();
@@ -38,6 +39,7 @@ public class Main {
             System.out.println("isok");
             try {
                 GF.startGame();
+                GF.Game();
             } catch (IOException e) {
                 e.printStackTrace();
             }

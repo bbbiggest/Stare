@@ -45,10 +45,6 @@ public class Player {
         System.out.println("isok = true");
     }
 
-    public int Get_number_of_remaining_hands() {
-        return hand.size();
-    }
-
     public void getPoker(int op) throws IOException {
         if (op == 1)
             send("getPoker");
@@ -70,12 +66,18 @@ public class Player {
         }
         GameInfo.Last_playing_card[0] = new ArrayList<>();
         GameInfo.Last_playing_card[0].addAll(wantPut);
+        GameInfo.pokers_num[0] = hand.size();
         wantPut = new ArrayList<>();
+        GameInfo.canNext = true;
+        System.out.println("canNext = true");
     }
 
     public void noPlay() throws IOException {
         getPoker(1);
+        GameInfo.Last_playing_card[0] = new ArrayList<>();
+        GameInfo.pokers_num[0] = hand.size();
         GameInfo.Number_of_no++;
+        GameInfo.canNext = true;
     }
 
     public void wantPlay() {
@@ -121,7 +123,7 @@ public class Player {
             GameInfo.Number_of_players = Integer.parseInt(read());
             GameInfo.Last_playing_card = new ArrayList[GameInfo.Number_of_players];
             for (int i = 0; i < GameInfo.Number_of_players; ++i)
-                GameInfo.Last_playing_card[i] = new ArrayList<Poker>();
+                GameInfo.Last_playing_card[i] = new ArrayList<>();
             GameInfo.players_name = new String[GameInfo.Number_of_players];
             GameInfo.players_name[0] = ID + "号 " + name;
             GameInfo.pokers_num = new int[GameInfo.Number_of_players];
@@ -144,25 +146,72 @@ public class Player {
             GameInfo.Number_of_no = Integer.parseInt(read());
             GameInfo.Last_playing_card_type.first = read();
             GameInfo.Last_playing_card_type.second = read();
-//            GameInfo.Last_playing_card = new ArrayList<>(GameInfo.Number_of_players);
-//            for (int i = 1; i < GameInfo.Number_of_players; ++i) {
-//                int cnt = Integer.parseInt(read());
-//                for (int j = 0; j < cnt; ++j) {
-//                    GameInfo.Last_playing_card.get(i).add(new Poker(read()));
-//                }
-//            }
+            for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+                GameInfo.Last_playing_card[i] = new ArrayList<>();
+                int cnt = Integer.parseInt(read());
+                for (int j = 0; j < cnt; ++j) {
+                    GameInfo.Last_playing_card[i].add(new Poker(read()));
+                }
+            }
             GameInfo.Winner = Integer.parseInt(read());
         }
     }
 
+    void acceptRound() throws IOException {
+        while (!read().equals("ROUND"))
+            ;
+        GameInfo.round = Integer.parseInt(read());
+        System.out.println("||||||||||||||||||");
+        if (GameInfo.round == ID) {
+            GameInfo.round = 0;
+            GameInfo.canNext = false;
+        } else if (GameInfo.round < ID) {
+            GameInfo.round++;
+        }
+        System.out.println("Player-170 ok");
+        var t = new Thread(() -> {
+            Main.GF.updateRound();
+        });
+        t.start();
+        System.out.println("Player-175 ok");
+        var t2 = new Thread(() -> {
+            if (GameInfo.round == 0) {
+                System.out.println("ready to sendMyInfo");
+                while (!GameInfo.canNext) {
+                    try {
+                        Thread.sleep(80);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("ready to sendMyInfo2");
+                sendMyInfo();
+                System.out.println("already to sendMyInfo");
+            }
+            try {
+                Main.GF.update();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        t2.start();
+    }
+
     void sendMyInfo() {
-        ;
+        send("roundInfo");
+        send("" + hand.size());
+        send(GameInfo.Last_playing_card_type.first);
+        send(GameInfo.Last_playing_card_type.second);
+        send("" + GameInfo.Last_playing_card[0].size());
+        for (var x : GameInfo.Last_playing_card[0])
+            send(x.toString());
+        send("" + GameInfo.Number_of_no);
     }
 
     public void send(String msg) {
         out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
 //        out.println(msg);
-//        System.out.println("send: " + msg);
+        System.out.println("player send: " + msg);
     }
 
     public String read() throws IOException {

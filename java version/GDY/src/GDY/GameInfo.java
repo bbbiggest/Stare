@@ -13,6 +13,8 @@ public class GameInfo {
     public static ArrayList<Poker>[] Last_playing_card;
     public static String[] players_name;
     public static int[] pokers_num;
+    public static int round;
+    public static boolean canNext;
 
     GameInfo() {
         for (int i = 0; i < 14; ++i)
@@ -58,7 +60,6 @@ public class GameInfo {
             int ra = PRank.get(ps.get(0).getPoint());
             int rb = PRank.get(ps.get(1).getPoint());
             int rc = PRank.get(ps.get(2).getPoint());
-            System.out.println("ra=" + ra + " rb=" + rb + " rc=" + rc);
             if (ra <= 10 && rb == ra + 1 && (rc == rb + 1 || rc == 14))
                 return new Pss(CardTypes[3], ps.get(0).getPoint());
             else if (ra <= 10 && rb == ra + 2 && rc == 14)
