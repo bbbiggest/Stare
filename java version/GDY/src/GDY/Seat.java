@@ -3,6 +3,7 @@ package GDY;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Seat {
@@ -12,6 +13,7 @@ public class Seat {
     private final Scanner in;
     private final PrintWriter out;
     private int pokers_num;
+    private ArrayList<String> Last_playing_card = new ArrayList<>();
 
     public int getID() { return ID; }
     public String getName() { return name; }
@@ -39,8 +41,8 @@ public class Seat {
     }
 
     public void send(String msg) {
-//        out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
-        out.println(msg);
+        out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
+//        out.println(msg);
         System.out.println("send: " + msg);
     }
 
@@ -50,7 +52,6 @@ public class Seat {
     }
 
     public void sendStartInfo() {
-        // Number_of_players, players_name[], First_player
         send("startInfo");
         send("" + gandengyan.Number_of_players);
         for (int i = 0; i < gandengyan.Number_of_players; ++i) {
@@ -59,6 +60,7 @@ public class Seat {
             send(gandengyan.Seats[i].getID() + "号 " + gandengyan.Seats[i].getName());
         }
         send("" + gandengyan.First_player);
+        send("" + gandengyan.Winner);
         if (gandengyan.First_player == ID)
             pokers_num = 6;
         else
@@ -72,5 +74,18 @@ public class Seat {
                 continue;
             send("" + gandengyan.Seats[i].pokers_num);
         }
+        send("" + gandengyan.Number_of_no);
+        send(gandengyan.Last_playing_card_type.first);
+        send(gandengyan.Last_playing_card_type.second);
+        for (int i = 0; i < gandengyan.Number_of_players; ++i) {
+            if (i == ID)
+                continue;
+            send("" + gandengyan.Seats[i].Last_playing_card.size());
+            if (gandengyan.Seats[i].Last_playing_card.size() > 0) {
+                for (var x : gandengyan.Seats[i].Last_playing_card)
+                    send(x);
+            }
+        }
+        send("" + gandengyan.Winner);
     }
 }

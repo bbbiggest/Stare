@@ -10,10 +10,11 @@ public class GameInfo {
     public static HashMap<String, Integer> PRank = new HashMap<>();
     public static int Number_of_players, First_player, Winner, Number_of_no;
     public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
-    public static ArrayList<Poker> Last_playing_card = new ArrayList<>();
+    public static ArrayList<Poker>[] Last_playing_card;
     public static String[] players_name;
     public static int[] pokers_num;
-    GameInfo () {
+
+    GameInfo() {
         for (int i = 0; i < 14; ++i)
             PRank.put(AllPoints[i], i + 1);
         for (int i = 0; i < 6; ++i)
@@ -34,7 +35,7 @@ public class GameInfo {
     public static Pss getPokersType(ArrayList<Poker> ps) {
         if (ps.size() == 0)
             return new Pss(CardTypes[0], "-1");
-        ps.sort(null);
+//        ps.sort(null);
         if (ps.size() == 1) {
             if (ps.get(0).getPoint().equals(AllPoints[13]))
                 return new Pss(CardTypes[0], "-1");
@@ -57,6 +58,7 @@ public class GameInfo {
             int ra = PRank.get(ps.get(0).getPoint());
             int rb = PRank.get(ps.get(1).getPoint());
             int rc = PRank.get(ps.get(2).getPoint());
+            System.out.println("ra=" + ra + " rb=" + rb + " rc=" + rc);
             if (ra <= 10 && rb == ra + 1 && (rc == rb + 1 || rc == 14))
                 return new Pss(CardTypes[3], ps.get(0).getPoint());
             else if (ra <= 10 && rb == ra + 2 && rc == 14)
@@ -74,9 +76,11 @@ public class GameInfo {
                     cnt_same++;
                 else {
                     boolean Exist = false;
-                    for (int j = 0; j < cnt_diff.size(); ++j)
-                        if (ps.get(i).getPoint().equals(cnt_diff.get(j)))
+                    for (String s : cnt_diff)
+                        if (ps.get(i).getPoint().equals(s)) {
                             Exist = true;
+                            break;
+                        }
                     if (!Exist)
                         cnt_diff.add(ps.get(i).getPoint());
                 }
@@ -90,5 +94,35 @@ public class GameInfo {
             return new Pss(CardTypes[0], "-1");
         } else
             return new Pss(CardTypes[0], "-1");
+    }
+
+    public static boolean isLegal() {
+        Pss cur = getPokersType(Main.me.wantPut);
+        if (cur.first.equals(CardTypes[0])) {
+            return false;
+        } else if (Last_playing_card_type.first.equals(CardTypes[0])) {
+            Last_playing_card_type = cur;
+            return true;
+        } else if (PRank.get(cur.first) > PRank.get(Last_playing_card_type.first)) {
+            Last_playing_card_type = cur;
+            return true;
+        } else if (PRank.get(cur.first).equals(PRank.get(Last_playing_card_type.first))) {
+            if (PRank.get(cur.first) == 6
+                    && PRank.get(cur.second) > PRank.get(Last_playing_card_type.second)) {
+                Last_playing_card_type = cur;
+                return true;
+            } else if (PRank.get(cur.second) == 13
+                    && PRank.get(Last_playing_card_type.second) != 13) {
+                Last_playing_card_type = cur;
+                return true;
+            } else if (PRank.get(cur.second) == PRank.get(Last_playing_card_type.second) + 1) {
+                Last_playing_card_type = cur;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

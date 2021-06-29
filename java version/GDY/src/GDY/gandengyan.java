@@ -11,7 +11,6 @@ public class gandengyan {
     public static ArrayList<Poker> Deck = new ArrayList<>();
     public static int Number_of_players, First_player, Winner, Number_of_no;
     public static Pss Last_playing_card_type = new Pss(CardTypes[0], "-1");
-    public static ArrayList<Poker> Last_playing_card = new ArrayList<>();
     public static Seat[] Seats;
     public static String IPAddress;
 
@@ -47,17 +46,13 @@ public class gandengyan {
             }
             initGame();
             broadcast("start");
-            broadcast("INFO");
-            for (int i = 0; i < Number_of_players; ++i)
-                Seats[i].sendStartInfo();
+            broadcastStartInfo();
             for (int i = 0; i < 5; ++i) {
                 for (int j = 0; j < Number_of_players; ++j)
                     Seats[j].putPoker();
             }
             Seats[First_player].putPoker();
-            broadcast("INFO");
-            for (int i = 0; i < Number_of_players; ++i)
-                Seats[i].sendGameInfo();
+            broadcastGameInfo();
         });
         t2.start();
     }
@@ -113,6 +108,18 @@ public class gandengyan {
                 Seats[i].send(msg);
         }
         System.out.println("broadcast: " + msg);
+    }
+
+    void broadcastStartInfo() {
+        broadcast("INFO");
+        for (int i = 0; i < Number_of_players; ++i)
+            Seats[i].sendStartInfo();
+    }
+
+    void broadcastGameInfo() {
+        broadcast("INFO");
+        for (int i = 0; i < Number_of_players; ++i)
+            Seats[i].sendGameInfo();
     }
 
 }

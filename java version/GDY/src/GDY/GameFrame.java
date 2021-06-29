@@ -83,4 +83,6 @@ public class GameFrame extends JFrame{
 		revalidate();
 		repaint();
 	}
+
+	public void setPrompt(String s) { curGame.setPrompt(s); }
 }
