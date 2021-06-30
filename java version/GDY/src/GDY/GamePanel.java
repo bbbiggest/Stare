@@ -25,6 +25,7 @@ public class GamePanel extends JPanel {
     private final JLabel prompt, roundLabel;
     private PokerLabel[] hand;
     private final JLabel[] poker_back;
+    private JLabel[][] last_pokers;
 
     public GamePanel() throws IOException {
         Main.me.acceptInfo();
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel {
         ImageIcon pokerback = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/images/purple_back.png")));
         pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
         poker_back = new JLabel[GameInfo.Number_of_players];
+        last_pokers = new JLabel[GameInfo.Number_of_players][];
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             poker_back[i] = new JLabel();
             poker_back[i].setIcon(pokerback);
@@ -150,6 +152,27 @@ public class GamePanel extends JPanel {
         Main.me.acceptInfo();
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             poker_back[i].setText("" + GameInfo.pokers_num[i]);
+        }
+        for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+            if (GameInfo.Last_playing_card[i].size() == 0) {
+                last_pokers[i] = new JLabel[1];
+                last_pokers[i][0] = new JLabel("NO", JLabel.CENTER);
+                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
+                last_pokers[i][0].setForeground(Color.RED);
+                last_pokers[i][0].setBounds(text_x[i] + 100, text_y[i], 100, 20);
+                add(last_pokers[i][0]);
+            } else {
+                last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
+                for (int j = 0; j < GameInfo.Last_playing_card[i].size(); ++j) {
+                    Poker pp = new Poker(GameInfo.Last_playing_card[i].get(j));
+                    ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getResource(pp.getPic_addr())));
+                    img = new ImageIcon(img.getImage().getScaledInstance(80, 124, Image.SCALE_AREA_AVERAGING));
+                    last_pokers[i][j] = new JLabel();
+                    last_pokers[i][j].setIcon(img);
+                    last_pokers[i][j].setBounds(text_x[i] + 100 + j * 25, text_y[j], 80, 124);
+                    add(last_pokers[i][j]);
+                }
+            }
         }
     }
 
