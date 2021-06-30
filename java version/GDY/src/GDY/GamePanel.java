@@ -151,6 +151,11 @@ public class GamePanel extends JPanel {
     void updateInfo() throws IOException {
         Main.me.acceptInfo();
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+            for (int j = 0; j < last_pokers[i].length; ++j) {
+                remove(last_pokers[i][j]);
+            }
+        }
+        for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             poker_back[i].setText("" + GameInfo.pokers_num[i]);
         }
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
@@ -159,7 +164,7 @@ public class GamePanel extends JPanel {
                 last_pokers[i][0] = new JLabel("NO", JLabel.CENTER);
                 last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
                 last_pokers[i][0].setForeground(Color.RED);
-                last_pokers[i][0].setBounds(text_x[i] + 100, text_y[i], 100, 20);
+                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
                 add(last_pokers[i][0]);
             } else {
                 last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
@@ -169,7 +174,7 @@ public class GamePanel extends JPanel {
                     img = new ImageIcon(img.getImage().getScaledInstance(80, 124, Image.SCALE_AREA_AVERAGING));
                     last_pokers[i][j] = new JLabel();
                     last_pokers[i][j].setIcon(img);
-                    last_pokers[i][j].setBounds(text_x[i] + 100 + j * 25, text_y[j], 80, 124);
+                    last_pokers[i][j].setBounds(poker_back_x[i] + 100 + j * 25, poker_back_y[j], 80, 124);
                     add(last_pokers[i][j]);
                 }
             }
