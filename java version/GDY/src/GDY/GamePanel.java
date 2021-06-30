@@ -48,9 +48,11 @@ public class GamePanel extends JPanel {
         pokerback = new ImageIcon(pokerback.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
         poker_back = new JLabel[GameInfo.Number_of_players];
         last_pokers = new JLabel[GameInfo.Number_of_players][];
-        for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+        for (int i = 0; i < GameInfo.Number_of_players; ++i) {
             last_pokers[i] = new JLabel[1];
-            last_pokers[i][0] = new JLabel();
+            last_pokers[i][0] = new JLabel("");
+        }
+        for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             poker_back[i] = new JLabel();
             poker_back[i].setIcon(pokerback);
             poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
@@ -152,11 +154,10 @@ public class GamePanel extends JPanel {
 
     void updateInfo() throws IOException {
         Main.me.acceptInfo();
+        System.out.println("||||||||||||||||||||||||||||||||" + last_pokers[0].length);
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
-            if (last_pokers.length > 0) {
-                for (int j = 0; j < last_pokers[i].length; ++j) {
-                    remove(last_pokers[i][j]);
-                }
+            for (int j = 0; j < last_pokers[i].length; ++j) {
+                remove(last_pokers[i][j]);
             }
         }
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
@@ -165,12 +166,12 @@ public class GamePanel extends JPanel {
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             if (GameInfo.Last_playing_card[i].size() == 0) {
                 last_pokers[i] = new JLabel[1];
-                last_pokers[i][0] = new JLabel("", JLabel.CENTER);
-                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
-                last_pokers[i][0].setForeground(Color.RED);
-                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
-                add(last_pokers[i][0]);
-                ;
+                last_pokers[i][0] = new JLabel("");
+//                last_pokers[i][0] = new JLabel("", JLabel.CENTER);
+//                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
+//                last_pokers[i][0].setForeground(Color.RED);
+//                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
+//                add(last_pokers[i][0]);
             } else {
                 last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
                 for (int j = 0; j < GameInfo.Last_playing_card[i].size(); ++j) {
