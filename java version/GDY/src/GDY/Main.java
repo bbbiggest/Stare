@@ -22,7 +22,6 @@ public class Main {
         if (!isJoinRoom) {
             gdy = new gandengyan();
             gdy.readyToStart();
-//            gdy.Game();
         } else {
             me = new Player();
             me.autoset();

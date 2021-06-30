@@ -20,7 +20,6 @@ public class gandengyan {
         assert IPAddr != null;
         IPAddress = IPAddr.getHostAddress();
         Number_of_players = Main.start.getPeopleNumber();
-//        Number_of_players = 1;
     }
 
     void readyToStart() {

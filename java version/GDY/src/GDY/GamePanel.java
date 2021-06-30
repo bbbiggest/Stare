@@ -123,38 +123,11 @@ public class GamePanel extends JPanel {
                 }
             }
         });
-
-        // 上次出牌的位置
-//		if (GameInfo.Last_playing_card.isEmpty() == false || true) {
-//			JLabel[] lastpoker = new JLabel[GameInfo.Last_playing_card.size()];
-//			// test
-////			JLabel[] lastpoker = new JLabel[3];
-////			GameInfo.Last_playing_card.add(new Poker("Club", "3"));
-////			GameInfo.Last_playing_card.add(new Poker("Club", "4"));
-////			GameInfo.Last_playing_card.add(new Poker("Club", "5"));
-//			int i = 0;
-//			int left = 660 - (GameInfo.Last_playing_card.size() * 40 + 10);
-//			for (var x : GameInfo.Last_playing_card) {
-//				lastpoker[i] = new JLabel();
-//				ImageIcon img = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(x.getPic_addr())));
-//				img = new ImageIcon(img.getImage().getScaledInstance(100, 144, Image.SCALE_AREA_AVERAGING));
-//				lastpoker[i].setIcon(img);
-//				i++;
-//			}
-//			for (int j = 0; j < GameInfo.Last_playing_card.size(); j++) {
-//				lastpoker[j].setBounds(left + j * 40, 260, poker_back_width, poker_back_height);
-//			}
-//			for (int j = GameInfo.Last_playing_card.size() - 1; j >= 0; j--) {
-//				this.add(lastpoker[j]);
-//			}
-//		}
-
         this.setVisible(true);
     }
 
     void updateInfo() throws IOException {
         Main.me.acceptInfo();
-        System.out.println("||||||||||||||||||||||||||||||||" + last_pokers[0].length);
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             for (int j = 0; j < last_pokers[i].length; ++j) {
                 remove(last_pokers[i][j]);
@@ -167,11 +140,6 @@ public class GamePanel extends JPanel {
             if (GameInfo.Last_playing_card[i].size() == 0) {
                 last_pokers[i] = new JLabel[1];
                 last_pokers[i][0] = new JLabel("");
-//                last_pokers[i][0] = new JLabel("", JLabel.CENTER);
-//                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
-//                last_pokers[i][0].setForeground(Color.RED);
-//                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
-//                add(last_pokers[i][0]);
             } else {
                 last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
                 for (int j = 0; j < GameInfo.Last_playing_card[i].size(); ++j) {
