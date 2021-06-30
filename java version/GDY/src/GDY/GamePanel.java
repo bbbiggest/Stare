@@ -50,6 +50,7 @@ public class GamePanel extends JPanel {
         last_pokers = new JLabel[GameInfo.Number_of_players][];
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             last_pokers[i] = new JLabel[1];
+            last_pokers[i][0] = new JLabel();
             poker_back[i] = new JLabel();
             poker_back[i].setIcon(pokerback);
             poker_back[i].setBounds(poker_back_x[i], poker_back_y[i], poker_back_width, poker_back_height);
