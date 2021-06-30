@@ -151,7 +151,7 @@ public class GamePanel extends JPanel {
     void updateInfo() throws IOException {
         Main.me.acceptInfo();
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
-            if (last_pokers[i].length > 0) {
+            if (last_pokers.length > 0) {
                 for (int j = 0; j < last_pokers[i].length; ++j) {
                     remove(last_pokers[i][j]);
                 }
@@ -162,12 +162,12 @@ public class GamePanel extends JPanel {
         }
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             if (GameInfo.Last_playing_card[i].size() == 0) {
-//                last_pokers[i] = new JLabel[1];
-//                last_pokers[i][0] = new JLabel("NO", JLabel.CENTER);
-//                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
-//                last_pokers[i][0].setForeground(Color.RED);
-//                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
-//                add(last_pokers[i][0]);
+                last_pokers[i] = new JLabel[1];
+                last_pokers[i][0] = new JLabel("", JLabel.CENTER);
+                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
+                last_pokers[i][0].setForeground(Color.RED);
+                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
+                add(last_pokers[i][0]);
                 ;
             } else {
                 last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
