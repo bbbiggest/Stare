@@ -163,12 +163,13 @@ public class GamePanel extends JPanel {
         }
         for (int i = 1; i < GameInfo.Number_of_players; ++i) {
             if (GameInfo.Last_playing_card[i].size() == 0) {
-                last_pokers[i] = new JLabel[1];
-                last_pokers[i][0] = new JLabel("NO", JLabel.CENTER);
-                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
-                last_pokers[i][0].setForeground(Color.RED);
-                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
-                add(last_pokers[i][0]);
+//                last_pokers[i] = new JLabel[1];
+//                last_pokers[i][0] = new JLabel("NO", JLabel.CENTER);
+//                last_pokers[i][0].setFont(new Font(null, Font.PLAIN, 22));
+//                last_pokers[i][0].setForeground(Color.RED);
+//                last_pokers[i][0].setBounds(poker_back_x[i] + 100, poker_back_y[i], 100, 20);
+//                add(last_pokers[i][0]);
+                ;
             } else {
                 last_pokers[i] = new JLabel[GameInfo.Last_playing_card[i].size()];
                 for (int j = 0; j < GameInfo.Last_playing_card[i].size(); ++j) {
@@ -177,7 +178,7 @@ public class GamePanel extends JPanel {
                     img = new ImageIcon(img.getImage().getScaledInstance(80, 124, Image.SCALE_AREA_AVERAGING));
                     last_pokers[i][j] = new JLabel();
                     last_pokers[i][j].setIcon(img);
-                    last_pokers[i][j].setBounds(poker_back_x[i] + 100 + j * 25, poker_back_y[j], 80, 124);
+                    last_pokers[i][j].setBounds(poker_back_x[i] + 100 + j * 25, poker_back_y[i], 80, 124);
                     add(last_pokers[i][j]);
                 }
             }
