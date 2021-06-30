@@ -70,11 +70,11 @@ public class GamePanel extends JPanel {
         yesButton.setFont(new Font(null, Font.BOLD, 18));
         yesButton.setBounds(520, 426, 80, 45);
         yesButton.addActionListener(e -> {
-            System.out.print("want put: ");
-            for (var x : Main.me.wantPut) {
-                System.out.print(x.toString() + " ");
-            }
-            System.out.println();
+//            System.out.print("want put: ");
+//            for (var x : Main.me.wantPut) {
+//                System.out.print(x.toString() + " ");
+//            }
+//            System.out.println();
             Main.me.wantPlay();
             Main.me.wantPut = new ArrayList<>();
             updateHand();
@@ -91,7 +91,6 @@ public class GamePanel extends JPanel {
                 ioException.printStackTrace();
             }
             updateHand();
-            System.out.println("no put");
         });
 
         // 提示文字

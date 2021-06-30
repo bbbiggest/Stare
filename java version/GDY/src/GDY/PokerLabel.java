@@ -13,7 +13,8 @@ public class PokerLabel extends JLabel {
     private boolean isUp = false;
     private Poker pp;
 
-    PokerLabel() {}
+    PokerLabel() {
+    }
 
     PokerLabel(Poker pp) {
         this.pp = new Poker(pp);

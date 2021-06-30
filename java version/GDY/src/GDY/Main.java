@@ -27,7 +27,6 @@ public class Main {
             me.autoset();
         }
         var t = new Thread(() -> {
-            System.out.println("wait isok");
             while (!isok) {
                 try {
                     Thread.sleep(200);
@@ -35,7 +34,6 @@ public class Main {
                     e.printStackTrace();
                 }
             }
-            System.out.println("isok");
             try {
                 GF.startGame();
                 GF.Game();

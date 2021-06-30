@@ -194,7 +194,7 @@ public class StartFrame extends JFrame {
         confirmButton.addActionListener(e -> {
             thePort = Integer.parseInt(inputPort.getText().trim());
             peopleNumber = Objects.requireNonNull(box.getSelectedItem()).toString().charAt(0) - '0';
-            System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
+//            System.out.println("port is: " + thePort + "\nnumber of people is: " + peopleNumber);
             setEnabled(true);
             setVisible(false);
             scjF.dispose();

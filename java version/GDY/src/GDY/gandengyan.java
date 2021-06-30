@@ -143,7 +143,6 @@ public class gandengyan {
         for (int i = 0; i < Number_of_players; ++i) {
                 Seats[i].send(msg);
         }
-        System.out.println("broadcast: " + msg);
     }
 
     void broadcastStartInfo() {

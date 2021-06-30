@@ -28,20 +28,17 @@ public class Player {
 
     public void autoset() throws IOException {
         if (Main.isJoinRoom) {
-            System.out.println("is Join");
             connect_server(Main.start.getTheIP(), Main.start.getThePort());
-            System.out.println("connnect " + Main.start.getTheIP() + ' ' + Main.start.getThePort());
+//            System.out.println("connnect " + Main.start.getTheIP() + ' ' + Main.start.getThePort());
         } else {
             connect_server(gandengyan.IPAddress, Main.start.getThePort());
-            System.out.println("connnect " + gandengyan.IPAddress + ' ' + Main.start.getThePort());
+//            System.out.println("connnect " + gandengyan.IPAddress + ' ' + Main.start.getThePort());
         }
         Main.GF = new GameFrame();
         Main.GF.waitting();
-        System.out.println("GF waitting");
         while (!read().equals("start"))
             ;
         Main.isok = true;
-        System.out.println("isok = true");
     }
 
     public void getPoker(int op) throws IOException {
@@ -68,7 +65,6 @@ public class Player {
         GameInfo.pokers_num[0] = hand.size();
         wantPut = new ArrayList<>();
         GameInfo.canNext = true;
-        System.out.println("canNext = true");
     }
 
     public void noPlay() throws IOException {
@@ -185,12 +181,10 @@ public class Player {
 
     public void send(String msg) {
         out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
-        System.out.println("player send: " + msg);
     }
 
     public String read() throws IOException {
         String line = bReader.readLine();
-        System.out.println("read: " + line);
         return line.trim();
     }
 }

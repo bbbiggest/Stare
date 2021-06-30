@@ -28,7 +28,7 @@ public class Seat {
         out = new PrintWriter(
                 new OutputStreamWriter(outStream, StandardCharsets.UTF_8), true);
         this.name = read();
-        System.out.println(ID + "-" + name);
+//        System.out.println(ID + "-" + name);
         out.println(ID);
     }
 
@@ -43,7 +43,6 @@ public class Seat {
 
     public void send(String msg) {
         out.println(new String(msg.getBytes(StandardCharsets.UTF_8)));
-//        System.out.println("send: " + msg);
     }
 
     public String read() throws IOException {
