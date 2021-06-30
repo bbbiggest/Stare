@@ -26,7 +26,6 @@ public class GamePanel extends JPanel {
     private PokerLabel[] hand;
     private final JLabel[] poker_back;
     private JLabel[][] last_pokers;
-    private static int cnt = 0;
 
     public GamePanel() throws IOException {
         Main.me.acceptInfo();
@@ -151,8 +150,8 @@ public class GamePanel extends JPanel {
 
     void updateInfo() throws IOException {
         Main.me.acceptInfo();
-        if (cnt++ > 1) {
-            for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+        for (int i = 1; i < GameInfo.Number_of_players; ++i) {
+            if (last_pokers[i].length > 0) {
                 for (int j = 0; j < last_pokers[i].length; ++j) {
                     remove(last_pokers[i][j]);
                 }
